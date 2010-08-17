@@ -1,6 +1,0 @@
-<span class="breadcrumb">
-    /
-    {% if url %}<a href="{{ url }}">{% endif %}
-        {{ title }}
-    {% if url %}</a>{% endif %}
-</span>
