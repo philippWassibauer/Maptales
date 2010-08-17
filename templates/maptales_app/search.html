@@ -1,0 +1,40 @@
+{% extends "map_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+    <div class="info-padder">
+        <h1>Ilha Grande</h1>
+        <p>A walk on the wild side...</p>
+    </div>
+    <div>
+        
+    </div>
+     <div class="mapview-option-panel">
+         <div class="info-padder">
+              <div style=" float: left; width: 90px; margin-right: 10px;" class="borderBox">
+                <div class="bottomLeftCorner"></div>
+                <div class="topLeftCorner"></div>
+                <div class="topRightCorner"></div>
+                <div class="bottomRightCorner"></div>
+                <div class="infoBoxContentButton">
+                    <a href="sdf">Upload Gpx</a>
+                </div>
+            </div>
+             <div style=" float: left; width: 90px; margin-right: 10px;" class="borderBox">
+                <div class="bottomLeftCorner"></div>
+                <div class="topLeftCorner"></div>
+                <div class="topRightCorner"></div>
+                <div class="bottomRightCorner"></div>
+                <div class="infoBoxContentButton">
+                    <a href="sdf">Upload Images</a>
+                </div>
+            </div>
+        </div>
+     </div>
+{% endblock %}

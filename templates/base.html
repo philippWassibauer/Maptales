@@ -1,0 +1,254 @@
+{% load i18n %}
+{% load avatar_tags %}
+{% load geo_tags %}
+{% load contact_tags %}
+{% load admin_util_tags %}
+{% load analytics %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}/images/favicon.ico" type="image/x-icon" />
+
+        <title>{% if site_name %}{{ site_name }} : {% endif %}{% block head_title %}{% endblock %}</title>
+        
+
+            <link rel="stylesheet" href="{{ STATIC_URL }}css/maptales-ui-theme/jquery-ui-1.7.2.custom.css" type="text/css" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" type="text/css" media="screen, projection" />
+            <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css" type="text/css" media="screen, projection" />
+            {% block extra_css %}
+            {% endblock %}
+
+        
+        {% block external_js %}
+        {% endblock %}
+        <script src="{{ STATIC_URL }}jquery/jquery-1.3.2.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+        <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+
+            <script src="{{ STATIC_URL }}base.js" type="text/javascript"></script>
+            <script src="{{ STATIC_URL }}js/json.js" type="text/javascript"></script>
+            <script src="{{ STATIC_URL }}jquery/jquery.pngfix.js" type="text/javascript"></script>
+            <link href="{{ STATIC_URL }}facebox/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
+            <script src="{{ STATIC_URL }}facebox/facebox.js" type="text/javascript"></script> 
+            {% block extra_js %}
+            {% endblock %}
+
+       
+        <!--[if IE]>
+            <link rel="stylesheet" href="./css/ie.css" type="text/css" media="screen, projection" />
+        <![endif]-->
+        <!--[if IE]>
+        <style>
+            div {
+                zoom: 1; /* trigger hasLayout */
+            }
+        </style><![endif]-->
+        {% block extra_head %}
+        {% endblock %}
+    </head>
+
+    <body {% block body_tag_hooks %}{% endblock %}>
+        <a class="feedback" rel="facebox" href="#feedback">
+	    
+	    </a>
+        
+        <div id="feedback" style="display: none;">
+            <h1>Feedback</h1>
+            {% show_feedback_form %}
+            <div style="clear: both;"></div>
+        </div>
+        
+        {% block header_container  %}
+            <div class="header-bg">
+                <div class="container">
+                    <div class="header">
+                        <div class="logo">
+                            <a href="{% url home %}" class="imageLink">
+                                <img src="{{STATIC_URL}}images/logo.png"/>
+                            </a>
+                        </div>
+                        
+                        {% if user.is_authenticated %}
+                            <div class="personal-menu">
+                                <div class="personal-menu-left"></div>
+                                <div class="personal-menu-right"></div>
+                                <div class="last">
+                                    <a href="{% url acct_logout %}?next={% url acct_logout %}">{% trans "Logout" %}</a>
+                                </div>
+                                
+                                <div>
+                                    <a href="{% url messages_inbox %}" class="mainMenuLink">
+                                        Messages {% if messages_inbox_count %}<b>({{messages_inbox_count}})</b>{% endif %}
+                                    </a>
+                                </div>
+                                
+                                {% if user.is_superuser %}
+                                    <div>
+                                        <a href="{% main_admin_url %}">{% trans "Admin" %}</a>
+                                    </div>
+                                    <div>
+                                         <a href="{% url switch_user %}">Switch User</a>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                     <a href="{% url notification_notices %}" class="mainMenuLink">Notifications {% if notice_unseen_count %}<b>({{notice_unseen_count}}){% endif %}</b></a>
+                                </div>
+                                <div>
+                                    <a href="{% url profile_edit user.username %}">Settings</a>
+                                </div>
+                                <div class="first">
+                                    <img src="{% avatar_url user 24 %}" alt="" height="24px" width="24px" style="margin: 6px 0 0 8px; position: absolute; border: 1px solid #DDD;"/>
+                                    <a href="{% url activity_stream user.username %}">
+                                         <span style="margin-left: 35px; ">{{user.get_profile}}</span>
+                                    </a>
+                                    <!--<div class="dropdownright ui-corner-tr ui-corner-bl ui-corner-br" style="width: 150px;">
+                                        <div class="ui-corner-all contentarea">   
+                                            <a href="{% url activity_stream user.username %}">Your Profile</a>
+                                            
+                                            <hr />
+                                            
+                                        </div>
+                                    </div>-->
+                                </div>
+                                
+                            </div>
+                        {% else %}
+                            <div class="personal-menu">
+                                <div class="personal-menu-left"></div>
+                                <div class="personal-menu-right"></div>
+                                <div class="last"><a href="{% url acct_signup %}">Sign Up</a></div>
+                                <div class="topmenu">
+                                    <a href="#">Login</a>
+                                    <div class="dropdown ui-corner-tl ui-corner-bl ui-corner-br">
+                                        <form class="ui-corner-all contentarea" action="{% url acct_login %}" method="POST" class="noMarginForm alignRight">
+                                            <p>
+                                                <label>Username:</label>
+                                                <input type="text" name="username" />
+                                            </p>
+                                            <p>
+                                                <label>Password:</label>
+                                                <input type="password" name="password" />
+                                            </p>
+                                            <div class="loginbutton">
+                                                <button type="submit">Login</button> <input type="checkbox" name="remember">Remember Me?</input>
+                                            </div>
+                                            
+                                            <a href="{% url acct_passwd_reset %}">Forgot your Password?</a>
+                                            <a href="{% url acct_passwd_reset %}">Forgot your Username?</a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="first">
+                                     <a href="{% url pages-details-by-slug "learn-more" %}">Learn More</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <div class="container main-menu-container">
+                                 <div class="main-menu ui-corner-all">
+                                      <ul class="">
+                                          <li>
+                                              <a href="{% url home %}">Home</a>
+                                          </li>
+                                          <li>
+                                              <a href="{% url your_stories %}">Your Experiences</a>
+                                          </li>
+                                          <li>
+                                              <a href="{% url browse %}">Browse</a>
+                                          </li>
+                                          <li>
+                                              <a href="{% url learnmore %}">Learn More</a>
+                                          </li>
+                                          
+                                          <li>
+                                              <a class="highlighted" href="{% url story_create %}">Create Experience</a>
+                                          </li>
+                                      </ul>
+                                      
+                                      <div style="position: relative; float: right;">
+                                            {% location_autocomplete "onLocationSearchMain" %}
+                                      </div>
+                                      <div style="clear: both"></div>
+                                 </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+           
+           
+           {% if site_wide_announcements %}
+            <div class="container">
+                <div id="site_wide_announcements">
+                    
+                    {% for announcement in site_wide_announcements %}
+                        <div class="ui-state-highlight ui-corner-all" style="margin-bottom:10px; background-image: none;">
+                            
+                            <p style="float:right; padding: 10px; margin: 0px;">
+                                <a href="{% url announcement_hide announcement.pk %}?next={{ request.path }}" >{% trans "Hide announcement" %}</a>
+                            </p>
+                            <p style="padding: 10px; margin: 0px;">
+                                
+                                <span>
+                                   {% autoescape off %}
+                                    {{ announcement.content }}
+                                   {% endautoescape %}
+                                </span>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% endblock header_container %}
+        
+        {% block content_container %}
+        {% endblock content_container %}
+
+        {% block footer %}
+        {% endblock footer %}
+
+        {% block extra_body %}
+        {% endblock %}
+
+        <script type="text/javascript">
+            
+			STATIC_URL = "{{STATIC_URL}}";
+			
+            $("#create-story-link").click(function(){
+                $('#create-story-dialog').dialog("open")
+            })
+            
+            function onLocationSearchMain(lat, lng, zoom){
+                window.location = "{% url browse %}?lat="+lat+"&lng="+lng+"&zoom="+zoom;
+            }
+            
+            LOADING_STRING = "<div class='loading' id='loading'><span>loading...</span></div>"
+            $(document).ready(function(){
+                $('#create-story-dialog').dialog({modal: true,
+                                            width: 350,
+                                            minHeight: 80,
+                                            draggable: false,
+                                            resizable: false,
+                                            autoOpen: false,
+                                            position: ["auto", 70]})
+                $(document).pngFix();
+                
+                $(document).ready(function($) {
+                    $('a[rel*=facebox], button[rel*=facebox]').facebox({
+                        loadingImage : '{{STATIC_URL}}images/loading-24.gif',
+                        closeImage   : '{{STATIC_URL}}facebox/closelabel.gif'
+                    })
+                }) 
+            });
+        </script>
+
+        {% block js_init %}
+        {% endblock %}
+        
+        {% ga %}
+    </body>
+</html>

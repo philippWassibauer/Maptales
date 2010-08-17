@@ -1,0 +1,411 @@
+{% load avatar_tags %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Maptales {{user}} &beta;</title>
+        <style type="text/css" media="screen">@import "{{STATIC_URL}}/js/jqtouch/jqtouch/jqtouch.min.css";</style>
+        <style type="text/css" media="screen">@import "{{STATIC_URL}}/js/jqtouch/themes/maptales/theme.css";</style>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/map.css" type="text/css" media="screen, projection" />
+        
+        <script src="{{ STATIC_URL }}/map_base.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}/js/jqtouch/jqtouch/jquery.1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{{STATIC_URL}}/js/jqtouch/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="{{STATIC_URL}}/js/jqtouch/extensions/jqt.location.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.templates.js"></script>
+        
+        <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={{settings.GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}/js/MMap.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}/js/MMarker.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}/js/MPolyline.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            function onResize(){
+            }
+
+
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black',
+                preloadImages: [
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/back_button.png',
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/back_button_clicked.png',
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/button_clicked.png',
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/grayButton.png',
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/whiteButton.png',
+                    '{{STATIC_URL}}/js/jqtouch/themes/maptales/img/loading.gif'
+                    ]
+            });
+            // Some sample Javascript functions:
+            $(function(){
+                 if (GBrowserIsCompatible()) {
+                     var maptales = {}
+                     maptales.map = new MMap("map", new GLatLng(10, 10), 2)
+
+                     maptales.log_map = new MMap("logging_gmap", new GLatLng(10, 10), 2)
+                 }
+                
+                // Show a swipe event on swipe test
+                $('#swipeme').swipe(function(evt, data) {
+                    $(this).html('You swiped <strong>' + data.direction + '</strong>!');
+                });
+                $('a[target="_blank"]').click(function() {
+                    if (confirm('This link opens in a new window.')) {
+                        return true;
+                    } else {
+                        $(this).removeClass('active');
+                        return false;
+                    }
+                });
+
+                $('#login_button').click(function(){
+                      $('#login_form').submit()
+                })
+
+                $('#logging_stop_button').click(function(){
+                     stopLogging()
+                })
+
+                $('#logout').click(function(){
+                      window.location = '{% url acct_logout %}?next={% url iphone %}'
+                })
+                
+
+                // Orientation callback event
+                $('body').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+
+                function setDisplay(text) {
+                    $('.info').empty().append(text)
+                }
+
+                var count = 0;
+
+                var logged_points = []
+                var start_time = null;
+                var logging_interval = null;
+                function start_logging(){
+                    start_time = new Date()
+                    maptales.log_map.gmap.setZoom(9)
+                    logging_interval = window.setInterval(function(){
+                       var lookup = jQT.updateLocation(function(coords){
+                           //add to line
+                           $("#startTime").text(start_time)
+                           var current_time = new Date()
+                           $("#nowTime").text(current_time)
+                           $("#nowTime").text(current_time)
+
+                           //post to server
+                           var position = new GLatLng(coords.latitude, coords.longitude)
+                           logged_points.push(position)
+                           logging_line.getPolyline().insertVertex(logging_line.getVertexCount()+1, position)
+
+                           $("#distance").text(logging_line.getLengthInKm())
+                           maptales.log_map.gmap.setCenter(position, maptales.log_map.gmap.getZoom())
+                        });
+                    }, 2000)
+                }
+
+                function postLocation(){
+                    $.post("{% url update_location %}", {lat: coords.latitude, lng: coords.longitude}, function(reply){
+                       $("#status").text("Logged Positions: "+logged_points.length())
+                    })
+                }
+                function stopLogging(){
+                    window.clearInterval(logging_interval)
+                }
+
+                var logging_line = null
+                function display_logging(){
+                    
+                }
+
+
+                 $('#start-recording').bind('click', function(e, data){
+                     if(!logging_line){
+                        logging_line = new MPolyline(logged_points, "#FF0000", 5)
+                    }
+                    maptales.log_map.addLine(logging_line)
+                    maptales.log_map.zoomToShowAllOverlays()
+                     
+                    jQT.goTo("#record")
+                    start_logging()
+                });
+
+                 $('#logging_map_button').bind('click', function(e, data){
+                });
+
+
+
+                $('#position-search').bind('click', function(e, data){
+                    zoom_to_current_position()
+                });
+
+                function zoom_to_current_position(){
+                   var lookup = jQT.updateLocation(function(coords){
+                        if (coords) {
+                            var poi = new GLatLng(coords.latitude, coords.longitude);
+                            maptales.map.setCenter(poi, 15)
+                            {% if user.is_authenticated %}
+                                maptales.map.addMarker(new MMarker(poi, {marker_image: '{% avatar_url user 50 %}'}, false))
+                            {% else %}
+                                maptales.map.addMarker(new MMarker(poi, {marker_image: ''}, false))
+                            {% endif %}    
+                        } else {
+                            setDisplay('Device not capable of geo-location.');
+                        }
+                    });
+                }
+
+    
+            });
+        </script>
+        <style type="text/css" media="screen">
+            body.fullscreen #home .info {
+                display: none;
+            }
+            #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            #about p {
+                margin-bottom: 8px;
+            }
+            #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="home" class="current">
+            <div class="toolbar">
+                {% if user.is_authenticated %}
+                    <a class="button slideup" href="#" id="logout" style="position: absolute; left: 5px; width: 46px;">Logout</a>
+                {% else %}
+                    <a class="button slideup" href="#login" style="position: absolute; left: 5px; width: 34px;">Login</a>
+                {% endif %}
+                <h1>Maptales</h1>
+                <a class="button slideup" id="infoButton" href="#about">About</a>
+            </div>
+            <ul class="rounded">
+                <li class="arrow"><a class="flip" href="#browse">Browse</a> <small class="counter">4</small></li>
+                <li class="arrow"><a href="#animations">Start a Story</a> <small class="counter">8</small></li>
+                <li class="arrow"><a href="#ajax">Recorded Stories</a> <small class="counter">3</small></li>
+                <li class="arrow"><a href="#ajax">Settings</a> <small class="counter">3</small></li>
+            </ul>
+            <ul class="individual">
+                <li id="start-recording"><span >Record</span></li>
+                <li><a href="http://tinyurl.com/support-jqt">Store Placemark</a></li>
+            </ul>
+            <div class="info">
+                <p>Add this page to your home screen to view the custom icon, startup screen, and full screen mode.</p>
+            </div>
+        </div>
+
+
+        <div id="login" class="selectable">
+            <div class="toolbar">
+                <h1>Login</h1>
+                <a class="back" href="#home">Home</a>
+            </div>
+            <form id="login_form" action="{% url acct_login  %}" method="POST">
+                <ul class="edit rounded">
+                    <li>
+                        <input type="text" name="username" placeholder="Username" id="username" />
+                    </li>
+                    <li>
+                        <input type="password" name="password" value="password" id="password" />
+                    </li>
+                    <li>
+                        <input type="hidden" name="next" value="{% url iphone %}"/>
+                        <input type="submit" id="login_button" value="Login" />
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+        <div id="create_story" class="selectable">
+            <div class="toolbar">
+                <h1>Create Story</h1>
+                <a class="back" href="#home">Home</a>
+            </div>
+            <form action="{% url acct_login %}" method="POST">
+                <ul class="edit rounded">
+                    <li>
+                        <input type="text" name="title" placeholder="Title" id="title" />
+                    </li>
+                    <li>
+                        <select id="lol">
+                            <optgroup label="Swedish Cars">
+                                <option value ="volvo">Volvo</option>
+                                <option value ="saab">Saab</option>
+                            </optgroup>
+                            <optgroup label="German Cars">
+                                <option value ="mercedes">Mercedes</option>
+                                <option value ="audi">Audi</option>
+                            </optgroup>
+                        </select>
+                    </li>
+                    <li><input type="checkbox" name="some_name" value="Hello" id="some_name" title="V8 Engine Type" /></li>
+                    <li><input type="checkbox" name="some_name" value="Hello" checked="checked" id="some_name" title="V12 Engine Type" /></li>
+                    <li><input type="radio" name="some_name" value="Hello" id="some_name" title="Only cars" /></li>
+                    <li><input type="radio" name="some_name" value="Hello" id="some_name" title="Only motorbikes" /></li>
+                </ul>
+            </form>
+        </div>
+
+
+        <div id="about" class="selectable">
+                <p><img src="jqtouch.png" /></p>
+                <p><strong>Maptales</strong><br />Version 1.0 beta<br />
+                    <a href="http://www.maptales.com">By Maptales.com</a></p>
+                <p><em>Document your life using the Tools from Maptales.</em></p>
+                <p>
+                    <a href="http://twitter.com/maptales" target="_blank">@Maptales on Twitter</a>
+                </p>
+                <p><br /><br /><a href="#" class="grayButton goback">Close</a></p>
+        </div>
+
+        <div id="logging_map">
+            <div class="toolbar">
+                <h1>Recording</h1>
+                <a class="back" href="#record">Stats</a>
+                <a class="button flip" href="#">x</a>
+            </div>
+            
+        </div>
+
+        <div id="record">
+            <div class="toolbar">
+                <h1>Recording</h1>
+                <a class="back" href="#home">Home</a>
+                <a class="button" id="logging_stop_button">Stop</a>
+            </div>
+            <div>Start Time: <span id="startTime"></span> </div>
+            <div>Now: <span id="nowTime"></span> </div>
+            <div>Duration: <span id="duration"></span> </div>
+            <div>Distance: <span id="distance"></span> </div>
+            <div>Status: <span id="status"></span> </div>
+            <div id="logging_gmap" style="height: 300px; width: 315px;"></div>
+        </div>
+
+        <div id="edge">
+            <div class="toolbar">
+                <h1>Edge to Edge</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <ul class="edgetoedge">
+                <li class="sep">F</li>
+                <li><a href="#">Flintstone, <em>Fred</em></a></li>
+                <li><a href="#">Flintstone, <em>Pebble</em></a></li>
+                <li><a href="#">Flintstone, <em>Wilma</em></a></li>
+                <li class="sep">J</li>
+                <li><a href="#">Jetson, <em>Elroy</em></a></li>
+                <li><a href="#">Jetson, <em>George</em></a></li>
+                <li><a href="#">Jetson, <em>Jane</em></a></li>
+                <li><a href="#">Jetson, <em>Judy</em></a></li>
+                <li class="sep">R</li>
+                <li><a href="#">Rubble, <em>Bambam</em></a></li>
+                <li><a href="#">Rubble, <em>Barney</em></a></li>
+                <li><a href="#">Rubble, <em>Betty</em></a></li>
+            </ul>
+        </div>
+        
+        <div id="forms">
+            <div class="toolbar">
+                <h1>Forms</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <form>
+                <ul class="edit rounded">
+                    <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
+                    <li><input type="text" name="search" placeholder="Search" id="some_name" /></li>
+                    <li><input type="text" name="phone" placeholder="Phone" id="some_name"  /></li>
+                    <li><input type="text" name="zip" placeholder="Numbers" id="some_name" /></li>
+                    <li><textarea placeholder="Textarea" ></textarea></li>
+                    <li>Sample Toggle <span class="toggle"><input type="checkbox" /></span></li>
+                    <li>
+                        <select id="lol">
+                            <optgroup label="Swedish Cars">
+                                <option value ="volvo">Volvo</option>
+                                <option value ="saab">Saab</option>
+                            </optgroup>
+                            <optgroup label="German Cars">
+                                <option value ="mercedes">Mercedes</option>
+                                <option value ="audi">Audi</option>
+                            </optgroup>
+                        </select>
+                    </li>
+                    <li><input type="password" name="some_name" value="iphonedelcopon" id="some_name" /></li>
+                    <li><input type="checkbox" name="some_name" value="Hello" id="some_name" title="V8 Engine Type" /></li>
+                    <li><input type="checkbox" name="some_name" value="Hello" checked="checked" id="some_name" title="V12 Engine Type" /></li>
+                    <li><input type="radio" name="some_name" value="Hello" id="some_name" title="Only cars" /></li>
+                    <li><input type="radio" name="some_name" value="Hello" id="some_name" title="Only motorbikes" /></li>
+                </ul>
+            </form>
+        </div>
+
+        <div id="metal">
+            <div class="toolbar">
+                <h1>Metal Lists</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <ul class="metal">
+                <li class="arrow"><a href="#"><small>AM</small> 9:40 <em>Buenos Aires</em></a></li>
+                <li class="arrow"><a href="#"><small>PM</small> 19:40 <em>Singapur</em></a></li>
+                <li class="arrow"><a href="#"><small>PM</small> 22:40 <em>Japan</em></a></li>
+                <li class="arrow"><a href="#"><small>PM</small> 11:40 <em>New York</em></a></li>
+                <li class="arrow"><a href="#"><small>PM</small> 9:40 <em>Ontario</em></a></li>
+            </ul>
+        </div>
+        <div id="pageevents">
+            <div class="toolbar">
+                <h1>Page Events</h1>
+                <a class="back" href="#">Events</a>
+            </div>
+            <div class="info" style="font-weight: normal;">
+            </div>
+        </div>
+        <div id="plastic">
+            <div class="toolbar">
+                <h1>Plastic Lists</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+            <ul class="plastic">
+                <li class="arrow"><a href="#">Simple list</a></li>
+                <li class="arrow"><a href="#">Contact list</a></li>
+                <li class="arrow"><a href="#">Content List</a></li>
+                <li class="arrow"><a href="#">Metal list</a></li>
+            </ul>
+            <div class="info">
+                <p><strong>Best enjoyed on a real iPhone</strong></p>
+            </div>
+        </div>
+        <div id="browse">
+            <div class="toolbar">
+                <a class="button" id="position-search" href="#">X</a>
+                <h1>Browse</h1>
+                <a class="back" href="#">Home</a>
+            </div>
+            <div id="map" style="height: 380px; width: 315px;"></div>
+        </div>
+
+        <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
+            <div class="toolbar">
+                <h1>Post Demo</h1>
+                <a class="back" href="#">Ajax</a>
+            </div>
+            <ul class="rounded">
+                <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
+            </ul>
+            <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
+        </form>
+    </body>
+   </html>

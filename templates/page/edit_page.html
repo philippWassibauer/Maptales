@@ -1,0 +1,23 @@
+{% extends "page/base.html" %}
+
+{% load i18n %}
+{% load avatar_tags %}
+{% load uni_form_tags %}
+{% block head_title %}{{name}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="span-24 last">
+            <div class="page-panel">
+                <form action="{% url edit_page name %}" method="POST">
+                    {{form|as_uni_form}}
+                    <div class="uniform_buttons">
+                       <input type="submit" value="Speichern"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

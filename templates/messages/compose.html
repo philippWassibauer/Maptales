@@ -1,0 +1,54 @@
+{% extends "messages/base.html" %} 
+
+{% load i18n %} 
+{% load uni_form_tags %}
+
+{% block extra_head %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+{% block messages_body %}
+    
+    <form action="" method="post" class="thin-form uniForm compose-message">
+            <h2>Send Message</h2>
+            {{ form|as_uni_form }}
+            <div class="uniform_buttons">
+                <button type="submit">Send &raquo;</button>
+            </div>
+    </form>
+{% endblock %}
+
+{% block extra_body %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}scripts/jquery.autocomplete.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+            $("#id_recipient").autocomplete("{% url profile_username_autocomplete %}", {
+                formatItem: function(data, i, n, value) {
+                    data = data[0].split(",,");
+                    retval = data[0] + data[1];
+                    if (data[2] !== "") {
+                        retval += " - " + data[2];
+                    }
+                    return  retval;
+                },
+                formatResult: function(data, value) {
+                    return data.split(",,")[1];
+                },
+                onItemSelect: function(li){
+                   $("#id_recipient")[0].value = li.selectValue.split(",,")[1];
+                },
+                // TODO: improve highlighting to only affect username.
+                highlight: true,
+            });
+            
+            //$("#id_recipient").result(function() {
+            //    $("#id_subject").focus();
+            //});
+            $("#id_recipient").focus()
+        });
+    </script>
+{% endblock %}

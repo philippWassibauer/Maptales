@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}Artikel schreiben{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+    {{ blog_form.media }}
+{% endblock %}
+        
+{% block body %}
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.autocomplete.js"></script>
+    
+    <div class="profile-panel">
+        <h1>Artikel schreiben</h1>
+
+        <form method="post" enctype="multipart/form-data" action="" id="blog_form">
+            {{ blog_form|as_uni_form }}
+            <div style="clear: both"></div>
+            <div class="uniform_buttons">
+                <button type="submit">Erstellen &raquo;</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

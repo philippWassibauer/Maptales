@@ -1,0 +1,38 @@
+<label for="location">  Location * </label>
+<div class="location-select">
+    {% if is_location %}
+        <div class="location_input_type">
+            <input type="submit" value="Eigene Adresse Verwenden" onclick="selectItem({{location_id}}); return false;">
+        </div>
+        <div class="or">
+            oder
+        </div>
+    {% endif %}
+
+    <div class="location_input_type">
+        <b>Location suchen:</b><br />
+        Nach Name, Postleitzahl oder Adresse suchen: <br />
+        <input type="text" id="location-search" style="width: 500px;"/>
+    </div>
+    <div class="or">
+        oder
+    </div>
+    <div class="location_input_type">
+         <b>Neue Location anlegen</b>
+         <!-- keep this, since otherwise the next form is invisible -->
+         <FORM action="http://somesite.com/prog/adduser" method="post">
+         </FORM>
+         <div id="errorMessage"></div>
+         <form id="store-location" action="/trumer/store-location" method="post">
+            <table>
+                {{location_form}}
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" onclick="storeLocation(); return false;" value="Speichern" />
+                    </td>
+                </tr>
+            </table>
+         </form>
+    </div>
+</div>

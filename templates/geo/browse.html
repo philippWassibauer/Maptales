@@ -1,0 +1,163 @@
+{% extends "map_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load geo_tags %}
+
+{% block head_title %}{% trans "Browse" %} {% endblock %}
+{% block body_tag_hooks %}class="big-map-body" onresize="onresize()"{% endblock %}
+
+
+{% block content_container %}
+        <div>
+            <div style="display: none; padding: 3px 0px;">
+                {{offset}} to {{offset|add:count}} of <span id="total">{{total_size}}</span> Items, sorted by Relevance
+                
+                <div style="float: right; margin: 5px;">{% country_selector selected_country %}</div>
+                <div style="clear: both;"></div>
+            </div>
+            <div id="map_canvas">
+                {% block map_menu %}{% endblock %}
+                <div id="map">
+                </div>
+            </div>
+            <div id="storylinecontainer" style="display: none;">
+                <div id="tabsystem" style="display: none;" class="span-18">
+                       <ul>
+                           <li>
+                              <a href="#stories">Stories</a>
+                           </li>
+                           <li>
+                              <a href="#images">Images</a>
+                           </li>
+                       </ul>
+                       <div id="stories">
+                           <div id="stories">
+                           </div>
+                       </div>
+                       <div id="images">
+                           
+                       </div>
+                       <div style="clear: both;"></div>
+                </div>
+                
+                <div class="span-4 last">
+                   <h3>Advertising</h3>
+                   <h3>Users in Area</h3>
+                   <div id="users-in-area">
+                   </div>
+                </div>
+                           
+               <div id="tagcloud">
+                   
+               </div>
+               <div id="debug1">
+               </div>
+               <script type="text/javascript">
+                   $(document).ready(function(){
+                       $('#tabsystem').tabs().show()
+                   })
+               </script>
+               
+           </div>
+        </div>
+{% endblock content_container %}
+
+{% block js_init %}
+    <script type="text/javascript">
+          if (GBrowserIsCompatible()) {
+               var maptales = {}
+                
+                maptales.map = new MMap("map",
+                                        new GLatLng({{lat}},
+                                                    {{lng}}),
+                                        {{zoom}})
+                
+                maptales.map.addMapType(G_PHYSICAL_MAP)
+          }
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MPolyline.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MMarker.js"></script>
+    
+    <script type="text/javascript">
+        var story_searchurl = "{% url ajax_browse_stories %}"
+        var cluster_url = "{% url get_clusters %}"
+        var image_url = "{% url ajax_browse_images %}"
+        var users_in_area_url = "{% url users_in_area %}"
+        maptales.map.gmap.addControl(new GMapTypeControl());
+        //maptales.map.gmap.addControl(new GMapZoomControl());
+        
+        function onresize(){
+               
+               var dimensions = {};
+               dimensions.width = $(window).width()
+               dimensions.height = $(window).height()
+               
+               //$('#adaptingContainer').width(dimensions.width);
+               var offset = $('#map_canvas').offset().top
+               $('#map_canvas').height(dimensions.height-offset);
+               $('#map').height(dimensions.height-offset);
+               maptales.map.checkResize();
+            
+        }
+        
+        function reload(){
+            var data = maptales.map.dumpData()
+            //data.user_id = {{user.pk}};
+            //data.network = true;
+            $('#stories').append(LOADING_STRING)
+            $('#images').append(LOADING_STRING)
+            maptales.map.showLoading()
+            
+            post(cluster_url, data, "text", function(data){
+                data = json_parse(data)
+                var clusters = data.clusters;
+                maptales.map.gmap.clearOverlays()
+                maptales.map.hideLoading()
+                for (var i=0; i<clusters.length; i++){
+                    maptales.map.placeCluster(clusters[i])
+                }
+                if($('#total')){
+                    $('#total').html(clusters.length)
+                }
+            })
+            
+            
+            /*$('#stories').load(story_searchurl, data, function(){
+                
+            })
+            $('#images').load(image_url, data, function(){
+                
+            })
+            
+            $('#users-in-area').load(users_in_area_url, data, function(){
+                
+            })
+            
+            $('#tagcloud').load("{% url get_tags_in_area %}", data, function(){
+                
+            })*/
+        }
+        GEvent.addListener(maptales.map.gmap, "moveend", function(){
+            reload()
+            //$('#debug1').html("Center: "+maptales.map.getCenter()+" <br /> Bounds: "+maptales.map.dumpData().x1+" "+maptales.map.dumpData().y1+" "+maptales.map.dumpData().x2+" "+maptales.map.dumpData().y2)
+        });
+        
+        
+        GEvent.addListener(maptales.map.gmap, "zoomend", function(){
+            maptales.map.gmap.clearOverlays()  
+        });
+        
+        function onLocationSearch(lat, lng, zoom){
+            maptales.map.gmap.setCenter(new GLatLng(lat, lng), zoom)
+        }
+        
+        $(document).ready(function(){
+           reload();
+           onresize();
+        })
+    </script>
+{% endblock %}

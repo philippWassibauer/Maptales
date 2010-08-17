@@ -1,0 +1,9 @@
+<div class="date-bar">
+    {{ activity_item.created_at|timesince }} ago 
+    
+    {% if activity_item.can_comment %}
+        <a href="#" onclick="$('#comments_activity_{{activity_item.id}}').toggle(); return false;">comment</a> |
+        <a href="{% url activity_like activity_item.id %}">like</a>
+    {% endif %}
+</div>
+

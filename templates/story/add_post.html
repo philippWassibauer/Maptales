@@ -1,0 +1,31 @@
+{% load uni_form_tags %}
+<div id="dialog-container">
+    <div class="span-6">
+        <h2>Use existing Post</h2>
+        <div id="dynamic_post_list_div">
+        </div>
+    </div>
+    <div class="span-2">
+        <h2 style="margin-top:30px;">or</h2>
+    </div>
+    <div class="span-12 last">
+        <h2>Create new Post</h2>
+        <form id="post-form" method="POST" action="{% url add_post_to_story story.slug %}">
+            {{post_form|as_uni_form}}
+            <div class="uniform_buttons">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="$('#add_post').dialog('close')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#dynamic_post_list_div").load("{% url post_selector_list user.username %}?callback=addPost")
+    function addPost(id){
+        post("{% url add_to_storyline story.slug %}", {added_objects: "blog.post."+id}, "json", function(reply){
+            reloadStoryline()
+            $("#add_post").dialog("close")
+        })
+    }
+</script>

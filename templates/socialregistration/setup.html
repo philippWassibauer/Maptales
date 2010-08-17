@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+    <div class="register-bg">
+        <div class="register-wrapper ui-corner-all">
+            <form action="." method="post" class="ui-corner-all" >
+                <h2 style="margin-top: 0px;">One more step:</h2>
+                <p>Tell us what username/password you want so you can also sign in without Facebook</p>
+                
+                    {{ form|as_uni_form }}
+                
+                <div class="uniform_buttons">
+                    <button type="submit">{% trans "Submit" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+{% endblock %}

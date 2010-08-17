@@ -1,0 +1,23 @@
+{% load truncchar_tag %}
+
+{% if stories %}
+    <h3>Experiences nearby:</h3>
+    {% for story in stories %}
+        <div>
+            {% if story.storyimage.image %}
+                <img align="left" style="margin-right: 5px;" src="{{story.storyimage.get_50x50_url}}" />
+            {% else %}
+                {% if story.get_image %}
+                    <img align="left" style="margin-right: 5px;" src="{{story.get_image.0.get_50x50_url}}" />
+                {% endif %}
+            {% endif %}
+            
+            <h5><a href="{% url story_view_id story.id %}">{{story}}</a></h5>
+            <p>
+                {{story.description|truncchar:100}} <br />
+                <a href="{% url story_view_id story.id %}">View</a>
+            </p>
+        </div>
+        <hr />
+    {% endfor %}
+{% endif %}

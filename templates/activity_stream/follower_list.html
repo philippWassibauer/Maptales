@@ -1,0 +1,10 @@
+{% load avatar_tags %}
+{% if followed %}
+    {% for follower in followed %}
+        <a href="{% url activity_stream follower.username %}" class="profile-signature-image">
+            <img src="{% avatar_url follower 24 %}" title="{{ follower.get_profile }}" height="24px" width="24px"/>
+        </a>
+    {% endfor %}
+{% else %}
+        <b>Not followed by anybody</b>
+{% endif %}

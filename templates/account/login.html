@@ -1,0 +1,40 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}Maptales - Private Beta{% endblock %}
+
+{% block body %}
+        <div class="info-page ui-corner-tl ui-corner-tr">
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="birds1"></div>
+            <div class="birds2"></div>
+            <div class="birds3"></div>
+            <div class="info-page-container">
+                <div class="info-header"></div>
+                <h3>Hi there!</h3>
+                <p>
+                    Maptales will be officially released in the next Month.
+                    Give us your email adress if you want to be notified when we go online and/or want to participate in the private Beta:
+                </p>
+                <p>
+                    <form action="{% url private_beta_email %}"  method="POST">
+                        Your Email Adress: <input type="text" name="email" /><button type="submit">Submit</button>
+                    </form>
+                </p>
+                <br />
+                <hr />
+                <br />
+                <form class="ui-corner-all" action="" method="POST" style="text-align: left; width: 500px; margin: 20px 0;">
+                        <h2 style="font-weight: normal; margin-top: 0px; margin-left: 140px;">Private Beta Login:</h2>
+                        {{form|as_uni_form}}
+                        <div class="uniform_buttons">
+                            <button type="submit">{% trans "Submit" %}</button>
+                        </div>
+                </form>
+
+            </div>
+        </div>
+{% endblock %}

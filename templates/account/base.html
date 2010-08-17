@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+
+    {{ block.super }}
+    {% breadcrumb_url "Account" acct_email %}    
+{% endblock %}
+
+
+{% block body %}
+    <!--<div class="profile-panel">
+        {% if user.is_authenticated %}
+            <div style="margin-bottom: 10px;">
+                <a href="{% url acct_email %}">Meine E-Mail Adressen</a> |
+                {% if user.password %}
+                    <a href="{% url acct_passwd %}">Passwort ändern</a>
+                {% else %}
+                    <a href="{% url acct_passwd_set %}">Passwort setzen</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        -->
+        {% block account_body %}{% endblock %}
+    </div>
+{% endblock %}
+

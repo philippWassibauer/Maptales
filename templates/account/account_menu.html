@@ -1,0 +1,26 @@
+<div class="account-menu ui-corner-all">
+    <ul>
+       <li>
+            <a href="{% url profile_edit user.username %}">Profile</a>
+       </li>
+       <li>
+            <a href="{% url avatar_change %}">Avatar</a>
+       </li>
+       <li>
+            <a href="{% url acct_passwd %}">Password</a>
+       </li>
+       <li>
+            <a href="{% url profile_privacy %}">Privacy</a>
+       </li>
+        <li>
+            <a href="{% url notification_notices %}">Notifications</a>
+       </li>
+       <!--<li>
+            <a href="">Design</a>
+       </li>
+       <li>
+            <a href="">Connections</a>
+       </li>-->
+    </ul>
+    <div style="clear:both"></div>
+</div>

@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+{% load uni_form_tags %}
+{% load i18n %}
+
+{% block profile_files_active %}active{% endblock %}
+
+{% block body %}
+    <div class="profile-panel">
+        <h1>Video hochladen</h1>
+        <form id="vimeoUploadForm" class="applyTable" name="form" enctype="multipart/form-data" method="post" action="{% url upload_video %}">
+            <table>
+                {{ form|as_uni_form }}
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input id="vimeoSubmitButton" type="submit" value="Submit"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+   </div>
+{% endblock %}        

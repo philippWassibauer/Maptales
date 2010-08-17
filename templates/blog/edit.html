@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}Artikel editieren{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+    {{ blog_form.media }}
+{% endblock %}
+
+{% block body %}
+    <div class="profile-panel">
+        <h1>Artikel ändern</h1>
+            {% ifequal post.author request.user %}
+                <form enctype="multipart/form-data" action="" method="post">
+                    {{ blog_form|as_uni_form }}
+                    <input type="hidden" name="action" value="update" />
+                    <div class="clearfix">
+                        <div class="form_next">
+                            <button type="submit">Ändern &raquo;</button>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <p>Sie sind nicht der Autor dieses Artikels.</p>
+            {% endifequal %}
+    </div>
+{% endblock %}

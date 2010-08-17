@@ -1,0 +1,6 @@
+{% load truncchar_tag %}
+<div class="title">{{ activity_item.actor.get_profile.render_inline }} <span class="activity-action">created</span> a Story:</div>
+{{activity_item.first_subject.content_object.big_img_teaser}}
+<div style="clear: both;"></div>
+{% include "activity_stream/date_bar.html" %}
+

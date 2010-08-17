@@ -1,0 +1,22 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load tagging_tags %}
+{% load blog %}
+{% load blog_tags %}
+
+{% block head_title %}Event: {{ event.title }}{% endblock %}
+
+
+{% block body %}
+    <div class="event span-15">
+        <h2>Anmeldung erfolgreich!</h2>
+        <p class="event-body">
+            Sie haben sich für die Einladung <b>"{{event.title}}"</b> angemeldet. Wir haben Ihnen und dem Gastgeber ein Bestätigungsemail zugeschickt.
+            <br />
+            Vielen Dank
+        </p>
+    </div>
+
+{% endblock %}

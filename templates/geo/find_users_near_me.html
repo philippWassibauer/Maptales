@@ -1,0 +1,33 @@
+{% extends "map_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load geo_tags %}
+
+
+{% block head_title %}{% trans "Find Users in {{city}}" %}{% endblock %}
+
+{% block body %}
+    <div class="info-padder">
+        <h1>Active Users in {{city}}:</h1>
+        <h1>Users Currently in {{city}}:</h1>
+
+        <h2>Not you current location?</h2>
+        <p>If this is not your current location then search for it here:     <br />
+           <input type="text" id="location_search_left" name="location_search_left" />
+        </p>
+    </div>
+
+
+{% endblock %}
+
+
+{% block post_map_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MPolyline.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MMarker.js"></script>
+    <script type="text/javascript">
+    </script>
+{% endblock %}

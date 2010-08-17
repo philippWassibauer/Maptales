@@ -1,0 +1,29 @@
+{% load ajax_pagination_tags %}
+{% load object_to_content_type %}
+{% autopaginate photos 12 %}
+
+{% if photos %}
+    {% for photo in photos %}
+        <div class="photo selectable">
+            <img src="{{ photo.get_75x75_url }}" alt="Click to add" contenttype="{{photo|object_to_model_name}}" objectid="{{photo.id}}"  />
+        </div>
+    {% endfor %}
+{% else %}
+    <div>You have no Images Uploaded yet. <a href="#" onclick="photoSelectorBackToStart(); return false;">Go back</a></div>
+{% endif %}
+
+<div style="clear:both;"></div>
+{% ajax_paginate %}
+<script type="text/javascript">
+    $('.photo').click(function(){
+        if($(this).hasClass("selected")){
+            $(this).removeClass("selected")
+            var id = $($(this).children("img")[0]).attr("objectid")
+            $("#selected-items-list img[objectid="+id+"]").remove()
+        }else{
+            $(this).addClass("selected")
+            $("#selected-items-list").append($(this).children("img").clone())
+            $("#selected-items-list").show()
+        }
+    })
+</script>

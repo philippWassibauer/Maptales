@@ -1,0 +1,34 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}{% blocktrans %}Write a Blog Post{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/css/widgets.css"/>
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}admin/js/admin/RelatedObjectLookups.js"></script>
+     {{ event_form.media }}
+    
+{% endblock extra_head %}
+
+{% block body %}
+    <div class="profile-panel">
+        <div id="basic-form">
+            <fieldset>
+                <legend>Einladung/Event eintragen</legend>
+    
+                <form method="POST" enctype="multipart/form-data" action="" id="event_form">
+                    {{ event_form|as_uni_form }}
+                    <div class="form_block">
+                        <input type="submit" value="Erstellen" />
+                    </div>
+                </form>
+                </legend>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

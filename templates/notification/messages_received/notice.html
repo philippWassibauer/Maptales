@@ -1,0 +1,13 @@
+{{ message.sender }} sent you a Message on Maptales.com:
+
+Subject: {{ message.subject }}
+
+Message: 
+{{ message.body }}
+
+To reply:
+
+http://{{ domain }}{{ message.get_absolute_url }}
+
+Thanks,
+The Maptales Team

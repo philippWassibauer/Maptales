@@ -1,0 +1,18 @@
+{% load i18n %}
+{% load video_tags %}
+
+<h2>{% trans "Videos" %}</h2>
+{% if is_owner %}
+    <div class="tab-actions">
+        <span><a href="{% url video_create %}">Create Video</a></span>
+    </div>
+{% endif %}
+
+{% if owner.added_videos.all %}
+    {% for video in owner.added_videos.all %}
+        {% show_video_teaser video %}
+    {% endfor %}
+    <div style="clear:both;"></div>
+{% else %}
+    No Videos yet.
+{% endif %}

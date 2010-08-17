@@ -1,0 +1,18 @@
+{% load ajax_pagination_tags %}
+{% load object_to_content_type %}
+{% autopaginate tracks 10 %}
+
+<ul id="select-track-list" class="select-list">
+    {% for track in tracks %}
+        {{track.small_list_render}}
+    {% endfor %}
+</ul>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select-track-list li").click(function(){
+            {{callback_function}}($(this).attr("trackid"))
+        })
+    })
+</script>
+<div style="clear:both;"></div>
+{% ajax_paginate %}

@@ -1,0 +1,5 @@
+<div class="title">
+    {{ activity_item.actor.get_profile.render_inline }}
+    <span class="activity-action">started following</span> {{ activity_item.first_subject.content_object.get_profile.render_inline }}
+</div>
+{% include "activity_stream/date_bar.html" %}

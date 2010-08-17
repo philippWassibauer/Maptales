@@ -1,0 +1,393 @@
+{% extends "site_base.html" %}
+{% load hitcount_tags %}
+
+{% block external_js %}
+
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{settings.GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block extra_js %}
+     <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.sizes.js"></script>
+    
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.templates.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.form.js"></script>
+    
+    <script type="text/javascript" src="{{STATIC_URL}}uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.disable.text.select.pack.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.form.js"></script>
+    
+    <script src="{{STATIC_URL}}map_base.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}js/MMap.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}js/FlashMap.js" type="text/javascript"></script>
+    
+    <script src="{{STATIC_URL}}js/HTMLMarker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/MPolyline.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/MMarker.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.flash.js"></script>
+{% endblock %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/map.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+
+
+{% block js_init %}
+      <script type="text/javascript">
+          if(!flash_vars){
+             var flash_vars = {
+                  zoomedInZoom: 16,
+                  zoomOutRange: 6,
+                  slidesTime: 4,
+             }
+          }
+          if(!maptales){var maptales={}}
+          
+          $(".story-box.big").click(function(){
+               maptales.story.gotoIndex(0)
+          })
+          if (window.location.href.indexOf("flash_map")!=-1){
+               maptales.map = new FlashMap("map", "{{STATIC_URL}}swf/flash_map.swf", null, 2, flash_vars)
+          }else{
+               if (GBrowserIsCompatible()) {
+                    if(!maptales){var maptales={}}
+                     maptales.map = new MMap("map", new GLatLng(32.54681317351516, -6.328125), 2)
+                     
+                     maptales.map.addMapType(G_PHYSICAL_MAP)
+                     $("#map").resizable({
+                         maxWidth: 950,
+                         minWidth: 950,
+                         handles: 's',
+                         stop: function(event, ui) { maptales.map.checkResize(); },
+                     });
+                     
+                     $(document).ready(function(){
+                        maptales.story.onMapReady()
+                        maptales.story.onFlyStart = function(){
+                            this.loadStorylineContent(maptales.story.storyline_index)
+                        }
+                     })
+               }    
+          }
+          
+          var extended = false;
+          $('#storyline_scroller').mouseover(function(){
+               if(!extended){
+                    $('#storyline_scroller .control-bar').animate({height: 25}, 300)
+                    extended = true;
+               }
+          })
+          
+         
+          
+          $('#storyline_scroller').mouseout(function(event){
+               if(extended){
+                    var y_min = $('#storyline_scroller').offset().top;
+                    var x_min = $('#storyline_scroller').offset().left+30;
+                    var y_max = $('#storyline_scroller').offset().top+$('#storyline_scroller').height();
+                    var x_max = $('#storyline_scroller').offset().left+$('#storyline_scroller').width()-30;
+                    if(!(event.pageY>=y_min&&event.pageY<=y_max&&
+                       event.pageX>=x_min&&event.pageX<=x_max)){
+                         $('#storyline_scroller .control-bar').animate({height: 0}, 300)
+                         extended = false;
+                    }
+                    
+               }
+          })
+          
+          function gotoNextStorylineItem(){
+               if(maptales.story.story_started){
+                    maptales.story.gotoNext();
+               }else{
+                    maptales.story.gotoIndex(0, 0, 0);
+                    maptales.story.story_started = true;
+               }
+          }
+          
+          function gotoPrevStorylineItem(){
+               maptales.story.gotoPrev();
+          }
+          
+          $('#story-play').click(function(){
+               if($(this).hasClass("story-play")){
+                   $(this).removeClass("story-play")
+                  maptales.story.play();
+                  $(this).html("pause")
+               }else{
+                   $(this).addClass("story-play")
+                  maptales.story.pause(this);
+                  $(this).html("play")
+               }
+           })
+    </script>
+    
+    
+    <script type="text/javascript">
+        <!--
+        $(document).ready(function() {
+            {% get_hit_count_javascript for story %}
+        });
+        -->
+    </script>
+
+    <script type="text/javascript">
+
+          if(!maptales){var maptales={}}
+            
+            maptales.story={
+               story_size: {{ story.storyline.count }}+1,
+               storyline_index: 0,
+               total_index: 0,
+               attachment_index: 0,
+               story_started: false,
+               playIntervalTime: 20000,
+               attachmentIntervalTime: 3000,
+               indicatorIntervalTime: 200,
+               currentIntervalTime: 0,
+               lastIntervalChangeTime: 0,
+               isCurrentlyFlying: false,
+               play: function(){
+                  try{$('#time-indicator').show()}catch(e){}
+                  $('#story-play').removeClass("story-play")
+                  $('#story-play').addClass("story-pause")
+                  //if(this.storyline_index>0){
+                      //if you are already in story than dont repeat same objekt
+                      //this.storyline_index++;
+                  //}
+                  
+                  if(!this.story_started){
+                      this.gotoIndex(this.total_index, this.storyline_index, this.attachment_index)
+                  }
+                  this.setInterval(this.attachmentIntervalTime)
+               },
+               
+               resetInterval: function(timeout){
+                  this.clearInterval();
+                  this.setInterval(timeout)
+               },
+               setInterval: function(interval){
+                  this.clearInterval()
+                  maptales.story.lastIntervalChangeTime = new Date()
+                  self = this;
+                  this.currentIntervalTime = interval;
+                  
+                  this.playInterval = window.setInterval(function(){
+                      self.interval();
+                  }, interval)
+                  
+                  this.indicatorIntervalHook = window.setInterval(function(){
+                      self.indicatorInterval();
+                  }, this.indicatorIntervalTime)
+               },
+               clearInterval: function(){
+                  window.clearInterval(this.playInterval)
+                  window.clearInterval(this.indicatorIntervalHook)
+               },
+               pause: function(dom){
+                  $('#story-play').addClass("story-play")
+                  $('#story-play').removeClass("story-pause")
+                  this.clearInterval()
+                  try{$('#time-indicator').hide()}catch(e){}
+               },
+               interval: function(){
+                  maptales.story.lastIntervalChangeTime = new Date()
+                  /*if(this.hasMoreAttachments()){
+                      this.resetInterval(this.attachmentIntervalTime)
+                  }
+                  if(!this.hasMoreAttachments()){
+                      this.resetInterval(this.playIntervalTime)
+                  }*/
+                  if(!this.isCurrentlyFlying){
+                        this.gotoNext();
+                  }
+               },
+               indicatorInterval: function(){
+                  if(this.isCurrentlyFlying){
+                        try{
+                              $('#time-until-next-jump').html("flying");
+                        }catch(e){
+                              
+                        }
+                  }else{
+                        var timeLeft = this.currentIntervalTime-(new Date().getTime()-maptales.story.lastIntervalChangeTime.getTime())
+                        timeLeft = Math.round(timeLeft/1000)
+                        try{
+                              $('#time-until-next-jump').html(timeLeft);
+                        }catch(e){}
+                        
+                  }
+               },
+               showAttachmentNumber: function(i){
+                  this.attachment_index = i;
+                  $('#attachments>.attachment-selected').each(function(){
+                      this.className = "attachment"
+                  })
+                  if($('#attachments>*')[this.attachment_index]){
+                      $('#attachments>*')[this.attachment_index].className = "attachment-selected"
+                  }
+                  
+                  $('.storylineitem-pagination>*').each(function(){
+                      this.className = "ui-corner-all"
+                  })
+                  if($('.storylineitem-pagination>*')[this.attachment_index]){
+                      $('.storylineitem-pagination>*')[this.attachment_index].className = "ui-corner-all selected"
+                      //$($('.storylineitem-pagination>*')[this.attachment_index]).addClass("")
+                  }
+               },
+              
+               hasMoreAttachments: function(){
+                  return $('#attachments>.attachment-selected').next(".attachment").length>0
+               },
+               
+               hasPreviousAttachments: function(){
+                  return $('#attachments>.attachment-selected').prev(".attachment").length>0
+               },
+              
+               onSlideshowClick: function(index, data){
+                    this.total_index = index;
+                    var storylineindex = parseInt(data.storylineindex)
+                    if(storylineindex!=this.storyline_index||this.story_started==false){
+                        this.loadStorylineContent(storylineindex);
+                        this.storyline_index = storylineindex;
+                        // pan map
+                        maptales.map.gotoStorylineItem(storylineindex)
+                        this.onFlyStart()
+                     }
+                     this.showAttachmentNumber(parseInt(data.attachmentindex))
+                     adapt_overview()
+               },
+               
+               gotoIndex: function(total_index, storyline_index, attachment_index){
+                  this.total_index = total_index;
+                  maptales.slider.gotoIndex(this.total_index)
+                  if(this.storyline_index!=storyline_index||this.story_started==false){
+                        this.storyline_index = storyline_index;
+                        maptales.map.gotoStorylineItem(storyline_index)
+                        this.onFlyStart()
+                        this.isCurrentlyFlying = true;
+                        //hack: this is only added so html view works
+                        //this.showAttachmentNumber(attachment_index)
+                  }else{
+                        this.showAttachmentNumber(attachment_index)
+                  }
+                  this.story_started = true;
+               },
+               
+               gotoNext: function(){
+                  if(this.hasMoreAttachments()){
+                      this.gotoIndex(this.total_index+1, this.storyline_index, this.attachment_index+1)
+                  }else{
+                        if(this.storyline_index<(this.story_size-2)){
+                              this.gotoIndex(this.total_index+1, this.storyline_index+1, 0)
+                        }else{
+                              this.onFinished()
+                        }
+                  }
+               },
+               
+               gotoPrev: function(){
+                  if(this.hasPreviousAttachments()){
+                      this.gotoIndex(this.total_index-1, this.storyline_index, this.attachment_index-1)
+                  }else{
+                        if(this.storyline_index<this.story_size){
+                              this.gotoIndex(this.total_index-1, this.storyline_index-1, 0)
+                        }else{
+                              
+                        }
+                  }
+               },
+               
+               loadStorylineContent: function(index){
+                    this.story_started = true;
+                    this.storyline_index = index;
+                    // load content
+                    $('#storyline_content').html("<div id='loading' class='loading'><span>loading...</span></div")
+                    $('#storyline_content').load("{% url story_line_item story.id %}?index="+index)
+                    $('#storyline_content').show();
+               },
+               
+               onMapClick: function(index){
+                    this.gotoIndex(index, index, 0)
+               },
+               
+               flyFinish: function(){
+                  if(this.isCurrentlyFlying){
+                      this.isCurrentlyFlying = false;
+                  }
+                  //this.setInterval(this.attachmentIntervalTime)
+                  this.onFlyFinish();
+               },
+               
+               flyApproach: function(){
+                  this.loadStorylineContent(this.storyline_index)
+                  this.onFlyApproach()
+               },
+               
+               onFlyFinish: function(){
+               },
+               
+               onFlyApproach: function(){
+                  
+               },
+               
+               onFlyStart: function(){
+                  
+               },
+               
+               onFinished: function(){
+                    $('#story-finished-dialog').dialog("open")
+                    this.pause()
+               },
+               onMapReady: function(){
+                  {% put_story_on_map story "false" %}
+               }
+            }
+            
+            $(document).ready(function(){
+               
+              
+               maptales.map.zoomToShowAllOverlays();
+               maptales.map.setMapType({{story.get_gmap_mode}})
+               
+               $('#story-finished-dialog').dialog({modal: true,
+                                             width: 480,
+                                             minHeight: 180,
+                                             draggable: false,
+                                             resizable: false,
+                                             autoOpen: false,
+                                             position: ["auto", 100]})
+            })
+            
+            
+            function adapt_overview(){
+                $("#story-intro-wrapper").height($(window).height())
+                $("#story-intro-wrapper").width($(window).width())
+                $("#story-intro-bg").height($(window).height())
+                $("#story-intro-bg").width($(window).width())
+            }
+            
+            adapt_overview();
+            
+            function initial_resize_list(){
+                resize_list()
+                maptales.map.zoomToShowAllOverlays();
+                maptales.map.onMarkerClick = function(marker){
+                    maptales.story.onMapClick(marker.originalData.position);
+                }
+            }
+
+            $(document).ready(function(){
+             //   initial_resize_list()
+            })
+
+    </script>
+   
+{% endblock %}

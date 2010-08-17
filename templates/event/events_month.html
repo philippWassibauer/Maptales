@@ -1,0 +1,130 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load event_tags %}
+
+{% block body_plain %}
+    <div class="span-24 last" style="background-color: #FFFFFF; background-image: url(/site_media/img/why_background.png)">
+        <div class="prefix-16 span-8 last">
+            <div style="background-color: #FFFFFF; padding: 1px 5px; margin: 10px;">
+                <h3 style="text-align: center; margin: 10px 0px 0 0;">{{current_date|date:"M Y"}}</h3>
+                <div  style="text-align: center;">Der Monat im Überblick:</div>
+                {% ifequal event_type 1 %}
+                    <div>{% month_cal year month 'invitations' %}</div>
+                {% else %}       
+                    <div>{% month_cal year month 'events' %}</div>
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+
+    <div class="span-24" style="background-color: #FFFFFF; ">
+        <div class="location-header dotted-bottom-section">
+           <form action="" id="filter-form">
+               <h1>{% block head_title %}{% endblock %}</h1>
+               <span>
+                   Anzeigen: Alle / Kulinarik / Manufaktur / Gastronimie
+               </span>
+
+                <div class="size-select">
+                   Anzahl:
+                   {% ifequal size 10 %}
+                        10
+                   {% else %}
+                        <a href="#" onclick="$('#size')[0].value=10; $('#filter-form').submit(); return false;">10</a>
+                   {% endifequal %}
+                   /
+                   {% ifequal size 20 %}
+                        20
+                   {% else %}
+                        <a href="#" onclick="$('#size')[0].value=20; $('#filter-form').submit(); return false;">20</a>
+                   {% endifequal %}
+                    /
+                   {% ifequal size 50 %}
+                        50
+                   {% else %}
+                        <a href="#" onclick="$('#size')[0].value=50; $('#filter-form').submit(); return false;">50</a>
+                   {% endifequal %}
+                   <input id="size" name="size" type="hidden" value="{{size}}"/>
+               </div>
+
+                <div class="search-right">
+                    <div id="search-by-name">
+                        <span class="searchbox_prompt">Gastgeber durchsuchen</span>
+                        <label>Suchanfrage eintippen</label>
+                        <input type="text" name="search" class="onfocus-text-remove"
+                            value="{% if search_terms %}{{search_terms}}{% endif %}" />
+                        <input type="submit" class="small_search" value=""/>
+                    </div>
+                    <div id="search-by-location">
+                        <span class="searchbox_prompt">Gastgeber in Ihrer Nähe finden</span>
+                        <label>Ort oder Postleitzahl</label>
+                        <input type="text" name="zip_code_or_adress" class="onfocus-text-remove"
+                            value="{% if zip_code_or_adress %}{{zip_code_or_adress}}{% endif %}" />
+                        <input type="submit" class="small_search" value=""/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="span-20 prefix-2 listing">
+            {% for event in events %}
+                 {% event_preview event user %}
+            {% endfor %}
+            {% if not events %}
+                {% if not day %}
+                    <h2 style="text-align: center;">Keine Einträge für diesen Monat gefunden</h2>
+                    <p>
+                    </p>
+                {% else %}
+                    <h2 style="text-align: center;">Keine Einträge für diesen Tag gefunden</h2>
+                    <p>
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+    $(function() {
+        var hideLabel = function() {
+            var that = $(this);
+            if (that.val() !== '') {
+                that.prev('label').hide();
+            }
+        };
+        var hideLabelOnFocus = function() {
+            var that = $(this);
+            that.prev('label').hide();
+        };
+
+        var showLabel = function() {
+            var that = $(this);
+            if (that.val() == '') {
+                that.prev('label').show();
+            }
+        };
+
+        var showLabelOnFocus = function() {
+            var that = $(this);
+            if (that.val() == '') {
+                that.prev('label').show();
+            }
+        };
+        var hideLabelonLabelClick = function() {
+            var that = $(this);
+            that.hide();
+            that.next('input').focus();
+        };
+        $('#filter-form label').click(hideLabelonLabelClick);
+        
+        $('#filter-form input:not([type=checkbox])').focus(hideLabelOnFocus).each(hideLabel);
+        $('#filter-form input:not([type=checkbox])').blur(showLabelOnFocus).each(showLabel);
+    });
+    </script>
+{% endblock %}

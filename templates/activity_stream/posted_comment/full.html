@@ -1,0 +1,7 @@
+{% load truncchar_tag %}
+<div class="title">
+    {{ activity_item.actor.get_profile.render_inline }} <span class="activity-action">posted</span> a comment
+    about <a href="{{activity_item.first_subject.content_object.content_object.get_absolute_url}}">{{activity_item.first_subject.content_object.content_object}}</a>
+    <p class="comment ui-corner-all">"{{activity_item.first_subject.content_object|truncchar:200}}"</p>
+</div>
+{% include "activity_stream/date_bar.html" %}

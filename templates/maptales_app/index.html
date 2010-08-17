@@ -1,0 +1,235 @@
+{% extends "site_base.html" %}
+{% load facebook_tags %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load geo_tags %}
+{% load latest_tag %}
+{% load profile_tags %}
+{% load activity_stream_tags %}
+{% load cms_tags %}
+{% load admin_util_tags %}
+{% block head_title %}{% trans "Login" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+{% block external_js %}
+    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={{settings.GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="intro-wrapper">
+        <div class="social-login-teaser">
+            <h2>Its easy to join:</h2>
+             
+            {% facebook_button %}
+            {% facebook_js %}
+        </div>
+        <div class="intro-teaser">
+            <div id="intro-container">
+                <div class="span-24">
+                    <div class="teaser-slide document-teaser">
+                        <h1 class="top-heading">Capture your experiences on the go.</h1>
+                        <p>
+                            With our free Mobile Apps you can capture, edit and share your life whenever
+                            you are out and about. From city trips, holidays or favourite Pub tours to biking,
+                            walking, hiking or running,
+                            Maptales is the easiest way to map your experiences using geo location information.
+                        </p>
+                    </div>
+                </div>
+                 <div class="span-24">
+                    <div class="teaser-slide follow-teaser">
+                        <h1 class="top-heading">Enrich your experience with your pictures and waypoints that matter for you.</h1>
+                        <p>
+                            Take geo tagged pictures or post a comment along the way. These will be linked to your experience instantly and automatically. On the way we will recommend you relevant waypoints. Add them to your experience and pop-in to check-out. Your waypoint might be the “Art Gallery” while others get the “Tattoo Shop” next to it. It’s all based on people who have had similar experiences like you.
+                        </p>
+                    </div>
+                </div>
+                 <div class="span-24">
+                    <div class="teaser-slide export-teaser">
+                        <h1 class="top-heading">Explore experiences around you or monitor your favourite places</h1>
+                        <p>
+                            Maptales is a great way to explore experiences around you or from around
+                            the world using our ‘square of interest’ experience feeds.
+                            Simply pick an experience and explore it using a map or in 3D via
+                            Augmented Reality overlays. Follow the trail and explore relevant
+                            waypoints such as sight seeing spots or Shops that mattered to people
+                            with similar interests to you.
+                        </p>
+                    </div>
+                </div>
+             </div>
+        </div>
+        <div class="header-line">
+        </div>
+        <div id="bubble-1" class="header-bubble" style="opacity: 0; left: 30px; bottom: 65px;">
+            Met Elise at Picadilly Circus.
+        </div>
+        <div id="bubble-2" class="header-bubble" style="opacity: 0; left: 290px; bottom: 105px;">
+            What a great view of the city!
+        </div>
+        <div id="bubble-3" class="header-bubble" style="opacity: 0; left: 760px; bottom: 145px;">
+            Finally at the peak. Tired and exhausted.
+        </div>
+    </div>
+    <div class="intro-pagination">
+        <div id="step-1" onclick="$('#intro-container').animate({left: '0px'}); $('.intro-pagination').removeClass('three'); $('.intro-pagination').removeClass('two'); window.clearInterval(step_timeout)"></div>
+        <div id="step-2" onclick="$('#intro-container').animate({left: '-950px'}); $('.intro-pagination').addClass('two'); $('.intro-pagination').removeClass('three'); window.clearInterval(step_timeout)"></div>
+        <div id="step-3" onclick="$('#intro-container').animate({left: '-1900px'}); $('.intro-pagination').addClass('three'); $('.intro-pagination').removeClass('two'); window.clearInterval(step_timeout)"></div>
+    </div>
+    
+    <div class="grey-body">
+        <div class="recent-activity-box ui-corner-br ui-corner-bl">
+            <div class="blue-header ui-corner-tl ui-corner-tr">
+                <h3>Featured Experiences</h3>
+            </div>
+            <div class="activity-box-body ui-corner-br ui-corner-bl">
+                
+                <div class="ui-corner-all story-box" onclick="window.location='/story/v/18/'">
+                    <div class="startBoxContent">
+                        <div class="storyPic">
+                                    <img src="/site-media/photologue/2010/04/09/cache/379513135_story_teaser.jpg">
+                        </div>
+                        <div class="inset ui-corner-tr ui-corner-br">
+                            <h2><a href="/story/v/18/">Hike To Lopes Mendes...</a></h2>
+                            <p class="description">On the second day on Ilha Grande we decided to go to Lopes Mendes, a beautiful beach on the east side of the island.
+
+                                As on the day before w...</p>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <hr style="margin-bottom: 0px;" />
+                
+                <div class="ui-corner-all story-box" onclick="window.location='/story/v/551/'">
+                    <div class="startBoxContent">
+                        <div class="storyPic">
+                            <img src="/site-media/photologue/2010/04/17/cache/police line_story_teaser.jpg">   
+                        </div>
+                        <div class="inset ui-corner-tr ui-corner-br">
+                            <h2><a href="/story/v/551/">Bay Area 1</a></h2>
+                            <p class="description"></p>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <hr style="margin-bottom: 0px;" />
+                
+                
+                <div class="ui-corner-all story-box" onclick="window.location='/story/v/24/'">
+                    <div class="startBoxContent">
+                        <div class="storyPic">
+        
+                                    <img src="/site-media/photologue/2010/04/09/cache/8787158061702c96e7ba07a47199e529_story_teaser.jpg">
+                        </div>
+                        <div class="inset ui-corner-tr ui-corner-br">
+                            <h2><a href="/story/v/24/">Snowboarding in Austria...</a></h2>
+                            <p class="description">Jens turned 30, I turned 28 and we decided to celebrate this with a few friends on the Kitzsteinhorn, a glacier in Austria. Besides drinking...</p>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <hr style="margin-bottom: 0px;" />
+        
+                <div class="ui-corner-all story-box" onclick="window.location='/story/v/43/'">  
+                  <div class="startBoxContent">
+                      <div class="storyPic">
+                          <img src="/site-media/photologue/2010/04/09/cache/fe8f459449cc52ab4897833e48820546_story_teaser.jpg">
+                      </div>
+                      <div class="inset ui-corner-tr ui-corner-br">
+                          <h2><a href="/story/v/43/">Roundtrip L.A.-San F...</a></h2>
+                          <p class="description">From July 20 to July 28 we stayed some days in Santa Monica, then went up the scenic Highway 1 to San Francisco. Going back via Hwy 1 to L.A...</p>
+                         
+                      </div>
+                  </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div class="side-content-column">
+            <div class="ui-corner-all white-sidebox">
+                <h3 class="top-heading" style="margin-bottom: 16px;">Search Locations</h3>
+                <div class="big-input">
+                    {% location_autocomplete "onLocationSearch" %}
+                    <button class="medium-green-button ui-corner-all" style="float: right; margin: 10px 0 0 0;" type="submit">Search</button>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="ui-corner-all white-sidebox">
+                <h3 class="top-heading">Maptales for your Phone:</h3>
+                <p>We currently support <strong>IPhone</strong> and <strong>Android</strong></p>
+                <div class="phone-teaser-left">
+                    <a href="{% url iphoneapp %}">
+                        <img src="{{ STATIC_URL}}images/iphone_dummy.png" alt="" />
+                    </a>
+                </div>
+                <div class="phone-teaser-right">
+                    <a href="{% url iphoneapp %}">
+                        <img src="{{ STATIC_URL}}images/android_dummy.png" alt="" />
+                    </a>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="phone-teaser-left">
+                    <a href="{% url iphoneapp %}">
+                        <img src="{{ STATIC_URL}}images/iappstore.png" alt="" />
+                    </a>
+                </div>
+                <div class="phone-teaser-right">
+                    <a href="{% url iphoneapp %}">
+                        <img src="{{ STATIC_URL}}images/android_market.png" alt="" />
+                    </a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div id="contact_select"></div>
+     
+     <script type="text/javascript">
+        function selected_contacts(){
+            //alert("sdf")
+        }
+        var step_timeout = null;
+        $(document).ready(function(){
+            var step = 1
+            window.setTimeout(function(){
+                $('.header-line').animate({width: '100%'}, 14000);
+                window.setTimeout(function(){
+                    $("#bubble-1").animate({bottom: 55, opacity: 100}, 500)
+                }, 1000)
+                
+                window.setTimeout(function(){
+                    $("#bubble-2").animate({bottom: 85, opacity: 100}, 500)
+                }, 3000)
+                
+                window.setTimeout(function(){
+                    $("#bubble-3").animate({bottom: 120, opacity: 100}, 500)
+                }, 9000)
+            }, 3000)
+            
+            step_timeout = window.setInterval(function(){
+                $("#step-"+step).click();
+                step++;
+                if(step>3){
+                    window.clearInterval(step_timeout)
+                }
+            }, 10000)
+        })
+     </script>
+    
+{% endblock %}
+
+
+{% block js_init %}
+    <script type="text/javascript">
+        function onLocationSearch(lat, lng, zoom){
+            window.location = "{% url browse %}?lat="+lat+"&lng="+lng+"&zoom="+zoom;
+        }
+    </script>
+{% endblock %}

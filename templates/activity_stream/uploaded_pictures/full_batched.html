@@ -1,0 +1,15 @@
+{% load smartif_tag %}
+<div class="title">{{ activity_item.actor.get_profile.render_inline }} <span class="activity-action">uploaded</span> <b>{{activity_item.subjects.count}}</b> Images:</div>
+<div class="subtext">
+       {% for item in activity_item.subjects.all %}
+            {% if forloop.counter < 6 %}
+             
+                <img src="{{ item.content_object.get_thumbnail_url }}" alt="" />
+            
+            {% endif %}
+        {% endfor %}
+        <div>
+            <a href="{% url photos_member activity_item.actor.username %}">more</a>
+        </div>
+</div>
+{% include "activity_stream/date_bar.html" %}

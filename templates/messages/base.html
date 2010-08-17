@@ -1,0 +1,34 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+
+{% load profile_tags %}
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+
+{% block head_title %}Messages{% endblock %}
+
+
+{% block body %}
+    <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header user user "messages"%}
+
+        <div class="account-menu ui-corner-all">
+            <ul>
+                <li><a href="{% url messages_outbox %} ">Outbox</a></li>
+                <li><a href="{% url messages_inbox %} ">Inbox</a></li>
+                <li><a href="{% url messages_compose %} ">Write message</a></li>
+            </ul>
+            <div style="clear: both"></div>
+        </div>
+
+        <div class="span-16">
+            <div class="white-padded-round-bg ui-corner-all">
+                {% block messages_body %}
+                {% endblock %}
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}

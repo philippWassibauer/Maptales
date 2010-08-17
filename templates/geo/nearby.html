@@ -1,0 +1,6 @@
+<h3>Nearby Postings:</h3>
+<div>
+    {% for item in items %}
+        <img src="{{item.content_object.get_50x50_url}}" />
+    {% endfor %}
+</div> 

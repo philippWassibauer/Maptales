@@ -1,0 +1,7 @@
+{% load uni_form_tags %}
+<form method="post" action="{% url request_friendship to_user %}">
+    {{ invite_form|as_uni_form }}
+    <input type="hidden" name="action" value="invite" />
+    <button type="submit">Send Friend Request</button>
+</form>
+<div style="clear: both;"></div>

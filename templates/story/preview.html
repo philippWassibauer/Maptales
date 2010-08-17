@@ -1,0 +1,145 @@
+{% extends "map_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load geo_tags %}
+
+{% block head_title %}{% trans "Experience" %}: {{story.title}}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }} 
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+    <link href="{{ STATIC_URL }}uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }} 
+    {{ post_form.media }}
+{% endblock %}
+
+
+{% block map_header %}
+    <div class="story-steps two ui-corner-tl ui-corner-tr">
+        <a href="{% url story_edit story.id %}" class="step1"></a>
+        <a href="{% url story_preview story.id %}" class="step2"></a>
+        <a href="{% url story_publish story.id %}" class="step3"></a>
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="grey-body">
+            <form action="{% url story_publish story.id %}" method="POST">
+                <div style="min-height: 250px;">
+                    <div id="edit_storylinitem" style="display: none;">
+                    </div>
+        
+                    <div id="edit_storyline" class="white-round-bg ui-corner-all">
+                        <div class="story-head">
+                            <!--<div class="story-icon span-2">
+                                <img src="{{ story.storyimage.get_50x50_url }}" />
+                            </div>-->
+                            <div class="story-headline span-20 last">
+                                <span>{{story.title}}</span>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                        
+                        <!--<div class="span-10">
+                            <div class="storyline-edit-screen ui-corner-all">
+                                <h2>Storyline</h2>
+                                {% show_storyline story "story/view_storyline.html" %}
+                            </div>
+                        </div>-->
+                        <div class="span-10">
+                            <div id="story-edit-container" class="story-preview-edit ui-corner-all">
+                                <h2>Add Experience Intro Text:</h2>
+                                <div>
+                                    {{story_edit_form|as_uni_form}}
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div class="span-10 last" style="width:490px;">
+                            <div class="storyline-edit-screen ui-corner-all">
+                                <h2>Preview of Experience Badge</h2>
+                                {% story_big_pic_teaser story 0 %}
+                                <div style="clear: both;"></div>
+                            </div>
+                            <!--<div class="storyline-edit-screen ui-corner-all" style="margin-top: 10px">
+                                <h2>Preview of Embedded Story</h2>
+                                {% story_big_pic_teaser story 0 %}
+                                <div style="clear: both;"></div>
+                            </div>-->
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    
+                </div>
+            
+                <div class="white-round-bg story-continue ui-corner-all">
+                    <div>
+                        <button type="submit" class="big-green-button ui-corner-all">
+                            Publish
+                        </button>
+                    </div>
+                    <div>
+                        <a href="#">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        {% put_story_on_map story "false" %}
+    </script>
+{% endblock %}
+
+
+
+{% block post_map_js %}
+    <script type="text/javascript">
+            var dialog_position = ["auto", 100]
+            
+            CURRENT_STORY_ID = "{{story.id}}";
+            PLACE_MARKER_URL = "{% url place_item %}"
+            STORE_LINE_URL = "{% url geo_create_line %}"
+            
+            $(document).ready(function() {
+                // map type switch
+                $('#id_mapmode').change(function(){
+                    var value = $(this).val()
+                    if (value==1){
+                        maptales.map.setMapType(G_SATELLITE_MAP)
+                    }else if(value==2){
+                        maptales.map.setMapType(G_HYBRID_MAP)
+                    }else if(value==3){
+                        maptales.map.setMapType(G_NORMAL_MAP)
+                    }else if(value==4){
+                        maptales.map.setMapType(G_PHYSICAL_MAP)
+                    }
+                })
+                
+                //description text
+                $('#id_description').keydown(function(){
+                    var text = $('#id_description').val()
+                    if (text.length>140){
+                        text = $('#id_description').val().substr(0,140)+"..."
+                    }
+                    try{$('.inset .description').html(text)}catch(e){}
+                    
+                    return true;
+                })
+                
+                {% put_story_on_map story "true" %}
+                
+            })
+        </script>
+{% endblock %}

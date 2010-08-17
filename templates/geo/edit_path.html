@@ -1,0 +1,207 @@
+{% extends "map_base.html" %}
+
+{% load addthis_tag %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load profile_tags %}
+{% load geo_tags %}
+        
+{% block head_title %}{% trans "Edit Path" %}{% endblock %}
+
+{% block map_menu %}
+   <div class="map-line-menu">
+       <button type="submit" class="create-new" onclick="maptales.map.startDrawingLine()">
+           Draw New Line
+       </button>
+       <button type="submit" class="create-new" onclick="maptales.map.stopEditingLine()">
+           Stop Editing Line
+       </button>
+
+       <div id="line-list" class="line-list">
+       </div>
+       
+   </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="info-padder">
+        <h1>{{path}}</h1>
+        <div class="subH1">by: {{path.creator.get_profile.render_inline}}</div>
+         <div id="tabsystem" style="clear: both;">
+                <ul>
+                    <li>
+                       <a href="#info">Info</a>
+                    </li>
+                     <li>
+                       <a href="#stats">Stats</a>
+                    </li>
+                    <li>
+                       <a href="#share">Share/Privacy</a>
+                    </li>
+                </ul>
+
+               <div id="info">
+                   <div class="section">
+                       <h3>Description: (<a href="#" onclick="edit_info(); return false;">edit</a>)</h3>
+                       <p>
+                           {{path.description}}
+                       </p>
+                   </div>
+                   {% if path.get_categories %}
+                       <div class="section">
+                           <h3>Categories:</h3>
+                           <p>
+                           {% for category in path.get_categories%}
+                               <a href="#">{{category.name}}</a> ,
+                           {% endfor %}
+                           </p>
+                       </div>
+                   {% endif %}
+                   {% if path.tags %}
+                       <div class="section">
+                            <h3>Tags:</h3>
+                            <p>
+                                {{path.tags}}
+                            </p>
+                       </div>
+                   {% endif %}
+                   {% if path.from_location_name %}
+                       <div class="section">
+                            <h3>Where:</h3>
+                            <p>
+                                {{path.from_location_name}} - {{path.to_location_name}}
+                            </p>
+                       </div>
+                    {% endif %}
+                   {% show_overal_location path %}
+                </div>
+
+                <div id="stats">
+                    <p>
+                       Total Vertical Up:{{path.get_vertical_up|floatformat:2}} m
+                    </p>
+                    <p>
+                       Total Vertical Down:{{path.get_vertical_down|floatformat:2}} m
+                    </p>
+                    <p>
+                       Total Distance: {{path.distance|floatformat:2}} km
+                    </p>
+                    <p>
+                       Time:  {{path.duration}}
+                    </p>
+                    <p>
+                       Average Speed: {{path.get_average_speed|floatformat:2}} km/h
+                    </p>
+                    <p>
+                        Top Speed: {{path.get_top_speed}}
+                    </p>
+                    <p>
+                        Logged Points:  {{path.get_total_points}}
+                    </p>
+                    <p>
+                        Start Time: {{path.start_time|date}}  {{path.start_time|time}}
+                    </p>
+                    <p>
+                        End Time: {{path.end_time|date}}  {{path.end_time|time}}
+                    </p>
+
+                    <ul>
+                     {% for segment in path.segments.all %}
+                        <li>
+                            <div class="line-segment">
+                                {{segment}} <a href="#" onclick="maptales.map.zoomToLine({{forloop.counter}}); return false;">zoom to line</a>
+                            </div>
+                            <div class="gpx-height-graph">
+                                <div><img src="{{segment.gpx_height_graph.url}}" alt="" /></div>
+                            </div>
+                        </li>
+                     {% endfor %}
+                    </ul>
+                </div>
+
+                <div id="share">
+                    <h3>Share:</h3>
+                      <div class="exportBoxContainer">
+                            <div class="exportBox">
+                                <div class="bottomLeftCorner"></div>
+                                <div class="topLeftCorner"></div>
+                                <div class="topRightCorner"></div>
+                                <div class="bottomRightCorner"></div>
+                                <ul>
+
+                                         <li>
+                                            <a onclick="Dialog.toggle('External Link', null, null, 'objects/externalLinkDialog', {id: 12621}, this, Dialog.NORTH) ; return false;" href="http://www.maptales.com//view/12621" class="trigger">
+                                            <img src="http://www.maptales.com//styles/default/css/images/linkToThisStory.gif"/> Link</a> to this path
+                                        </li>
+                                        <li>
+                                            <a onclick="Dialog.toggle('Export', null, null, 'objects/Story/externalExportDialog', {id: 12621}, this, Dialog.NORTH);" href="#" class="trigger">
+                                            <img src="http://www.maptales.com//styles/default/css/images/exportThisStory.gif"/> Embed</a> in website
+                                        </li>
+                                        <li>
+                                            <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.kml" class="trigger">
+                                            <img src="http://www.maptales.com//styles/default/css/images/kml.png"/> View in Google Earth</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.gpx" class="trigger">
+                                            <img src="http://www.maptales.com//styles/default/css/images/gpx_small.gif" style="margin: 2px 8px 4px 2px;"/> Download as GPX</a>
+                                        </li>
+                                        <li>
+                                           {% add_this path.get_absolute_url path.title %}
+                                        </li>
+
+                                 </ul>
+                            </div>
+                        </div>
+                        <div style="clear: both;margin-top: 10px;"></div>
+                </div>
+            </div>
+
+        
+    </div>
+{% endblock %}
+
+{% block post_map_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MPolyline.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/MMarker.js"></script>
+    <script type="text/javascript">
+       $('#tabsystem').tabs().show()
+       $(document).ready(function(){
+           window.setTimeout(function(){
+                maptales.map.placeGeoJsonTrack({{path.get_geojson}})
+                maptales.map.zoomToShowAllOverlays();
+            },1000)
+       })
+    </script>
+
+{% endblock %}
+
+
+{% block extra_body %}
+    <div id="dialog" style="display: none;">
+        <div id="gpx-edit-output"></div>
+        <form id="gpx-edit-form" action="" method="POST">
+            {{track_form|as_uni_form}}
+            <div class="uniform_buttons">
+                <button type="submit">Save</button>
+                <button type="button" onclick="$('#dialog').close()">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $.ui.dialog.defaults.bgiframe = true;
+        var edit_info = function() {
+            $("#dialog").dialog({modal: true, draggable: false, resizable: false, width: 600});
+        }
+         $('#gpx-edit-form').ajaxForm({
+            target:        '#gpx-edit-output', 
+            success:       function(){
+                window.setTimeout(function(){
+                    $('#gpx-edit-output div').fadeOut()
+                }, 3000)
+            }
+         }); 
+	</script>
+{% endblock %}

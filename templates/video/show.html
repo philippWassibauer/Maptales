@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+
+{% load oembed_tags %}
+{% load i18n %}
+        
+{% block body %}
+    <div class="profile-panel">
+        <div class="right_panel">
+           {% include "video/video_right_panel.html" %}
+        </div>
+
+        <div class="left_panel">
+            <h1>{{ video.title }}</h1>
+            <div class="video-wrapper">
+                    {% oembed 430x500 %}
+                       {{video.import_url}}
+                    {% endoembed %}
+                    <div style="clear: both; float: none;"></div>
+            </div>
+            <p>
+                {{ video.comment }}
+            </p>
+        </div>
+   </div>
+{% endblock %}

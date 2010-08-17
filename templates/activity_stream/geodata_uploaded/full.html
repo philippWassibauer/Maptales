@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load var_tag %}
+
+<div class="title">{{ activity_item.actor.get_profile.render_inline }}
+    <span class="activity-action">uploaded</span> GPX:</div>
+
+{% var path = activity_item.first_subject.content_object %}
+{% if path %}
+<div class="subtext">
+     <div class="borderBox" style="width: auto; font-size: 12px;">
+        <div class="bottomLeftCorner"></div>
+        <div class="topLeftCorner"></div>
+        <div class="topRightCorner"></div>
+        <div class="bottomRightCorner"></div>
+        <div class="infoBoxContentBigPadding">
+            <h2 class="top-heading">
+                <img src="{{ STATIC_URL }}/images/trail-58x27.gif" alt="" style="margin-right: 10px;"/>
+                <a href="{% url view_path path.id %}">
+                    {{path}}
+                </a>
+            </h2>
+            {% if path.is_single_day %}
+                <b>{% trans "Recorded From" %}</b> {{path.start_time|date}} {{path.start_time|time}} - {{path.end_time|time}}
+            {% else %}
+                <b>{% trans "Recorded From" %}</b> {{path.start_time|date}} {{path.start_time|time}} until {{path.end_time|date}}
+            {% endif %}
+            <br />
+            <b>Duration:</b>{{path.start_time|timesince:path.end_time}}   <br />
+            <b>{% trans "Uploaded On" %}:</b> {{path.creation_date|date}} {{path.creation_date|time}} <br />
+            <b>{% trans "Distance" %}:</b> {{path.distance|floatformat:3}} km    <br />
+            <b>{% trans "Segments" %}</b>: {{path.segments.count}}
+        </div>
+    </div>
+</div>
+{% endif %}
+ {% include "activity_stream/date_bar.html" %}

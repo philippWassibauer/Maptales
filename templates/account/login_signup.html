@@ -1,0 +1,133 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+	<div class="span-9 ">
+	    <div class="content_box">
+		<form method="post" action="" >
+		    <div class="content_padder">
+			<h1>Login</h1>
+			{% if user.is_authenticated %}
+			<p>
+			<strong>Hinweis:</strong> Sie sind bereits als Benutzer 
+			{{ user }} angemeldet.
+			</p>
+			{% else %}
+			<p>
+			Zum Einloggen geben Sie bitte 
+			hier Ihren Benutzername und
+			Kennwort ein.
+			</p>
+			{% endif %}
+			<div class="form_elements">
+			    {{ login_form|as_uni_form }}
+			</div>
+			<p>
+			Sie haben Ihr <a href="{% url acct_passwd_reset %}">Passwort vergessen?</a>
+			</p>
+		    </div>
+		    <div class="form_next">
+			<input type="hidden" name="action" value="login" />
+			<button type="submit">
+			    Anmelden &raquo;
+			</button>
+		    </div>
+            <div style="clear: both;"></div>
+		</form>
+	    </div>
+	</div>
+	<div class="span-9 last">
+	    <div class="content_box">
+		<form method="post" action="" >
+		    <div class="content_padder">
+			<h1>Neu-Anmeldung</h1>
+			{% if user.is_authenticated %}
+			    <p>Sie sind bereits angemeldet.</p>
+			{% else %}
+			    <p>
+			    Wenn Sie sich bei einfachleben.com 
+			    anmelden möchten, tragen Sie bitte 
+			    Ihren Freischalt-Code ein. <a href="#where">Wo bekomme ich den Code?</a>
+			    </p>
+			    
+				<div class="form_elements">
+				    {{ signup_form|as_uni_form }}
+				    
+				    {% for field in terms_form %}
+					<div id="div_{{ field.auto_id }}" class="ctrlHolder {% if field.errors %}error{% endif %}">
+					    {% for error in field.errors %}
+						<p id="error_{{ field.auto_id }}" class="errorField">
+						    <strong>{{ error }}</strong>
+						</p>
+					    {% endfor %}
+					    {% if field.label %}
+						<label for="{{ field.auto_id }}">
+						    {% ifequal field.name "agb_read" %}
+                                Sie haben die <a href="{% url terms %}">Benutzerrichtlinien</a> <br />
+                                und die <a href="{% url privacy %}">Privacy Policy</a>
+                                gelesen und verstanden.
+						    {% else %}
+							{{ field.label }}
+						    {% endifequal %}
+						    
+						    {% if field.field.required %}*{% endif %}
+						</label>
+					    {% endif %}
+					    {{ field }}
+					    {% if field.help_text %}
+						<p id="hint_{{ field.auto_id }}" class="formHint">{{ field.help_text }}</p>
+					    {% endif %}
+					</div>
+				    {% endfor %}
+				</div>
+			{% endif %}
+		    </div>
+		    <div class="form_next">
+                <input type="hidden" name="action" value="signup" />
+                <button type="submit">Weiter &raquo;</submit>
+		    </div>
+            <div style="clear: both;"></div>
+		</form>
+	    </div>
+	</div>
+{% endblock %}
+
+{% block extra_body %}
+<script type="text/javascript">
+$(function() {
+    var hideLabel = function() {
+        var that = $(this);
+        if (that.val() !== '') {
+            that.prev('label').hide();
+        }
+    };
+    var hideLabelOnFocus = function() {
+        var that = $(this);
+        that.prev('label').hide();
+    };
+
+   var showLabel = function() {
+        var that = $(this);
+        if (that.val() == '') {
+            that.prev('label').show();
+        }
+    };
+
+    var showLabelOnFocus = function() {
+        var that = $(this);
+        if (that.val() == '') {
+            that.prev('label').show();
+        }
+    };
+    
+    $('.ctrlHolder input[type=text], .ctrlHolder input[type=password]').prev('label').css({'top': '4px','left': '10px', 'position': 'absolute' });
+    $('.ctrlHolder input:not([type=checkbox])').focus(hideLabelOnFocus).each(hideLabel);
+    $('.ctrlHolder input:not([type=checkbox])').blur(showLabelOnFocus).each(showLabel);
+});
+</script>
+{% endblock %}

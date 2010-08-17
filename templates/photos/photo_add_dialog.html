@@ -1,0 +1,108 @@
+<div id="{{container_id}}" style="display:none;">
+    <div id="dialog-container">
+        <form id="story-image-upload" action="" method="POST" class="span-14 story-image-upload">
+            <div class="span-6 last">
+                <div class="ui-corner-all upload-or-link">
+                    <h3>Use existing Images</h3>
+                    <p><a href="#" id="search_images">Search your uploaded images</a></p>
+                </div>
+            </div>
+            <div class="span-2 last">
+                <h2 style="margin-top:30px;">or</h2>
+            </div>
+            <div class="span-6 last">
+                <div class="ui-corner-all upload-or-link">
+                    <h3>Upload new Images</h3>
+                    <input type="file" id="uploadify_images" />
+                </div>
+            </div>
+        </form>
+        <div class="span-14 last" id="dialog-result-panel">
+            <h2>Currently Uploading</h2>
+            <div id="fileQueueImages123" class="uploadifyQueue">
+                
+            </div>
+        </div>
+        <div class="span-14 last" id="dialog-search-panel">
+            <h2>Your Images</h2>
+            <div id="dialog-search-result-panel">
+                
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+<div style="clear: both;"></div>
+
+
+<script type="text/javascript">
+    var _dialogAddedImages = []
+    function _photoSelectDialogOnComplete(uids){
+        try{
+            {{callback_function}}(uids);
+        }catch(e){alert(e)}
+        jQuery(document).trigger('close.facebox') 
+    }
+    
+    function photoSelectorBackToStart(){
+        $('#facebox #story-image-upload').show()
+        $('#facebox #dialog-result-panel').hide()
+    }
+    
+    $(document).ready(function() {
+         
+         
+        $("#uploadify_images").uploadify({
+            'uploader'       : '{{ STATIC_URL }}uploadify/uploadify.swf',
+            'script'         : '{% url photo_flash_upload %}',
+            'cancelImg'      : '{{ STATIC_URL }}uploadify/cancel.png',
+            'folder'         : 'uploads',
+            'queueID'        : 'facebox #fileQueueImages123',
+            'auto'           : true,
+            'multi'          : true,
+            'simUploadLimit' : 1,
+            'width'          : 121,
+            'height'         : 34,
+            'buttonText'     : "Choose Files",
+            'scriptData'     : {"sessionid" : "{{request.session.session_key}}"},
+            'fileExt'        : "*.jpg;*.jpeg;*.png;*.gif;",
+            'onComplete'  : function(event, queueID, fileObj, response, data){
+                _dialogAddedImages.push(response)
+             },
+             
+             'onError'  : function(event, queueId, fileObj, errorObj){
+                try{console.log("error uploading")}catch(e){}
+             },
+             
+            'onAllComplete': function(){
+                _photoSelectDialogOnComplete(_dialogAddedImages)
+                _dialogAddedImages = []
+             },
+
+            'onSelect': function(){
+                $('#facebox #dialog-result-panel').show()
+                return true;
+            }
+        });
+        
+        
+        
+        
+        
+        $(document).bind('reveal.facebox', function(event, ui) {
+            _dialogAddedImages = []
+            //$('#facebox #dialog-result-panel').html("")
+            $('#facebox #story-image-upload').show()
+            $('#facebox #dialog-result-panel').hide()
+            $('#facebox #dialog-search-panel').hide()
+            
+            $('#facebox #search_images').click(function(){
+                $('#facebox #story-image-upload').hide()
+                $('#facebox #dialog-search-panel').show()
+                $('#facebox #dialog-search-result-panel').load('{% url photo_selector user.username %}?callback=_photoSelectDialogOnComplete', function(){
+                })
+                return false;
+            })
+        });
+    });
+</script>

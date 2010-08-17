@@ -1,0 +1,71 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load avatar_tags %}
+{% load humanize %}
+{% load tagging_tags %}
+{% load blog %}
+{% load blog_tags %}
+{% load comments_tag %}
+{% load uni_form_tags %}
+
+{% block head_title %}{% blocktrans %}Blog Post{% endblocktrans %} : {{ post.title }}{% endblock %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb post.slug post.get_absolute_url %}    
+{% endblock %}
+
+{% block body %}
+<div class="white_bg span-17 last">
+    <div class="span-17 last">
+        <div class="info_right">
+            <div class="blog-paginate">
+                {% if next %}
+                    <a class="next" href="{{ next.get_absolute_url }}">&lt; Nächster Artikel: <strong>{{next.title|truncatewords:4}}</strong>  </a>
+                {% endif %}
+
+                {% if previous %}
+                    <a class="previous" href="{{ previous.get_absolute_url }}">Vorheriger Artikel:  <strong>{{previous.title|truncatewords:4}}</strong> &gt;</a>
+                {% endif %}
+            </div>
+            <div class="image">
+                <img src="{{ post.postimage.get_display_url }}"/>
+            </div>
+            <h1>{{ post.title }}</h1>
+            <div class="textblock">
+                {% render_content post 'body' %}
+            </div>
+            <div style="clear: both;"></div>
+             {% ifequal post.author request.user %}
+                <div class="blog-actions">
+                    <div class="actions">
+                        <div class="form_next">
+                            <a href="{% url blog_edit post.id %}">Artikel editieren</a>
+                        </div>
+                        <div class="form_next">
+                            <form method="post" action="{% url blog_destroy post.id %}" style="margin-bottom: 0px;">
+                                <input type="hidden" name="action" value="delete" />
+                                <button type="submit">Artikel löschen</button>
+                            </form>
+                        </div>
+                        <div class="form_next">
+                            <a href="{% url blog_new %}">neuen Artikel erstellen</a>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+             {% endifequal %}
+
+            
+            <div id="comments" class="detail-listing">
+                 <h3>Comments on This Post:</h3>
+                 {% comments post %}
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+{% endblock %}

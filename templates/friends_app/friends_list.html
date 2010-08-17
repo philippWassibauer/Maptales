@@ -1,0 +1,10 @@
+{% load avatar_tags %}
+{% if friends %}
+    {% for friend in friends %}
+        <a href="{% url activity_stream friend.friend.username %}" class="profile-signature-image">
+            <img src="{% avatar_url friend.friend 24 %}" title="{{ friend.friend.get_profile }}" height="24px" width="24px"/>
+        </a>
+    {% endfor %}
+{% else %}
+        <b>No Friends</b>
+{% endif %}

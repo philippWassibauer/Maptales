@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load addthis_tag %}
+{% load avatar_tags %}
+{% load tagging_tags %}
+{% load photo_tags %}
+{% load story_tags %}
+{% load geo_tags %}
+
+
+<div class="photo-right-tools">
+    {% if is_me %}
+        <h3>Edit</h3>
+        <form id="deletePhotoForm" action="{% url photo_destroy photo.id %}" method="POST" style="margin-bottom: 0px;">
+            <a href="#" onclick="$('#deletePhotoForm')[0].submit()">Delete Photo</a>
+            <input class="hide" type="submit" />
+            <input type="hidden" name="action" value="delete"/>
+        </form>
+        <a href="{% url photo_edit photo.id %}">Edit Photo</a>
+        <div>
+            Rotate Photo<br />
+            <a href="{% url photo_rotate photo.id %}?rotation=90" class="imageLink">
+                <img src="{{STATIC_URL}}/images/rotate-left.png" />
+            </a>
+            <a href="{% url photo_rotate photo.id %}?rotation=270" class="imageLink">
+                <img src="{{STATIC_URL}}/images/rotate-right.png" />
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+
+<div class="photo-right-profile clearfix">
+    <div class="photo-profile-details">
+        Taken on: {{ photo.date_taken|date }}<br />
+        Viewed <strong>{{ photo.view_count }}</strong> times
+    </div>
+</div>
+
+
+<br />
+<br />
+{% user_photo_stream_navigator photo photo.member user %}
+
+
+<h3>Share this item</h3>
+{% add_this photo.get_absolute_url photo.title %}
+
+{% stories_containing photo %}
+
+{% show_overal_location photo %}
+
+<div class="photo-right-exif">
+
+</div>

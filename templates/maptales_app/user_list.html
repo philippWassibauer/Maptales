@@ -1,0 +1,76 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load tagging_tags %}
+{% load order_by %}
+{% load var_tag %}
+{% load pagination_tags %}
+{% load avatar_tags %}
+{% load contact_util_tags %}
+
+{% block body %}
+    <div class="profile-panel">
+        <div class="clearfix">
+            <div class="search-user-by-name">
+                <form action="" method="get" />
+                    <input class="{%if not filer%}onfocus-text-remove{%endif%}" title="Username" type="text" name="filter"{%if filter%} value="{{filter}}"{%endif%} />
+                    <input class="small_search" type="submit" value="Search" />
+                </form>
+            </div>
+            <h2>Benutzer:</h2>
+        </div>
+            <div class="clearfix">
+                {% if startswith %}
+                    {{ startswith }}
+                {% else %}
+                    
+                {% endif %}
+                <br />
+            </div>
+
+        {% if users %}
+            {% autopaginate users 16 %}
+            <div class="clearfix">
+                <div class="prefix-3">
+                    {% for current_user in users %}
+                        <div class="span-6">
+                            <div class="profile-signature-image" style="float: left;">
+                                {% if user.is_authenticated %}
+                                    {% are_contacts user current_user as are_contacts %}
+                                    {% if not are_contacts %}
+                                        <div class="add_contact" id="add_contact_form_{{current_user.get_profile.id}}">
+                                            <div class="add_contact_form">
+                                                <div class="click_area"
+                                                     onclick="add_contact('{% url add_contact %}', {{current_user.id}}, '#add_contact_form_{{current_user.get_profile.id}}')">
+                                                    &nbsp; 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                <img src="{% avatar_url current_user 48 %}" alt="{{ current_user.get_profile }}" height="48px" width="48px" style="bottom: 0px;"/>
+                            </div>
+                            <nobr>
+                                <a href="{{current_user.get_profile.get_absolute_url}}" class="profile-signature-link" style="margin: 15px; display: block; float:left;">
+                                    {{current_user.get_profile}} - {{current_user.storycount}}
+                                </a>
+                            </nobr>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <br />
+            {% paginate %}
+        {% else %}
+            Es konnten keine passenden Benutzer gefunden werden.
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+

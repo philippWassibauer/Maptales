@@ -1,0 +1,7 @@
+<div class="title">{{ activity_item.actor.get_profile.render_inline }} <span class="activity-action">uploaded</span> an Image:</div>
+<div class="subtext">
+        <img src="{{ activity_item.first_subject.content_object.get_thumbnail_url }}" alt="" />
+    
+</div>
+{% include "activity_stream/date_bar.html" %}
+

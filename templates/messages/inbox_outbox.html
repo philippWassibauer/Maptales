@@ -1,0 +1,57 @@
+{% extends "messages/base.html" %}
+
+{% load i18n %}
+{% load timezone_filters %}
+
+{% block messages_body %}
+    <div class="dotted-bottom-section">
+        <h2>Posteingang</h2>
+	<table class="messages">
+	    <thead>
+		<tr><th>Sender</th><th>Subject</th><th>Sent on</th><th>Action</th></tr>
+	    </thead>
+	    <tbody>
+		{% for message in inbox_message_list %} 
+		    <tr>
+			<td>{{ message.sender }}</td>
+			<td>
+			    {% if message.new %}<strong>{% endif %}
+			    {% if message.replied %}<em>{% endif %}
+			    <a href="{{ message.get_absolute_url }}">
+				{% if message.subject.strip %}{{ message.subject }}
+				{% else %}(no subject){% endif %}
+			    </a>
+			    {% if message.replied %}</em>{% endif %}
+			    {% if message.new %}</strong>{% endif %}</td>
+			<td>{{ message.sent_at|localtime:account.timezone|date:_("DATETIME_FORMAT") }}</td>
+			<td><a href="{% url messages_delete message.id %}">delete</a></td>
+		    </tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+    </div>
+
+    <br />
+    
+    <div class="dotted-bottom-section">
+        <h2>Sent Messages</h2>
+        
+        <table class="messages">
+            <thead>
+                <tr><th>Empfänger</th><th>Betreff</th><th>Gesendet am</th><th>Aktion</th></tr>
+            </thead>
+            <tbody>
+                {% for message in outbox_message_list %} 
+                    <tr>
+                        <td>{{ message.recipient }}</td>
+                        <td>
+                            <a href="{{ message.get_absolute_url }}">{{ message.subject }}</a>
+                        </td>
+                        <td>{{ message.sent_at|localtime:account.timezone|date:_("DATETIME_FORMAT") }}</td>
+                        <td><a href="{% url messages_delete message.id %}?next={% url messages_inbox_outbox %}">löschen</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

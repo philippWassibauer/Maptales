@@ -1,0 +1,52 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}Maptales iPhone Application{% endblock %}
+
+{% block body %}
+    <div class="info-page ui-corner-tl ui-corner-tr">
+        <div class="cloud1"></div>
+        <div class="cloud2"></div>
+        <div class="birds1"></div>
+        <div class="birds2"></div>
+        <div class="birds3"></div>
+        <div class="info-page-container">
+            <div class="info-header"></div>
+            <div class="info-section">
+                <div>
+                    <h5 style="text-align:center; margin-bottom: 40px;">The IPhone App will be released in Spring, the Android App in Summer 2010</h5>
+                    
+                    <h3>Capture your Experiences with our Mobile Apps</h3>
+                    <p>Start tracking your experiences using the GPS
+                       of your mobile device while Maptales instantly
+                       draws a GPX trail on your map. Take pictures or videos,
+                       post messages or link existing content to your Experience Feeds.
+                    </p>
+        
+                    <h3>Exploring using Maptales Mobile</h3>
+                    <p> Browse through existing ExperienceFeeds near you
+                        and pick one that you like. Maptales Mobile comes with both a map
+                        view and an Augmented Reality browser (POI & UGC information on top of the real
+                        world video stream).
+                    </p>
+                    
+                    
+                </div>
+                
+                <div>
+                    <h3>Mobile App Image Gallery</h3>
+                    <div style="text-align: center">
+                        <img style="margin: 15px;" src="{{ STATIC_URL }}images/iphone/start_screen.png" />
+                       
+                        <img style="margin: 15px;" src="{{ STATIC_URL }}images/learn-more/Record.png" />
+                        <br />
+                        <img style="margin: 15px;" src="{{ STATIC_URL }}images/learn-more/IPhoneEnrich.png" />
+                        <br />
+                        <img style="margin: 15px;" src="{{ STATIC_URL }}images/learn-more/IPhoneInterfaceHorizontal.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

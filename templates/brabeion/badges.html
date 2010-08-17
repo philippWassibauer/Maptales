@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load comments_tag %}
+{% load activity_stream_tags %}
+{% load profile_tags %}
+{% load facebook_tags %}
+{% load twitter_tags %}
+{% load geo_tags %}
+
+{% block head_title %}{% blocktrans %}{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header user user "badges" %}
+        <div class="span-16">
+            <ul class="badges">
+                {% for badge in badges %}
+                    {% for badge_ in badge.1 %}
+                        {% if badge_.user_has %}
+                            <li class="{% if badge_.user_has %}user_has_badge{% endif %}">
+                                <img src="{{ badge.icon }}" align="right" /> {{badge_.name}} - {{badge_.description}}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}

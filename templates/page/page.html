@@ -1,0 +1,25 @@
+{% extends "page/base.html" %}
+
+{% load i18n %}
+{% load avatar_tags %}
+{% load oembed_tags %}
+{% block head_title %}{{name}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if user.is_staff %}
+            <div class="span-24 last" style="text-align: right;">
+                <a href="{% url edit_page name %}">edit</a>
+            </div>
+        {% endif %}
+        <div class="" style="padding: 10px;">
+            {% autoescape off %}
+                {% oembed 500x400  %}
+                    {{template}}
+                {% endoembed %}
+            {% endautoescape %}
+        </div>
+    </div>
+{% endblock %}
+
+

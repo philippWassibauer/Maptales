@@ -1,0 +1,58 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load avatar_tags %}
+{% load profile_tags %}
+{% block head_title %}{% trans "Avatar" %}{% endblock %}
+
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+
+{% block body %}
+    <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+         {% show_profile_header user user "edit avatar"%}
+         {% include "account/account_menu.html" %}
+        <div class="span-16">
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>{% trans "Avatar" %}</h2>
+                <p>{% trans "Your current avatar:" %}</p>
+                <p>
+                    {% avatar user 50 %}
+                </p>
+                
+                {% if not avatars %}
+                    
+                {% else %}
+                    <h3>Select a different avatar:</h3>
+                    <form method="POST" action="">
+                        <ul class="avatar_choices">
+                            {{ primary_avatar_form.choice }}
+                        </ul>
+                        <input type="submit" value="Choose new Default" />
+                    </form>
+                    {% url avatar_delete as avatar_delete_url %}
+                    <p>{% blocktrans %}Don&rsquo;t like these avatars? You can <a href="{{ avatar_delete_url }}">choose which ones to delete</a>.{% endblocktrans %}</p>
+                {% endif %}
+                <h4>{% trans "Upload an Avatar:" %}</h4>
+                <form enctype="multipart/form-data" method="POST" action="">
+                    <input type="file" name="avatar" value="{% trans "Avatar Image" %}" />
+                    <button type="submit" value="">{% trans "Upload New Image" %}</button>
+                </form>
+            </div>
+        </div>
+        <div class="span-7 last right-profile-panel">
+            <!--{_% placeholder right-column %}-->
+            <div class="white-padded-round-bg ui-corner-all">
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    {% load jquery_validation %}
+    {% include_validation %}
+    <script type="text/javascript">
+       <!-- nothing here -->
+    </script>
+{% endblock %}

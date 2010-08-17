@@ -1,0 +1,56 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load tagging_tags %}
+{% load order_by %}
+{% load var_tag %}
+{% load pagination_tags %}
+{% load avatar_tags %}
+
+
+{% block body %}
+    <div class="profile-panel">
+
+        <div class="clearfix">
+            <div class="search-user-by-name">
+                <form action="" method="get" />
+                    <input class="{%if not filer%}onfocus-title-remove{%endif%}" title="Username" type="text" name="filter"{%if filter%} value="{{filter}}"{%endif%} />
+                    <input class="small_search" type="submit" value="Search" />
+                </form>
+            </div>
+            <h2>Benutzer:</h2>
+        </div>
+        <div class="clearfix">
+            {{ startswith }}
+            <br />
+        </div>
+
+        {% if users %}
+            {% autopaginate users 16 %}
+            <div class="clearfix">
+                {% for user_object in users %}
+                    <div class="prefix-1 span-7">
+                        <a href="{% url switch_user %}?user_id={{ user_object.id}}" class="profile-signature-image">
+                            <img src="{% avatar_url  user_object 48 %}" alt="{{  user_object.profile }}" height="48px" width="48px"/>
+                        </a>
+                        <a href="{% url switch_user %}?user_id={{ user_object.id}}" class="profile-signature-link">
+                            {{user_object.get_profile}} - {{current_user.storycount}}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <br />
+            {% paginate %}
+        {% else %}
+            Es konnten keine passenden Benutzer gefunden werden.
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+

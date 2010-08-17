@@ -1,0 +1,51 @@
+<div  id="location_result_container" class="ctrlHolder">
+    {% if location %}
+        {% include "event/location_preview.html" %}
+    {% else %}
+        {% include "event/location_select_form.html" %}
+    {% endif %}
+</div>
+<script type="text/javascript">
+    function selectItem(id){
+        $("#location_result_container").load("{% url location_preview %}?id="+id);
+    }
+
+    function deselectItem(){
+        $("#location_result_container").load("{% url location_select_form %}?id={{location_id}}", null, function(){
+            initLocationSelect()
+        });
+    }
+
+    function selectAutocomplete(li){
+        if( !!li.extra ) var sValue = li.extra[0];
+        else var sValue = li.selectValue;
+        selectItem(sValue);
+    }
+    function formatItem(row) {
+        return row[0]
+    }
+
+    function storeLocation(){
+        try{
+            var parameters =  $("#store-location").serialize()
+            $.post("{% url location_store %}", parameters, function(data){
+              if(data.indexOf("error")==-1){
+                selectItem(data);
+              }else{
+                $('#errorMessage').innerHTML=data;
+              }
+            });
+        }catch(e){
+
+        }
+    }
+
+    function initLocationSelect(){
+        $('#location-search').autocomplete('{% url location_search %}', {
+                onItemSelect:selectAutocomplete,
+                formatItem:formatItem
+        })
+        //alert($('#location-search')[0])
+    }
+    initLocationSelect();
+</script>

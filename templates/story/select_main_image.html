@@ -1,0 +1,52 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load tagging_tags %}
+{% load pagination_tags %}
+{% block head_title %}{% blocktrans %}Select Story Main Image{% endblocktrans %}{% endblock %}
+{% load var_tag %}
+
+{% block body %}
+
+    <H1>Select the main Image of the Story</h1>
+    <ul>
+        {% var found_image = "False" %}
+        {% for item in story.storyline.all %}
+            {% if item.content_object.image %}
+                {% var found_image = "True" %}
+                <li style="float: left; margin: 10px;">
+                    <a href="{% url story_set_main_image story.slug item.content_object.id %}">
+                        <img src="{{item.content_object.get_thumbnail_url}}" alt=""  />
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% ifequal found_image "False" %}
+             <li>
+                 <h3>Your Story has no Images</h3>
+             </li>
+        {% endifequal %}
+    </ul>
+
+    {% var photos = user.added_photos.all %}
+    {% autopaginate photos 21 %}
+    <h1>Or choose one from your other Images</h1>
+    {% if photos %}
+        <ul>
+        {% for photo in photos %}
+             <li style="float: left; margin: 10px;">
+                <a href="{% url story_set_main_image story.slug photo.id %}">
+                    <img src="{{photo.get_thumbnail_url}}" alt=""  />
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+        <div style="clear: both;"></div>
+        {% paginate %}
+    {% else %}
+        <h3>You have no Images</h3>
+        <p>
+            Please upload some <a href="{% url photo_upload %}">here</a>
+        </p>
+    {% endif %}
+{% endblock %}

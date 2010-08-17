@@ -1,0 +1,65 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load tagging_tags %}
+{% load blog %}
+{% load blog_tags %}
+{% load recommendation_tags %}
+{% block head_title %}Event: {{ event.title }}{% endblock %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb event.slug event.get_absolute_url %}    
+{% endblock %}
+
+{% block body %}
+    <div class="event span-15">
+        {% if event.is_invitation %}
+            {% if not event.num_free_invites %}
+                <div class="vergeben-band"></div>
+            {% endif %}
+        {% endif %}
+        <h3>
+             Von: {{event.start_date|date}} -
+             Bis: {{event.end_date|date}}
+        </h3>
+        <h2>{{event.title}}</h2>
+	    <span class="subtitle">Von <a href="{{event.author.get_absolute_url}}" style="display: inline;">{{event.author}}</a></span>
+        <div style="text-align: center;">
+             <img src="{{ event.eventimage.get_display_url }}" alt="{{ event.title }}" align="middle"/>
+        </div>
+        <p class="event-body">
+            {{event.body}}
+        </p>
+	<div class="clearfix">
+        {% if user.is_authenticated %}
+            {% if event.is_invitation %}
+                {% if not event.num_free_invites %}
+                    <div class="form_next disabled">
+                        <button type="submit" >Einladung annehmen</button>
+                    </div>
+                {% else %}
+                    <form action="{% url accept_invitation event.id %}" class="form_next">
+                        <input type="hidden" value="update" name="action"/>
+                        <button type="submit" >Einladung annehmen</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+             <div class="form_next">
+                <button type="submit" onclick="{% if user.is_authenticated %}dijit.byId('recommendDialog_{{event.id}}').show(){% endif %}">Veranstaltung empfehlen</button>
+            </div>
+        {% endif %}
+	</div>
+
+    {% if user.is_authenticated %}
+        <div id="recommendDialog_{{event.id}}" style="display: none;" jsId="recommendDialog_{{event.id}}" dojoType="dijit.Dialog" title="Gastgeber empfehlen" class="tundra recommendDialog">
+            <div>
+                    {% show_recommendation_form event user %}
+            </div>
+        </div>
+    {% endif %}
+    </div>
+
+{% endblock %}

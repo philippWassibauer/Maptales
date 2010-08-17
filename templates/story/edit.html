@@ -1,0 +1,370 @@
+{% extends "map_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load geo_tags %}
+{% load photo_tags %}
+{% load video_tags %}
+
+
+{% block head_title %}{% trans "Story" %}: {{story.title}}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }} 
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+    <link href="{{ STATIC_URL }}uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }} 
+    {{ post_form.media }}
+{% endblock %}
+
+{% block map_header %}
+    <div class="story-steps ui-corner-tl ui-corner-tr">
+        <a href="{% url story_edit story.id %}" class="step1"></a>
+        <a href="{% url story_preview story.id %}" class="step2"></a>
+        <a href="{% url story_publish story.id %}" class="step3"></a>
+    </div>
+{% endblock %}
+
+{% block map_menu %}
+    <div id="location-search" class="ui-corner-bl">
+        <div style="padding: 10px;">
+            <a id="addgpx" href="#upload_gpx" rel="facebox" title="Add Paths from your GPS Device" class="button small-green-icon-button ui-corner-all" style="float:left; margin-right: 5px;">
+                Add GPS
+            </a>
+            <button title="Draw Line on Map" type="button" id="draw-line"
+                    class="small-green-icon-button ui-corner-all"
+                    style="float:left; margin-right: 5px;">
+                Draw Line
+            </button>
+            Goto: 
+            {% location_autocomplete "onLocationSearchComplete" %}
+        </div>
+        <script type="text/javascript">
+             function onLocationSearchComplete(lat, lng){
+                 $("#location_results").hide()
+                 $("#location_results").html("")
+                 maptales.map.setCenter(new GLatLng(lat, lng), 11);
+             }
+        </script>
+    </div>
+    <div class="map-line-menu">
+       <div id="line-list" class="line-list ui-corner-bl">
+       </div>
+   </div> 
+{% endblock %}
+
+
+{% block body %}
+    
+    {% add_photos_dialog request "upload_photos" "photoAddCallback" %}
+    {% add_video_dialog request "add_video" "videoAddCallback" %}
+         
+    <div class="container">
+        <div class="grey-body story-edit">
+            <div id="ajax-message" class="ui-corner-tl ui-corner-tr">
+            </div>
+            <div style="min-height: 250px;">
+                <div id="edit_storylinitem" style="padding: 1px; display: none;  min-height:348px;" class="white-round-bg ui-corner-all">
+                </div>
+    
+                <div id="edit_storyline" class="white-round-bg ui-corner-all">
+                    <div class="story-head">
+                        <!--<div class="story-icon span-2">
+                            {% if story.storyimage %}
+                                <img src="{{ story.storyimage.get_50x50_url }}" />
+                            {% else %}
+                                <div class="default-story-icon">
+                                    <a href="{% url select_main_image story.id %}">(change)</a>
+                                </div>
+                            {% endif %}
+                        </div>-->
+                        <div class="story-headline span-20 last">
+                            <span id="story-title">{{story.title|default:"No title"}} - <a href='#' onclick="return false;">(edit)</a></span>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                    
+                    <div class="span-10">
+                        <div class="storyline-edit-screen ui-corner-all">
+                            <h2>Storyline</h2>
+                            <div id="storylinecontainer">
+                             {% show_storyline story %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="span-10 last" style="width:490px;">
+                        <div id="story-edit-container" class="ui-corner-all">
+                            <h2>Add Something:</h2>
+                            <div>
+                                {% story_post_form request story %}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                
+                <div class="white-sidebox ui-corner-all" style="margin-top: 20px;">
+                    <h3 class="top-heading">Tip:</h3>
+                    <div>
+                        You can skip this step if you use our Mobile Apps for IPhone and Android.<br />
+                        Just capture your story on the go, and edit/publish it later!
+                        <img src="{{STATIC_URL}}images/phones.jpg" style="bottom:0;position:absolute;right:20px;"/>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="white-round-bg story-continue ui-corner-all">
+                <div>
+                    <a href="{% url story_preview story.id %}" class="big-green-button ui-corner-all">
+                        Continue
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload_gpx" style="display: none; width: 960px;">
+        <div id="dialog-container" style="">
+            <div class="span-10 last">
+                <form id="story-gpx-upload" action="" method="POST">
+                    <h3>Add a GPX Track to this Story</h3>
+                    {{ gpx_upload_form|as_uni_form }}
+                    <div class="uniform_buttons" style="clear:both;">
+                         <button type="submit">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    
+    <div id="edit_story" style="display: none;">
+        <div id="dialog-container">
+            <div id="edit_story_result"></div>
+            <form id="story-edit" action="" method="POST">
+                
+                <div class="uniform_buttons">
+                    <button type="submit" onclick="checkTitle()">Save</button>
+                    <button type="button" onclick="$('#edit_story').dialog('close')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block js_init %}
+    <script type="text/javascript">
+          if (GBrowserIsCompatible()) {
+               var maptales = {}
+               var zoom = 2;
+                if({{story.get_center_location.x|default:0}}){
+                    zoom = 12
+                }
+                maptales.map = new MMap("map", new GLatLng({{story.get_center_location.y|default:32.54681317351516}}, {{story.get_center_location.x|default:-6.328125}}), zoom)
+                maptales.map.addMapType(G_PHYSICAL_MAP)
+                $("#map").resizable({
+                    maxWidth: 950,
+                    minWidth: 950,
+                    handles: 's',
+                    stop: function(event, ui) { maptales.map.checkResize(); },
+                });
+          }
+    </script>
+    <script type="text/javascript">
+            var dialog_position = ["auto", 100]
+            var postPictureAttachments = []
+            
+            CURRENT_STORY_ID = "{{story.id}}";
+            PLACE_MARKER_URL = "{% url place_item %}";
+            STORE_LINE_URL = "{% url geo_create_line %}";
+            UPDATE_LINE_URL = "{% url geo_update_line %}";
+            var isDrawingLine = false;
+            
+            function photoAddCallback(uids){
+                if(uids&&uids.length>0){
+                    for(var i=0; i<uids.length; i++){   
+                        postPictureAttachments.push(uids[i]);
+                    }
+                    reloadAttachmentList();
+                }
+            }
+            
+            function checkTitle(){
+                alert("sdf")
+            }
+            
+            
+            $(document).data("story_title", "{{story.title}}")
+            
+            function editStoryTitle(){
+                $(this).html("<input type='text' id='story-title-field'  value='"+$(document).data("story_title")+"' /><button type='submit' onclick='saveStoryTitle()'>Save</button>")
+                $('#story-title').unbind("click", editStoryTitle)
+                $('#story-title-field').keyup(function(e){
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if(code == 13) { //Enter keycode
+                        saveStoryTitle()
+                    }
+                })
+            }
+            
+            function saveStoryTitle(){
+                $(document).data("story_title", $("#story-title-field").val())
+                $('#story-title').load("{% url edit_story_title story.id %}", {title:$("#story-title-field").val()}, function(){
+                    $('#story-title').bind("click", editStoryTitle)
+                })
+            }
+            
+            $('#story-title').bind("click", editStoryTitle)
+            
+            function reloadAttachmentList(){
+                $('#post-attachements').load("{% url storylineitem_attachments %}?items="+postPictureAttachments.join(","), function(){
+                    $('#post-attachements').sortable({ axis: 'x',
+                        stop: function(event, ui) {
+                            //alert("sd")
+                        },
+                        start: function(event, ui) {
+                           //alert("sd")
+                        }
+                    })
+                })
+                $('#attachment-area').fadeIn()
+            }
+            
+            function stopDrawingLine(){
+                isDrawingLine = false;
+                $("#draw-line").html("Draw Line")
+                maptales.map.stopEditingLine()
+            }
+            
+            function hide_edit_screen(){
+                $('#edit_storylinitem').hide()
+                $('#edit_storyline').fadeIn()
+                reloadStoryline();
+            }
+            
+            function load_storylineitem(storylineitem_id){
+                $('#edit_storylinitem').load("{% url edit_storylineitem %}?storylineitemid="+storylineitem_id, function(){
+                })
+            }
+            
+            function storyline_edit_screen_reply(reply){
+                try{
+                    $('#edit_storylinitem').html(reply)
+                    reloadStoryline()
+                    $("#storylineitem-edit-form").ajaxForm(options)
+                }catch(e){
+                }
+            }
+            
+            function load_edit_screen(storylineitem_id){
+                $('#edit_storylinitem').html("<div class='loading' style='margin-top: 140px;'><span>loading...</span><div>")
+                $('#edit_storyline').hide()
+                $('#edit_storylinitem').fadeIn()
+                load_storylineitem(storylineitem_id)
+            }
+            
+            function removeLineFromStory(index){
+                var pathid = maptales.map.getLine(index).id;
+                var type = maptales.map.getLine(index).type;
+                post("{% url remove_path_from_story story.id %}", {pathid: pathid, content_type: type }, 'text', function(){
+                     successMessage("Successfully removed Path")
+                 })
+                maptales.map.deleteLine(index)
+            }
+            
+            function videoAddCallback(id){
+                alert(id)
+            }
+            
+            function addGPX(id){
+                post("{% url add_path_to_story story.id %}", {pathid: id}, "json", function(reply){
+                    try{
+                        maptales.map.placeGeoJsonTrack(reply)
+                        maptales.map.zoomToLine(maptales.map.getNumLines()-1)
+                    }catch(e){
+                        alert(e)
+                    }
+                    $("#upload_gpx").dialog("close")
+                })
+            }
+            
+            
+            function reloadStoryline(){
+                $('#storylinecontainer').load('{% url story_storyline story.id %}', function(){
+                    initialize_reorder();
+                    initialize_removables();
+                })
+            }
+            
+            $(document).ready(function() {
+                $("#draw-line").click(
+                    function(){
+                        if(!isDrawingLine){
+                            isDrawingLine = true;
+                            $("#draw-line").html("Stop")
+                            maptales.map.startDrawingLine(stopDrawingLine)
+                        }else{
+                            stopDrawingLine()
+                        }
+                    }
+                );
+                
+                // prepare Options Object
+                var options = {
+                    url: '{% url ajax_gpx_upload story.id %}', // Here we pass the xhr flag
+                    dataType:  'json',
+                    method: "POST",
+                    iframe: true,
+                    success:   function(reply){
+                        try{
+                            maptales.map.placeGeoJsonTrack(reply)
+                            maptales.map.zoomToLine(maptales.map.getNumLines()-1)
+                            $('#upload_gpx').dialog("close")
+                        }catch(e){
+                            
+                        }
+                    }
+                };
+                // bind form using ajaxForm
+                $('#story-gpx-upload').ajaxForm(options); //My form id is 'tf'
+            
+                {% put_story_on_map story "true" %}
+                
+                var topLeft = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(100,16));
+                maptales.map.gmap.addControl(new GMapTypeControl(), topLeft);
+                maptales.map.gmap.enableContinuousZoom();
+                
+                // prepare Options Object
+                var options = {
+                    url: '', // Here we pass the xhr flag
+                    dataType:  'html',
+                    iframe: true,
+                    success:   function(reply){
+                        try{
+                            $('#edit_story_result').html(reply)
+                        }catch(e){
+                            
+                        }
+                    }
+                };
+                // bind form using ajaxForm
+                
+                $("#dynamic_track_list_div").load("{% url track_selector_list user.username %}?callback=addGPX")
+                
+            })
+        </script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "photos/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load wiki %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load truncchar_tag %}
+{% load profile_tags %}
+{% block head_title %}{% blocktrans %}Your Photos{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    {% show_profile_header user user "photos" %}
+
+    {% if photos %}
+        <div class="span-17">
+            {% autopaginate photos %}
+                {% for photo in photos %}
+                    <div class="gallery-photo-medium">
+                        <a href="{% url photo_details photo.id %}">
+                            <img src="{{ photo.get_250x200_url }}" alt="{{ photo.title }}"/>
+                        </a>
+                        <br />
+                        Where? <a href="#">{{ photo.location_name|truncchar:30 }}</a>
+                        <br />
+                        Viewed {{ photo.view_count }} times
+                    </div>
+                    {% cycle "" "<div style='clear: both;'></div>" %}
+                {% endfor %}
+            <div style='clear: both;'></div>
+            {% paginate %}
+        </div>
+        <div span="span-7 last">
+            <b>Hier kommt noch was</b>
+        </div>
+    {% else %}
+        <p>No photos were found.</p>
+    {% endif %}
+    
+    
+{% endblock %}

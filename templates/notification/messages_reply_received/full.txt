@@ -1,0 +1,11 @@
+{{ message.sender }} replied to your Message on Maptales.com
+
+Subject: {{ message.subject }}
+
+Message:
+{{ message.body }}
+
+To reply go here:
+
+http://{{ current_site }}{{ message.get_absolute_url }}
+

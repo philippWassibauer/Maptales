@@ -1,0 +1,20 @@
+{% load ajax_pagination_tags %}
+{% load object_to_content_type %}
+{% autopaginate posts 10 %}
+
+<ul id="select-post-list" class="select-list">
+    {% for post in posts %}
+        <li postid="{{post.id}}">{{post}}</li>
+    {% empty %}
+        <li>You have no Posts</li>
+    {% endfor %}
+</ul>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select-post-list li").click(function(){
+            {{callback_function}}($(this).attr("postid"))
+        })
+    })
+</script>
+<div style="clear:both;"></div>
+{% ajax_paginate %}

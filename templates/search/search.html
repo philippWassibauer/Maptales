@@ -1,0 +1,59 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load extra_tagging_tags %}
+{% load blog %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+
+{% block head_title %}Suchergebnisse{% endblock %}
+
+{% block body_plain %}
+
+
+    <div class="span-16" style="background-color: #FFFFFF; margin-right: 5px;">
+        <div style="padding: 10px;">
+            <h2>Suche</h2>
+            <form method="get" action=".">
+               <table>
+                   {{ form.as_table }}
+                   <tr>
+                       <td>&nbsp;</td>
+                       <td>
+                           <input type="submit" value="Search">
+                       </td>
+                   </tr>
+               </table>
+
+               {% if page.object_list %}
+                   {% for result in page.object_list %}
+                       <p>
+                           ---------
+                           {{ result.object }}
+                       </p>
+                   {% endfor %}
+               {% else %}
+                   <p>No results found.</p>
+               {% endif %}
+           </form>
+       </div>
+	</div>        
+ 
+    <div class="span-8 last" style="width: 315px;">
+        <div style="background-color: #FFFFFF; padding: 1px 0;">
+            <div class="event-calendar-teaser">
+            </div>
+            <div style="padding: 1px 15px;">
+            <h2>Der Einfachleben.com Eventkalendar</h2>
+            <p>
+                Haben Sie einen interesanten Event? Dann kündigen Sie ihn doch
+                hier an. <a href="#">Weiterlesen</a>
+            </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

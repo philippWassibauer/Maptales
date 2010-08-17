@@ -1,0 +1,61 @@
+{% load i18n %}
+{% load avatar_tags %}
+{% load audio_tags %}
+{% load featured_tags %}
+{% load flagtags %}
+{% load profile_tags %}
+{% load activity_stream_tags %}
+        
+ <h3>Following</h3>
+<p>
+    {% followed_by_him other_user 20 %}
+</p>
+<h3>Followers</h3>
+ <p>
+    {% following_him other_user 20 %}
+</p>
+   <h1>Requests</h1>
+   <div class="action-wrapper">
+       <div>
+          <ul>
+            {% if is_me %}
+            {% else %}
+                {% if not is_me %}
+                    {% if is_friend %}
+                    {% else %}
+                        <li>
+                            <a href="{% url friend_request other_user %}">Add as Friend</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                <li>
+                    <a href="{% url messages_compose_to other_user%}">Send message</a>
+                </li>
+            {% endif %}
+          </ul>
+       </div>
+   </div>
+<!--
+<div class="schmiede-action-module">
+    {% if is_me %}
+        <h1>{% trans "Your Friends" %}</h1>
+        <div class="action-wrapper">
+            {% if other_friends %}
+                <div class="members clearfix">
+                {% for friendship in other_friends %}
+                    {% show_profile_preview friendship.friend %}
+                {% endfor %}
+                </div>
+            {% else %}
+            {% endif %}
+       </div>
+     {% else %}
+            <h1>{% blocktrans %}{{ other_user }}'s Friends{% endblocktrans %}</h1>
+            <div class="action-wrapper">
+                {% for friendship in other_friends %}
+                    {% show_profile_preview friendship.friend %}
+                {% endfor %}
+                <div style="clear: both;"></div>
+           </div>
+    {% endif %}
+ </div>  -->

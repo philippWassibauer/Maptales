@@ -1,0 +1,15 @@
+{% load smartif_tag %}
+<div class="title">{{ activity_item.actor.get_profile.render_inline }} has <span class="activity-action">placed</span> <b>{{activity_item.subjects.count}}</b> items:</div>
+<div class="subtext">
+    {% for item in activity_item.subjects.all %}
+            {% if forloop.counter < 6 %}
+                {% ifequal item.content_type.name "image" %}
+                        <img src="{{ item.content_object.get_thumbnail_url }}" alt="" />
+                   
+                {% else %}
+                    no image
+                {% endifequal %}
+            {% endif %}
+    {% endfor %}
+</div>
+{% include "activity_stream/date_bar.html" %}

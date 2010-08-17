@@ -1,0 +1,20 @@
+<div id="currently-viewed-item">
+    
+</div>
+<ul id="photos-in-area" class="photos-in-area">
+    {% for item in items %}
+        <li onclick="load_item('{% url photo_details_browse item.content_object.pk %}')">
+            <img src="{{item.content_object.get_thumbnail_url}}" />
+        </li>
+    {% endfor %}
+</ul>
+<script type="text/javascript">
+    function load_item(url){
+        $('#photos-in-area').hide()
+        $('#currently-viewed-item').load(url)
+    }
+    function return_to_list(){
+        $('#currently-viewed-item').hide();
+        $('#photos-in-area').show();
+    }
+</script>

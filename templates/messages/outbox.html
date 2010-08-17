@@ -1,0 +1,28 @@
+{% extends "messages/base.html" %}
+
+{% load i18n %}
+{% load timezone_filters %}
+
+{% block messages_body %}
+    
+        <h2>Sent Messages</h2>
+        
+        <table class="messages">
+            <thead>
+                <tr><th>Recipient</th><th>Subject</th><th>Sent on</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                {% for message in message_list %} 
+                    <tr>
+                        <td>{{ message.recipient }}</td>
+                        <td>
+                        <a href="{{ message.get_absolute_url }}">{{ message.subject }}</a>
+                        </td>
+                        <td>{{ message.sent_at|date:_("DATETIME_FORMAT") }}</td>
+                        <td><a href="{% url messages_delete message.id %}?next={% url messages_outbox %}">{% trans "delete" %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

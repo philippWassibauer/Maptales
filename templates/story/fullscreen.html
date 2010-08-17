@@ -1,0 +1,152 @@
+{% extends "story/view_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load object_to_content_type %}
+{% load comments_tag %}  
+{% block head_title %}{% trans "Story" %}: {{story.title}}{% endblock %}
+
+{% load avatar_tags %}
+{% load addthis_tag %}
+{% block header_container %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block content_container %}
+     <div class="fullscreen-story">
+          <div id="story-finished-dialog" style="display: none;">
+               <div id="dialog-container">
+                    <h3>Finished Story</h3>
+               </div>
+          </div>
+     
+          <div class="story-view" id="adaptingContainer">
+               <div class="ui-corner-tl ui-corner-tr" id="map_canvas" style="position: absolute; left: 0px; width: 100%; height: 100%; z-index: 1;">
+                    <div id="map" style="height: 100%; width: 100%; top: 0px; left: 0px;" class="ui-corner-tl ui-corner-tr">
+                    </div>
+               </div>
+               
+               <div style="position: absolute; margin: 0 auto; width: 670px; height: 365px; bottom: 90px; right: 3px; z-index: 9999;">
+                    <div id="storyline_scroller" style="">
+                         <div class="control-bar">
+                              <a href="#map_canvas" id="story-play" class="story-play">Play</a>
+                         </div>
+                         <div class="white-round-bg ui-corner-all" style="padding: 0px;">
+                              <div class="scroll-backward ui-corner-tl ui-corner-bl" onclick="gotoPrevStorylineItem()">
+                                   <div class="arrow"></div>
+                              </div>
+                              <div class="scroll-foreward ui-corner-tr ui-corner-br" onclick="gotoNextStorylineItem()">
+                                   <div class="arrow"></div>
+                              </div>
+                              <div id="storyline_content">
+                                   {% story_big_teaser story %}
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          
+               <div style="position: absolute; bottom: 0px; width: 100%; z-index: 9999; height: 80px;">
+                    <div style="position: absolute; bottom: 0px; width: 100%; height: 80px;">
+                         <div class="white-round-bg ui-corner-all">
+                              {% show_storyline_slider story "maptales.story.onSlideshowClick" "maptales.story.onFinished" %}
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     
+     <script type="text/javascript">
+          function onWinResize(is_initial){
+               var dimensions = {};
+               dimensions.width = $(window).width()
+               dimensions.height = $(window).height()
+               
+               $('#adaptingContainer').width(dimensions.width);
+               $('#adaptingContainer').height(dimensions.height);
+               maptales.map.checkResize();
+          }
+          
+          $(window).resize(function(){
+               onWinResize()   
+          })
+          
+          $(document).ready(function(){
+               onWinResize()
+               
+               $('#storyline_scroller').fadeOut(20)
+               
+               maptales.story.onFlyStart = function(){
+                    $('#storyline_scroller').fadeOut(2000)
+               }
+               
+               maptales.story.onFlyFinish = function(){
+                    $('#storyline_scroller').fadeIn(2000)
+                    $('#storylineitem .image-black-bg').height($('#storylineitem .post-text').height()+32)
+               }
+               
+               window.setTimeout(function(){
+                    $('#storyline_scroller').fadeIn(2000)
+               }, 9000)
+              
+          })
+          
+          var flash_vars = {
+               zoomedInZoom: 17,
+               zoomOutRange: 7,
+               slidesTime: 8,
+               zoomOutYaw: 40,
+               zoomInYaw: 45,
+               centerXOffset: 250,
+          }
+     </script>
+<!--<div class="span-6 last">
+     <div class="grey-round-bg ui-corner-all">
+          <h3>Navigation Tips:</h3>
+          <p>
+               After clicking on the map you can control it with the following
+               commands of your keyboard:
+          </p>
+          <ul>
+               <li>+: zoom in</li>
+               <li>-: zoom out</li>
+               <li>left/right: pan left/right</li>
+               <li>up/down: pan up/down</li>
+               <li>shift up/down: tilt the camero up/down</li>
+               <li>shift left/right: turn around current location</li>
+               <li>click on the markers to go to position</li>
+          </ul>
+     </div>
+     
+     
+     
+     <div class="grey-round-bg ui-corner-all" style="margin-top: 10px">
+          <h3>Export:</h3>
+          <div class="exportBoxContainer">
+                <div class="exportBox">
+                    <ul>
+                         <li>
+                            <a onclick="Dialog.toggle('External Link', null, null, 'objects/externalLinkDialog', {id: 12621}, this, Dialog.NORTH) ; return false;" href="http://www.maptales.com//view/12621" class="trigger">
+                            <img src="http://www.maptales.com//styles/default/css/images/linkToThisStory.gif"/> Link</a> to this story
+                        </li>
+                        <li>
+                            <a onclick="Dialog.toggle('Export', null, null, 'objects/Story/externalExportDialog', {id: 12621}, this, Dialog.NORTH);" href="#" class="trigger">
+                            <img src="http://www.maptales.com//styles/default/css/images/exportThisStory.gif"/> Embed</a> in website
+                        </li>
+                        <li>
+                            <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.kml" class="trigger">
+                            <img src="http://www.maptales.com//styles/default/css/images/kml.png"/> View in Google Earth</a>
+                        </li>
+                        <li>
+                            <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.gpx" class="trigger">
+                            <img src="http://www.maptales.com//styles/default/css/images/gpx_small.gif" style="margin: 2px 8px 4px 2px;"/> Download as GPX</a>
+                        </li>
+                        <li>
+                           {% add_this story.get_absolute_url story.title %}
+                        </li>
+                     </ul>
+                </div>
+            </div>
+            <div style="clear: both;margin-top: 10px;"></div>
+     </div>
+         -->
+{% endblock content_container %}

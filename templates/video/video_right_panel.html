@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load avatar_tags %}
+{% load tagging_tags %}
+{% load flagtags %}
+
+<div class="schmiede-action-module">
+   <div class="action-wrapper">
+       <div>
+            {% if is_me %}
+                 <a href="{% url video_edit video.id %}">Video editieren</a>
+                <form id="videoDeleteForm" action="{% url video_destroy video.id %}" method="POST">
+                    <a href="#" onclick="$('#videoDeleteForm')[0].submit()">Video löschen</a>
+                    <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="Video löschen" style="margin:0px; padding: 0px;" />
+                    <input type="hidden" name="action" value="delete"/>
+                </form>
+             {% endif %}
+          </ul>
+       </div>
+   </div>
+</div>
+

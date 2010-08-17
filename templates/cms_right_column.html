@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+{% load i18n %}
+{% load admin_util_tags %}
+{% block head_title %}{% page_attribute page_title %}{% endblock %}
+
+{% block profile_files_active %}active{% endblock %}
+
+{% block extra_head %}
+    <meta name="description" content="{% page_attribute meta_description %}"/>
+    <meta name="keywords" content="{% page_attribute meta_keywords %}"/>
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="span-17">
+            {% placeholder "body" %}
+         </div>
+        <div class="span-7 last">
+            {% placeholder right-column %}
+        </div>
+    {% endblock %}
+
+{% endblock %}

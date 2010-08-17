@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+{% load video_tags %}
+{% load i18n %}
+
+{% block rtab_id %}video{% endblock %}
+        
+{% block body %}
+    <div class="span-14">
+        <div class="schmiedeListModule news">
+            <h1>Videos</h1>
+            <!--<div class="search">
+                <input name="searchString" type="text"/>
+                <select>
+                    <option>One</option>
+                    <option>Two</option>
+                    <option>Three</option>
+                </select>
+            </div>-->
+            <div class="video-list">
+                {% for video in videos %}
+                   {% show_video_teaser video %} 
+                {% endfor %}
+                <div style="clear: both; float: none;"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="span-10 last">
+        <div class="schmiedeListModule featured">
+            <h1>Featured Projects</h1>
+            <ul>
+                <li>
+                  <div>
+                     <img src="/site_media/featured.jpg" alt="" />
+                     <h2>Aufbruch and more stuff</h2>
+                  </div>
+                  <div class="addonText">
+                      Hier kann man noch was schreiben
+                  </div>
+                </li>
+                <li>
+                  <div>
+                     <img src="/site_media/featured.jpg" alt="" />
+                     <h2>Aufbruch and more stuff</h2>
+                  </div>
+                  <div class="addonText">
+                      Hier auch
+                  </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

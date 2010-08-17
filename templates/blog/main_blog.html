@@ -1,0 +1,144 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load avatar_tags %}
+{% load pagination_tags %}
+{% load extra_tagging_tags %}
+{% load blog %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load blog_tags %}
+{% load comments %}
+
+{% block head_title %}{% blocktrans %}All Blogs{% endblocktrans %}{% endblock %}
+{% block page_name %}blog{% endblock %}
+{% block blog_active %}active{% endblock %}
+{% block extra_head %}
+    <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for All Users" href="/feeds/posts/all/" />
+{% endblock %}
+
+{% block body_plain %}
+    <div class="white_bg span-24 last">
+	<div id="teaser_main" class="span-24 last">
+	    {% if featured_post %}
+		<div class="teaser">
+		    <div class="imageblock">
+			{% if featured_post.postimage %}
+			    <img src="{{ featured_post.postimage.get_thumbnail_url }}" />
+			{% else %}
+    			    <img src="{% avatar_url featured_post.author 80 %}" />
+			{% endif %}
+		    </div>
+		    <div class="textblock">
+			<h1>
+			    Artikel des Monats
+			</h1>
+			<div class="text"> 
+			    {{ featured_post.body|truncatewords:15 }} 
+			    <a href="{{ featured_post.get_absolute_url }}">Weiterlesen...</a>
+			</div>
+		    </div>
+		</div> <!-- .teaser -->
+	    {% endif %}
+	</div><!-- #teaser_main -->
+
+
+	<div class="span-17">
+	    <div id="listing">
+		<div class="prefix-1 span-11">
+    		    {% if blogposts %}
+    			{% autopaginate blogposts 4 %}
+			<div id="blogposts" class="listing">
+			    {% for blogpost in blogposts %}
+				<div class="blogpost list-item dotted-bottom-section clearfix">
+				    {% if blogpost.author or blogpost.postimage %}
+					<div class="image">
+					    {% if blogpost.postimage %}
+						    <a href="{{ blogpost.get_absolute_url }}"><img src="{{ blogpost.postimage.get_thumbnail_url }}" /></a>
+					    {% else %}
+                            <img src="{% avatar_url blogpost.author 80 %}"
+                                alt="Photo of {{ blogpost.author }}"
+                                class="photo" />
+					    {% endif %}
+					</div>
+				    {% endif %}
+				    <div class="infoblock">
+					<h2><a href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a></h2>
+					<div class="body_head">
+					    <div class="date">
+						Vom {{ blogpost.publish|date }}
+					    </div>
+					    {% if blogposts.tags %}
+						<div class="tags">
+						    , Kategorie: {{ blogposts.tags|truncatewords:1 }}
+						</div>
+					    {% endif %}
+					</div>
+					<div class="body">
+					    {{ blogpost.body|truncatewords:30 }}
+					    <a href="{{ blogpost.get_absolute_url }}">Weiterlesen...</a>
+					</div>
+					<div class="body_footer">
+					    <div class="comments">
+                            {% get_comment_count for blogpost as comment_count %}
+                            {% if comment_count %}
+                                {{ comment_count }} Kommentar{{ comment_count|pluralize:",e"}}
+                            {% else %}
+                                keine Kommentare
+                            {% endif %}
+					    </div>
+					    <div class="author">
+						Von <span class="profile_name">{{ blogpost.author.get_profile }}</span>
+					    </div>
+					</div>
+				    </div> <!-- infoblock -->
+				</div> <!-- .blogpost -->
+			    {% endfor %}
+			</div> <!-- #blogposts -->
+			{% if user.is_staff %}
+			    <div class="clearfix">
+				<div class="form_next">
+				    <a href="{% url blog_new %}">Neuer Artikel</a>
+				</div>
+			    </div>
+			{% endif %}
+			<div class="pagination clearfix">
+			    {% paginate %}
+			</div>
+		    {% else %}
+			<div id="blogposts">
+			    <div class="blogpost dotted-bottom-section clearfix">
+    				Es wurden keine Artikel gefunden.
+			    </div>
+			</div>
+			{% if user.is_staff %}
+			    <div class="clearfix">
+				<div class="form_next">
+				    <a href="{% url blog_new %}">Neuer Artikel</a>
+				</div>
+			    </div>
+			{% endif %}
+		    {% endif %}
+
+		</div> <!-- .span-12 -->
+		<div class="span-5 last">
+		    {% if blogposts or search_terms %}
+			<div id="filters">
+			    <form method="get" action="">
+				<div id="search-by-name" class="searchbox">
+				    <div class="searchbox_prompt">Artikel durchsuchen</div>
+				    <input type="text" name="search"
+					value="{% if search_terms %}{{search_terms}}{% else %}Suchanfrage eintippen{% endif %}" />
+				    <button type="submit" class="hide">Suchen</button>
+				</div>
+			    </form>
+			</div> <!-- #filters -->
+		    {% endif %}
+		</div> <!-- .span-5 -->
+	    </div><!-- #listing -->
+	</div> <!-- .span-17 -->
+	{% include "teaser_sub_right.html" %}
+    </div> <!-- white_bg -->
+{% endblock %}

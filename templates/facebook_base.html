@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load svn_app_version %}
+{% load facebook_tags %}
+{% load var_tag %}
+
+{% block header_container  %}
+{% endblock header_container %}
+
+{% block content_container %}
+    <div style="clear: both; margin-bottom: 10px;"></div>
+    <div class="container">
+        {% if messages %}
+            <ul id="messages">
+                {% for message in messages %}
+                <li id="message_{{ forloop.counter }}"><a href="#" onclick="$('#message_{{ forloop.counter }}').fadeOut(); return false;"><small>{% trans "clear" %}</small></a> {{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block body %}{% endblock body %}
+    </div>
+{% endblock content_container %}
+
+
+{% block footer %}
+        <div class="container">
+
+        </div>
+{% endblock %}

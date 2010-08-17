@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}Maptales - Private Beta{% endblock %}
+
+{% block body %}
+        <div class="info-page ui-corner-tl ui-corner-tr">
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="birds1"></div>
+            <div class="birds2"></div>
+            <div class="birds3"></div>
+            <div class="info-page-container">
+                <div class="info-header"></div>
+                <h3>Wrong Passphrase</h3>
+                <p>
+                    Only Users who know the passphrase are allowed on Maptales at the moment. <br />
+                    If you are interested in Maptales.com then please sign up for a Private Beta Invite.
+                </p>
+            </div>
+        </div>
+{% endblock %}

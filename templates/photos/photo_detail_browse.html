@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load humanize %}
+{% load tagging_tags %}
+{% load photo_tags %}
+{% load flagtags %}
+{% load comments_tag %}
+{% load photo_tags %}
+{% load story_tags %}
+{% load geo_tags %}
+{% load addthis_tag %}
+
+<div>
+    <a href="#" onclick="return_to_list()">Go Back</a>
+</div>
+<div class="span-11">
+    <h1>{{ photo.title }}</h1>
+    {% if photo %}
+        <div class="gallery-photo">
+            <img src="{{ photo.get_display_url }}" alt="{{ photo.title }}"/>
+        </div>
+        <div class="photo-caption">
+            <p>{{ photo.caption }}</p>
+        </div>
+         <h3>Comments on This Photo:</h3>
+         {% comments photo %}
+    {% else %}
+        <p>No photos were found.</p>
+    {% endif %}
+</div>
+<div class="span-6 last" style="margin-top: 30px;">
+    
+    {% nearest_postings photo %}
+    
+    {% stories_containing photo %}
+    
+    {% user_photo_stream_navigator photo photo.member user %}
+    
+    
+    
+    <div class="photo-right-profile clearfix">
+        <div class="photo-profile-details">
+            Taken on: {{ photo.date_taken|date }}<br />
+            Viewed <strong>{{ photo.view_count }}</strong> times
+        </div>
+    </div>
+    <br />
+    <br />
+    
+    <h3>Share this item</h3>
+    {_% add_this photo.get_absolute_url photo.title %}
+    {_% show_overal_location photo %}
+</div>

@@ -1,0 +1,55 @@
+{% load threadedcommentstags %}
+{% load i18n %}
+{% load pagination_tags %}
+{% load avatar_tags %}
+{% load facebook_tags %}
+
+{% get_threaded_comment_tree for object as responses %}
+{% autopaginate responses %}
+{% if responses %}
+    <h3>Comments:</h3>
+    <ul class="responses">
+        {% for response in responses %}
+            <li class="{% cycle even,odd %} thread-{{ response.depth }} clearfix">
+                <div class="meta span-2 last">
+                    <div class="avatar">{% avatar response.user 50 %}</div>
+                </div>
+                <div class="bulk span-13 last">
+                    <div class="body">{{ response.comment|urlize|linebreaks }}</div>
+                    {% ifequal user response.user %}
+                        <form id="basic-form" method="POST" action="{% url tc_comment_delete response.id %}">
+                            <button type="submit">{% trans "Delete Post" %}"</button>
+                            <input type="hidden" name="next" value="{{ request.path }}" />
+                        </form>
+                    {% endifequal %}
+                    
+                    <div class="details"><a href="{% url profile_detail response.user.username %}">{{ response.user }}</a> {{ response.date_submitted|date }}</div>
+                    
+                     <div style="clear: both;"></div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% paginate %}
+{% if user.is_authenticated %}
+  <div class="post-comment">
+    <h3>Post a Comment</h3>
+    <form id="basic-form" action="{% get_comment_url object %}" method="POST">
+        <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
+        <button type="submit">{% trans "Post Response" %}</button>
+        <input type="hidden" name="next" value="{{ request.path }}" />
+    </form>
+    <div style="clear: both;"></div>
+  </div>
+{% else %}
+    <div class="post-comment">
+         <h3>Post a Comment</h3>
+        <div class="comment-login">
+            Please <a href="{% url acct_login %}">Login</a>
+            (or <a href="{% url acct_signup %}">Sign Up</a>)
+            or {% facebook_button %}
+            {% facebook_js %} to leave a comment
+        </div>
+    </div>
+{% endif %}

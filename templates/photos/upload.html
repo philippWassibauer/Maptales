@@ -1,0 +1,116 @@
+{% extends "site_base.html" %}
+{% load uni_form_tags %}
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load wiki %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load threadedcommentstags %}
+
+{% block head_title %}{% blocktrans %}Latest Photos{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }} 
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+    <link href="{{ STATIC_URL }}uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+        
+{% block body %}
+    <script type="text/javascript" src="{{ STATIC_URL }}uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery-ui-1.7.2.custom.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#uploadify").uploadify({
+                'uploader'       : '{{ STATIC_URL }}uploadify/uploadify.swf',
+                'script'         : '{% url photo_flash_upload %}',
+                'cancelImg'      : '{{ STATIC_URL }}uploadify/cancel.png',
+                'folder'         : 'uploads',
+                'queueID'        : 'fileQueue',
+                'width'          : 121,
+                'height'         : 34,
+                'auto'           : true,
+                'multi'          : true,
+                'simUploadLimit' : 1,
+                'buttonText'     : "Choose Files",
+                'fileExt'        : "*.jpg;*.jpeg;*.png;*.gif;",
+                'onAllComplete'  : function(data){
+                     
+                 },
+                'onComplete'  : function(){
+                    //alert("sdfdd")
+                 },
+    
+                'onSelect': function(){
+                    $('#uploadify').uploadifySettings('scriptData',
+                                    {"sessionid" : "{{request.session.session_key}}",
+                                     "tags":$('#id_tags_flash')[0].value,
+                                     "safetylevel":$('#id_tags_flash')[0].value})
+                    $('#flash_form').hide()
+                    return true;
+                }
+            });
+    
+        });
+    </script>
+
+    <div class="greyBorderBox projectBox" style="margin-bottom: 10px;">
+        <h1>{% trans "Upload Many Photos at once!" %}</h1>
+         <div id="flash_form">
+             <div class="ctrlHolder" id="div_id_tags">
+                <label for="id_tags_flash">
+                    Tags
+                </label>
+                <input type="text" maxlength="255" name="tags_flash" id="id_tags_flash"/>
+            </div>
+            <div class="ctrlHolder" id="div_id_safetylevel">
+                <label for="id_safetylevel_flash">
+                    Safetylevel
+                    *
+                </label>
+                <select id="id_safetylevel_flash" name="safetylevel_flash">
+                    <option selected="selected" value="1">Public</option>
+                    <option value="2">Followers</option>
+                    <option value="3">Friends</option>
+                    <option value="4">Private</option>
+                </select>
+                <p class="formHint" id="hint_id_safetylevel">Who can see these images?</p>
+        </div>
+         </div>
+         <div id="fileQueue">
+            
+         </div>
+        <div class="uniform_buttons">
+            <input type="file" name="uploadify" id="uploadify" />
+        <p><a href="javascript:jQuery('#uploadify').uploadifyClearQueue()">Cancel All Uploads</a></p>
+        </div>
+
+     </div>
+
+    <h1 align="center">-- OR --</h1>
+
+    <div class="greyBorderBox projectBox" style="margin-bottom: 10px;">
+        <h1>{% trans "Upload a Photo" %}</h1>
+        <div class="whiteInnerBox">
+            <div id="basic-form">
+                <form enctype="multipart/form-data"  action="" method="POST" id="photo_form">
+                    {{photo_form|as_uni_form}}
+                    <div class="uniform_buttons"> <input type="hidden" name="action" value="upload" /><button type="submit">upload</button></div>
+                    <div style="clear:both;"></div>
+                </form>
+            </div>
+         </div>
+     </div>
+{% endblock %}
+
+{%  block extra_body %}
+    <script src="http://ui.jquery.com/latest/ui/effects.core.js"></script>
+{% endblock %}

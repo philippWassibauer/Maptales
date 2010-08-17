@@ -1,0 +1,7 @@
+<ul>
+    {% for country in countries %}
+        <li>
+            <a href="{% url geo_country_browse country.slug %}">{{country.name}}</a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,39 @@
+{% load uni_form_tags %}
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load wiki %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load threadedcommentstags %}
+
+<div class="greyBorderBox projectBox" style="margin-bottom: 10px;">
+    <h1>{% trans "Upload Photos" %}</h1>
+    <div class="whiteInnerBox">
+        <div id="basic-form1">
+            <form id="form1" action="{% url photo_flash_upload %}" method="post" enctype="multipart/form-data">
+                <p>
+                    Click Upload and select as many files as you want. You may start many uploads after each other. The Images will be added to your Story.
+                </p>
+
+                <p>
+                    <b>Note:</b> If your Images contain their Location they will be automatically placed on the map.
+                </p>
+
+                <h3>Upload Queue</h3>
+                <div class="fieldset flash" id="fsUploadProgress" style="display:none">
+                </div>
+                
+                <p>
+                    When you are done click <a href="#" onclick="dijit.byId('upload_gpx').hide()">here</a> to go back to Story
+                </p>
+                <div>
+                    <span id="spanButtonPlaceHolder"></span>
+                    <input id="btnCancel" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
+                </div>
+            </form>
+        </div>
+     </div>
+ </div>

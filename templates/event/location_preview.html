@@ -1,0 +1,13 @@
+<div id="div_location" class="ctrlHolder">
+    <label for="location">  Location * </label>
+    <div id="location_result_container" class="location-select">
+        {{location.name}} <br />
+        {{location.address}}<br />
+        {{location.zip_code}}-{{location.city}}
+        <input type="hidden" name="location" value="{{location.id}}" />
+        <div>
+            <a href="#" onclick="deselectItem(); return false;">andere Location angeben</a>
+        </div>
+    </div>
+
+</div>

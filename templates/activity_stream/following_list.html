@@ -1,0 +1,10 @@
+{% load avatar_tags %}
+{% if following %}
+    {% for bein_followed in following %}
+        <a href="{% url activity_stream bein_followed.username %}" class="profile-signature-image">
+            <img src="{% avatar_url bein_followed 24 %}" title="{{ bein_followed }}" height="24px" width="24px"/>
+        </a>
+    {% endfor %}
+{% else %}
+   <b>Is not following anybody.</b>
+{% endif %}

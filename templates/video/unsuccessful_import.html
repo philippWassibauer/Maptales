@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+
+{% load oembed_tags %}
+{% load i18n %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+
+    {{ block.super }}
+    {% breadcrumb_url "Medien" location_edit_files user.username %}    
+    {% breadcrumb_url "Video hochladen" upload_video %}    
+{% endblock %}
+
+
+{% block body %}
+    <h1>Fehler</h1>
+
+    <p>Die URL des Videos: {{url}} scheint nicht richtig zu sein. Bitte überprüfen Sie sie und versuchen es nochmals.</p>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% block head_title %}Kontakt{% endblock %}
+
+{% block body %}
+    <div class="profile-panel">
+        <form action="{% url contact_form %}" method="POST">
+            {{contact_form|as_uni_form}}
+            <div class="clearfix">
+                <div class="form_next">
+                    <button type="submit">Speichern</button>
+                </div>
+            </div>
+        </form>
+   </div>
+{% endblock %}

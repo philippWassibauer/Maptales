@@ -1,0 +1,50 @@
+{% extends "photos/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load tagging_tags %}
+{% load wiki %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load photo_tags %}
+{% load flagtags %}
+{% load uni_form_tags %}
+{% load oembed_tags %}
+
+{% block head_title %}{% blocktrans %}Editing Photo Details{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    <div class="profile-panel">
+        <div class="right_panel">
+            {% include "video/video_right_panel.html" %}
+        </div>
+
+        <h1>Video editieren</h1>
+
+        <div>
+            {% oembed 430x500 %}
+               {{video.import_url}}
+            {% endoembed %}
+        </div>
+
+        <div id="basic-form">
+            <fieldset>
+                <legend>Video editieren</legend>
+
+            {% ifequal video.creator request.user %}
+                <form method="POST" action="">
+                    {{form|as_uni_form}}
+                    <div>
+                        <input type="submit" value="Speichern" />
+                    </div>
+                </form>
+            {% else %}
+                <p>Sie dürfen dieses Video nicht editieren</p>
+            {% endifequal %}
+            </fieldset>
+        </div>
+    </div>
+
+{% endblock %}
+

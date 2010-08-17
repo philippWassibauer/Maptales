@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load profile_tags %}
+{% load story_tags %}
+{% block head_title %}{% trans "Your Stories" %}{% endblock %}
+{% block body %}
+    <div class="grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header viewed_user user "Your Experiences" %}
+        <div class="ui-corner-all white-round-bg">
+            <h3>Your Unpublished Stories</h3>
+            {% if unpublished_stories %}
+                <div class="your-story-list">
+                    {% for story in unpublished_stories %}
+                        {% story_big_pic_teaser story 1 %}   
+                    {% endfor %}
+                </div>
+            {% else %}
+                 <h5 style="margin-left: 20px;">You have no unpublished Stories</h5>
+            {% endif %}
+                 
+            <div style="clear: both;padding:20px 0 0;"></div>
+            <hr />
+            <h3>Your Published Stories</h3>
+            {% if published_stories %}
+                <div class="your-story-list">
+                    {% for published_story in published_stories %}
+                       {% story_big_pic_teaser published_story 1 %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                 <h5 style="margin-left: 20px;">You have no published Stories</h5>
+            {% endif %}
+            
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+{% endblock %}

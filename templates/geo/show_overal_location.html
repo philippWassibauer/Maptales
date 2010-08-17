@@ -1,0 +1,48 @@
+{% if location %}
+    <div id="where-location-overview">
+        <h3>Where?</h3>
+        <div id="overal_location_map">
+        </div>
+        <div id="detail_location_map">
+        </div>
+        <div>Location: {{location.y|floatformat:"3"}}, {{location.x|floatformat:"3"}}
+        <!---
+            (<a href="#" onclick="$('#place-this-item').show(); $('#where-location-overview').hide()">change</a>)
+        --></div>
+        <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={{GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+        <script type="text/javascript">
+          if (GBrowserIsCompatible()) {
+               var point_of_interest = new GLatLng({{location.y}}, {{location.x}});
+               overal_map = new GMap2(document.getElementById("overal_location_map"));
+               overal_map.addControl(new GSmallZoomControl());
+               var marker = new GMarker(point_of_interest)
+               overal_map.addOverlay(marker);
+
+
+               var detailed_map = new GMap2(document.getElementById("detail_location_map"));
+               detailed_map.addControl(new GSmallZoomControl());
+               detailed_map.setMapType(G_HYBRID_MAP);
+               var marker2 = new GMarker(point_of_interest);
+               detailed_map.addOverlay(marker2);
+
+                var reposition_overall_location = function(){
+                    overal_map.setCenter(point_of_interest, 3);
+                    detailed_map.setCenter(point_of_interest, 10);
+                }
+          
+                reposition_overall_location()
+          }
+        </script>
+    </div>
+    <!--<div id="place-this-item" style="display:none;">
+         <h3>Place this Item</h3>
+         {_{_location_input_form}}
+    </div>-->
+
+
+
+
+{% else %}
+    <!--<h3>Place this Item</h3>
+    {_{location_input_form}}-->
+{% endif %}

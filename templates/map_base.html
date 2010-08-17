@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load svn_app_version %}
+{% load geo_tags %}
+{% block body_tag_hooks %}class="map-body"{% endblock %}
+
+{% block external_js %}
+    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={{settings.GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.ajaxQueue.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.sizes.js"></script>
+    
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.templates.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.form.js"></script>
+    
+    <script type="text/javascript" src="{{STATIC_URL}}uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.disable.text.select.pack.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}jquery/jquery.form.js"></script>
+    
+    <script src="{{STATIC_URL}}map_base.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}js/MMap.js" type="text/javascript"></script>
+    
+    <script src="{{STATIC_URL}}js/HTMLMarker.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/MPolyline.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/MMarker.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/MCluster.js"></script>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/map.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="{{STATIC_URL}}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+        
+{% block content_container %}
+        <div class="container">
+            {% block map_header %}
+            {% endblock map_header %}
+            <div id="map_canvas">
+                {% block map_menu %}{% endblock %}
+                <div id="map">
+                </div>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
+{% endblock content_container %}
+
+{% block js_init %}
+    <script type="text/javascript">
+          if (GBrowserIsCompatible()) {
+               var maptales = {}
+                maptales.map = new MMap("map", new GLatLng(32.54681317351516, -6.328125), 2)
+                maptales.map.addMapType(G_PHYSICAL_MAP)
+                $("#map").resizable({
+                    maxWidth: 950,
+                    minWidth: 950,
+                    handles: 's',
+                    stop: function(event, ui) { maptales.map.checkResize(); },
+                });
+          }
+    </script>
+   {% block post_map_js %}
+   {% endblock %}
+{% endblock %}

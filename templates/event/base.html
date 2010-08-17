@@ -1,0 +1,7 @@
+{% extends "site_base.html" %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_url "Events" event_list_all %}    
+{% endblock %}

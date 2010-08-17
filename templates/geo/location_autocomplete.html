@@ -1,0 +1,78 @@
+<span id="autocomplete_{{callback_function}}" style="position: relative;">
+    <input type="text" name="search_name" id="location_search" />
+    <ul id="location_results">
+    </ul>
+</span>
+<script type="text/javascript">
+    $().ready(function() {
+        try{
+            var geocoder = new GClientGeocoder();
+            var selectedIndex = 0;
+            var current_results = []
+            $("#autocomplete_{{callback_function}} #location_search").keyup(function(e){
+                $(document).click(function(){
+                    $("#autocomplete_{{callback_function}} #location_results").html("")
+                    $("#autocomplete_{{callback_function}} #location_results").hide()
+                })
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if(code == 13) { //Enter keycode
+                    $("#autocomplete_{{callback_function}} #location_results li:nth-child("+(selectedIndex+1)+")").click()
+                }else if(code == 38){
+                    $("#autocomplete_{{callback_function}} #location_results li:nth-child("+(selectedIndex+1)+")").removeClass("selected")
+                    if(selectedIndex<=0){
+                        selectedIndex=current_results.length-1;
+                    }else{
+                        selectedIndex--;
+                    }
+                    $("#autocomplete_{{callback_function}} #location_search").val(current_results[selectedIndex])
+                    $("#autocomplete_{{callback_function}} #location_results li:nth-child("+(selectedIndex+1)+")").addClass("selected")
+                }else if(code == 40){ //down
+                    $("#autocomplete_{{callback_function}} #location_results li:nth-child("+(selectedIndex+1)+")").removeClass("selected")
+                    if(selectedIndex<(current_results.length-1)){
+                        selectedIndex++;
+                    }else{
+                        selectedIndex = 0;
+                    }
+                    $("#autocomplete_{{callback_function}} #location_search").val(current_results[selectedIndex])
+                    $("#autocomplete_{{callback_function}} #location_results li:nth-child("+(selectedIndex+1)+")").addClass("selected")
+                }else{
+                    selectedIndex = -1;
+                    var address = $("#autocomplete_{{callback_function}} #location_search").val()
+                    if(address.length>2){
+                        geocoder.getLocations(
+                            address,
+                            function(points) {
+                                current_results = []
+                              if (!points||!points["Placemark"]) {
+                                //alert(address + " not found");
+                              } else {
+                                 $("#autocomplete_{{callback_function}} #location_results").html("")
+                                 $("#autocomplete_{{callback_function}} #location_results").show()
+                                 //add list
+                                 for(var i=0; i<points["Placemark"].length; i++){
+                                    var lng = points["Placemark"][i]["Point"]["coordinates"][0]
+                                    var lat = points["Placemark"][i]["Point"]["coordinates"][1]
+                                    var adress = points["Placemark"][i]["address"]
+                                    current_results.push(adress)
+                                    var tabAccuracy = new Array(2,4,6,10,12,13,16,16,17);
+                                    var zoom = tabAccuracy[points["Placemark"][i]["AddressDetails"]["Accuracy"]]
+                                    $("#autocomplete_{{callback_function}} #location_results").append("<li onclick='_autocomplete_click_handler("+lat+","+lng+","+zoom+"); return false;'>"+adress+"</li>")
+                                 }
+                              }
+                            }
+                        );
+                    }
+                }
+            })
+        }catch(e){
+            
+        }
+        
+    });
+    
+    function _autocomplete_click_handler(lat, lng, zoom){
+        {{callback_function}}(lat, lng, zoom)
+        $("#autocomplete_{{callback_function}} #location_results").html("")
+        $("#autocomplete_{{callback_function}} #location_results").hide()
+    }
+</script>

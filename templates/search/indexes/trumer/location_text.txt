@@ -1,0 +1,1 @@
+{{ object.name|lower }} {{ object.address|lower }} {{ object.city|lower }} {{ object.zip_code }}

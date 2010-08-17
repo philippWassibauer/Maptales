@@ -1,0 +1,6 @@
+<div class="title">{{ activity_item.actor.get_profile.render_inline }}
+ <span class="activity-action"> unlocked the </span>
+ {{ activity_item.first_subject.content_object.badge.name }} Badge
+ <img src="{{ activity_item.first_subject.content_object.badge.icon }}" align="right" />
+</div>
+{% include "activity_stream/date_bar.html" %}

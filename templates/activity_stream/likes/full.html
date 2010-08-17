@@ -1,0 +1,31 @@
+<div class="title">
+    {{ activity_item.actor.get_profile.render_inline }} <span class="activity-action">likes</span> that:  
+</div>
+
+<div class="subtext">
+   {{ activity_item.first_subject.content_object.render }}
+</div>
+
+{% include "activity_stream/date_bar.html" %}
+
+<!--{% ifequal activity_item.first_subject.content_object.type placed %}
+        the freshly placed items of 
+    {% else %}
+        {% ifequal activity_item.type "posted_comment" %}
+            the new Comment of 
+        {% else %}
+            {% ifequal activity_item.type "created_story" %}
+                the new Story of 
+            {% else %}
+                {% ifequal activity_item.type "geodata_uploaded" %}
+                    the new GPS Tracks of 
+                {% else %}
+                    {% ifequal activity_item.type "started_following" %}
+                        that {{ activity_item.first_subject.content_object.first_subject.content_object.get_profile.render_inline }} is now following
+                    {% else %}
+                        
+                    {% endifequal %}
+                {% endifequal %}
+            {% endifequal %}
+        {% endifequal %}
+    {% endifequal %}-->

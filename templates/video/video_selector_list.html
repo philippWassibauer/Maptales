@@ -1,0 +1,13 @@
+{% load ajax_pagination_tags %}
+{% load object_to_content_type %}
+{% autopaginate videos 10 %}
+
+<ul id="select-video-list" class="select-list">
+    {% for video in videos %}
+        <li onclick="{{video_selector_list}}({{video.id}})">{{video}}</li>
+    {% empty %}
+        <li>You have no Videos</li>
+    {% endfor %}
+</ul>
+<div style="clear:both;"></div>
+{% ajax_paginate %}

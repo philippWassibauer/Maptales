@@ -1,0 +1,11 @@
+<div class="title">{{ activity_item.actor.get_profile.render_inline }}
+    <span class="activity-action">started following</span></div>
+
+<div class="subtext">
+       {% for item in activity_item.subjects.all %}
+           {{ activity_item.first_subject.content_object.render_inline }}
+        {% endfor %}
+</div>
+
+{% include "activity_stream/date_bar.html" %}
+

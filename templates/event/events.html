@@ -1,0 +1,44 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load extra_tagging_tags %}
+{% load blog %}
+{% load markup %}
+{% load switchcase %}
+{% load restructuredtext %}
+{% load event_tags %}
+
+{% block head_title %}{% blocktrans %}All Blogs{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for All Users" href="/feeds/posts/all/" />
+{% endblock %}
+
+{% block body_plain %}
+    <div id="teaser_main" class="span-24 last" onclick="window.location = '{% url warum %}';">
+        <div class="teaser">
+            <div class="textblock">
+            <span class="title">
+                Warum einfachleben.com?
+            </span>
+            <div class="text">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                magna aliquyam erat, sed diam voluptua.
+                <a href="#why" title="Warum einfachleben.com?">Weiterlesen...</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="span-16" style="background-color: #FFFFFF; margin-right: 5px;">
+        <h1>Events</h1>
+        
+    </div>
+    <div class="span-8 last" style="background-color: #FFFFFF; width: 285px; padding: 0 15px;">
+        <h2>Der Monat im Überblick</h2>
+        <div>{% month_cal 2007 5 %}</div>
+    </div>
+
+{% endblock %}

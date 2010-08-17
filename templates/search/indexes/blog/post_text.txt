@@ -1,0 +1,1 @@
+{{ object.tease|lower }} {{ object.body|lower }}

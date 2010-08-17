@@ -1,0 +1,5 @@
+{{follower}} is following you now on Maptales.com
+
+To view the Profile goto:
+
+http://{{current_site}}{% url activity_stream follower %}

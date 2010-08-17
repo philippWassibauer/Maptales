@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+    <div class="register-bg">
+        <div class="register-wrapper ui-corner-all">
+            <form class="ui-corner-all" action="{% url acct_signup %}" method="POST">
+                <h2 style="margin-top: 0px;">Ups, something went wrong while validating your credentials:</h2>
+                <p>You can still connect with Facebook later, so just continue the registration</p>
+                {{ signup_form|as_uni_form }}
+                
+                <div class="uniform_buttons">
+                    <button type="submit">{% trans "Submit" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "messages/base.html" %} 
+
+{% load i18n %} 
+{% load oembed_tags %}
+{% load timezone_filters %}
+
+{% block messages_body %}
+    <h2>{{ message.subject }}</h2>
+    
+    <div>
+        <strong>Sender:</strong>
+        <a href="{% url profile_detail message.sender %}">{{ message.sender }}</a>
+    </div>
+    <div>                                  
+        <strong>Subject:</strong>
+        <strong>{{ message.subject }}</strong>
+    </div>
+    <div>
+        <strong>Date:</strong>
+        <strong>{{ message.sent_at|localtime:account.timezone|date:_("DATETIME_FORMAT")}}</strong>
+    </div>
+    <div>
+        <strong>Recipient:</strong>
+        {{ message.recipient }}
+    </div>
+
+
+    <div style="margin: 10px;">
+        <p class="message-body">{% oembed %}{{ message.body|linebreaksbr }}{% endoembed %}</p>
+    </div>
+    
+
+    <form action="{% url messages_reply message.id %}" class="form_next" style="margin-bottom: 4px;">
+        {% ifequal message.recipient user %}
+         
+            <input type="hidden" value="update" name="action"/>
+            <button type="submit">Reply</button>
+    
+        {% endifequal %}
+  
+        <input type="hidden" value="update" name="action"/>
+        <button type="submit">Delete</button>
+    </form>
+      <div style="clear:both;"></div>
+{% endblock %}

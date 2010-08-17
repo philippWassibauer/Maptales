@@ -1,0 +1,48 @@
+{% extends "profiles/base.html" %}
+
+ {% load uni_form_tags %}
+{% load profile_tags %}
+{% load i18n %}
+
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+
+{% block body %}
+    {% if is_me %}
+     <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+         {% show_profile_header other_user user "edit profile"%}
+         {% include "account/account_menu.html" %}
+        <div class="span-16">
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>Edit Profile</h2>
+                <form id="profile_form" class="thin-form" method="POST" action="">
+                    <div class="ctrlHolder">
+                       <label>Password:</label>
+                       <span style="line-height: 25px;">
+                        <a href="{% url acct_passwd %}">{% trans "Change Password" %}</a>
+                       </span>
+                    </div>
+                    <div class="ctrlHolder">
+                       <label>Email:</label>
+                       <span style="line-height: 25px;"> {{user.email}}
+                        <a href="{% url change_email %}">{% trans "Change Email" %}</a>
+                       </span>
+                    </div>
+                    {{ profile_form|as_uni_form }}
+                    {% if extended_form %}{{ extended_form|as_uni_form }}{% endif %}
+                    <div class="uniform_buttons">
+                       <input type="hidden" name="action" value="update" />
+                       <button type="submit">{% trans "update" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="span-7 last right-profile-panel">
+            <!--{_% placeholder right-column %}-->
+            <div class="white-padded-round-bg ui-corner-all">
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+     </div>
+    {% endif %}
+{% endblock %}

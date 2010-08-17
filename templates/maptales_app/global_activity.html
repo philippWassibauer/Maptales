@@ -1,0 +1,34 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load activity_stream_tags %}
+{% block head_title %}{% trans "Activity" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+{% block body %}
+    <div class="span-17">
+        <h1>Currently on Maptales.com:</h1>
+        {% global_activity_stream 50 %}
+    </div>
+    <div class="span-7 last">
+        <div style="" class="borderBox left">
+            <div class="bottomLeftCorner"></div>
+            <div class="topLeftCorner"></div>
+            <div class="topRightCorner"></div>
+            <div class="bottomRightCorner"></div>
+            <div class="infoBoxContentBigPadding">
+                <h3 class="top-heading">Maptales for your Phone:</h3>
+                <p>We currently support Blackberry, IPhone and Android</p>
+                <a href="#">
+                    <img src="{{ STATIC_URL}}images/iappstore.png" alt="" />
+                </a>
+                <a href="#">
+                    <img src="{{ STATIC_URL}}images/android_market.png" alt="" />
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

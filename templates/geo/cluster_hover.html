@@ -1,0 +1,22 @@
+{% load truncchar_tag %}
+<div style="width: 250px; height: 75px; overflow: hidden;">
+    {% for story in stories %}
+        <div style="width: 750px;">
+            <div style="width: 250px; float: left;">
+                {% if story.storyimage.image %}
+                    <img align="left" style="margin-right: 10px;" src="{{story.storyimage.get_75x75_url}}" />
+                {% else %}
+                    {% if story.get_image %}
+                        <img align="left" style="margin-right: 10px;" src="{{story.get_image.0.get_75x75_url}}" />
+                    {% endif %}
+                {% endif %}
+                
+                <h4>{{story}}</h4>
+                <p>
+                    {{story.description|truncchar:100}} <br />
+                    <a href="{% url story_view_id story.id %}">View</a>
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,91 @@
+{% extends "photos/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Audio Details{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    <div class="profile-panel">
+        {% include "audio/setup-soundmanager.html" %}
+        <h1>Audio erfolgreich hochgeladen</h1>
+        {% if audio %}
+        <link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />
+        <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+        <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.slider.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+          $("#volumeBar").slider({ value: 50, max: 100, min: 0,  change: function(event, ui) { setVolume(ui.value); }});
+        });
+        </script>
+
+        <div class="audioplayer">
+            <div class="audio-controlwrapper">
+                <div class="audio-controlpanel" id="audio-controlpanel">
+                    <img id="audioplayercover" src="/site_media/soundmanager/cover.jpg" alt="cover"/>
+                    <div class="central-control">
+                        <div id="control-template" class="control-template">
+                            <div id="audioMetadataBlock" class="controls">
+                                <div>
+
+                                </div>
+                                <div class="statusbar">
+                                    <div class="loadingBg">
+                                        <div class="loading"></div>
+                                        <div class="position">
+                                            <div class="knob">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul style="display: none;">
+                                    <li>
+                                      <p>
+
+                                      </p>
+                                        <span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="timing">
+                                <div id="sm2_timing" class="timing-data">
+                                 <span class="sm2_position">%s1</span> / <span class="sm2_total">%s2</span>
+                                </div>
+                            </div>
+                            <div class="peak">
+                                <div class="peak-box"><span class="l"></span><span class="r"></span>
+                                </div>
+                            </div>
+                            <div id="spectrum-container" class="spectrum-container">
+                                <div class="spectrum-box">
+                                    <div class="spectrum"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-control">
+                        <div class="forward"  onclick="nextTrack()">
+                        </div>
+                        <div class="rewind" onclick="previousTrack()">
+                        </div>
+                        <div id="audioPlayButton" class="play" onclick="startAudioPlayer(event)">
+                        </div>
+                        <div class="volumeControl">
+                            <img class="down" src="/site_media/soundmanager/volume1.png" alt="leiser" />
+                            <div id="volumeBar" class="volumeBar">
+
+                            </div>
+                            <img class="up" src="/site_media/soundmanager/volume2.png" alt="lauter" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="playlist">
+                <li class="ui-corner-bottom">
+                    <a href="{{ audio.audio_file.url }}" class="playlist-item" onclick="return false;" {% if audio.cover %}coverimage="{{ audio.audioimage.get_audio_cover_url }}"{% endif %} ><span>{{ audio.title }}</span></a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

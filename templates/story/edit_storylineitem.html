@@ -1,0 +1,157 @@
+{% load uni_form_tags %}
+{% load oembed_tags %}
+{% load object_to_content_type %}
+{% load story_tags %}
+<div class="ui-corner-all" style="background-color: #FFF;">
+    <div class="topbar ui-corner-tr ui-corner-tl">
+        <div class="cancel-x" onclick="hide_edit_screen()"></div>
+        <span onclick="hide_edit_screen()" style="line-height: 20px; float: right; margin-right: 5px;">Go Back -></span>
+        <span>Editing Storyline Item</span>
+    </div>
+    <div style="padding: 10px;">
+        {% if submitted %}
+            <div id="edit_storylinitem_result" style="margin-bottom: 10px;">
+                <div class="ajax-message">Item was stored</div>
+            </div>
+        {% endif %}
+        
+    
+        <input type="hidden" name="storylineitemid" value="{{storylineitem.id}}" />
+        <div class="span-10">
+            <div id="story-edit-container" class="ui-corner-all">
+                {% if storylineitem.attachments.all %}
+                    <div id="attachments">
+                        {% for attachment in storylineitem.attachments.all %}
+                            {% ifequal attachment.content_type.name "video" %}
+                                <div class="attachment">
+                                    <div style="float: left;">
+                                        {% oembed 250x200 %}
+                                            {{attachment.content_object.import_url}}
+                                        {% endoembed %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="attachment">
+                                    <div style="float: left;">
+                                        Rotate Photo
+                                        <a href="{% url photo_ajax_rotate attachment.content_object.id %}?rotation=90" class="imageLink rotate-link">
+                                            <img src="{{STATIC_URL}}images/rotate-left.png" />
+                                        </a>
+                                        <a href="{% url photo_ajax_rotate attachment.content_object.id %}?rotation=270" class="imageLink rotate-link">
+                                            <img src="{{STATIC_URL}}images/rotate-right.png" />
+                                        </a>
+                                        <br />
+                                        <div class="rotate-image">
+                                            <img src="{{attachment.content_object.get_355_285_url}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endifequal %}
+                        {% endfor %}
+                    </div>
+                    <div style="clear:both; padding-top: 4px;" class="storylineitem-pagination">
+                        {% for attachment in storylineitem.attachments.all %}
+                            <a href="#" onclick="showAttachmentNumer({{forloop.counter}}); return false;">{{forloop.counter}}</a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="height: 150px;">
+                        <h3>No Medias Attached</h3>
+                        <p>
+                            Add Images, Videos etc. by using the buttons
+                            below the Post Form
+                        </p>
+                    </div>
+                {% endif %}
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div class="span-12 last" style="width: 490px;">
+            <div id="story-edit-container" class="ui-corner-all">
+                <h2>Add Something:</h2>
+                <div>
+                    {% story_post_form request storylineitem.story storylineitem %}
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <div style="clear:both;"></div>
+    <div class="pagination_simple ui-corner-bl ui-corner-br">
+        {% if storylineitem.get_previous_by_position %}
+            <a class="prev" href="#" onclick="load_edit_screen({{storylineitem.get_previous_by_position.id}}); return false;"> << previous storyline item </a>
+        {% endif %}
+        {% if storylineitem.get_next_by_position %}
+            <a class="next" href="#" onclick="load_edit_screen({{storylineitem.get_next_by_position.id}}); return false;">next storyline item >></a>
+        {% endif %}
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<script type="text/javascript">
+    function initialize_storylineitem_draggable(){
+        //initialize draggables
+        $('#storylineitem-edit-form .draggable').draggable({ appendTo: 'body', helper: 'clone',
+            start: function(event, ui){
+                $(ui.helper.context).hide()
+            },
+            stop: function(event, ui){
+                endDrag(event, $(ui.helper.context).attr("contenttype"), $(ui.helper.context).attr("objectid"))
+                $(ui.helper.context).addClass("draggable-placed")
+                $(ui.helper.context).click(function(){
+                   maptales.map.gotoMarker(marker)
+                })
+                $(ui.helper.context).show()
+            }
+        });
+    }
+    
+    function showAttachmentNumer(i){
+        try{
+            $('#attachments>*').each(function(){
+                this.className = "attachment"
+            })
+            $('#attachments>*')[parseInt(i)-1].className = "attachment-selected"
+            $('.storylineitem-pagination>*').each(function(){
+                this.className = ""
+            })
+            $('.storylineitem-pagination>*')[parseInt(i)-1].className = "selected"
+        }catch(e){
+            
+        }
+        
+    }
+    
+    $(document).ready(function(){
+        initialize_storylineitem_draggable();
+        
+        showAttachmentNumer(1)
+        
+        $("#storyitem_post_text").resizable({
+            handles: 's'
+        });
+        var post_edit_options = {
+            url: '{% url edit_storylineitem %}',
+            dataType:  'html',
+            iframe: true,
+            success: storyline_edit_screen_reply,
+        };
+        $("#storylineitem-edit-form").ajaxForm(post_edit_options)
+        $('.rotate-link').click(function(){
+            $(this).parent().find(".rotate-image").html("<div class='loading'><span>loading...</span><div>");
+            get(this.href, "text", function(){
+                load_storylineitem({{storylineitem.pk}});
+            })
+            return false;
+        })
+        
+        
+        $('a[rel*=facebox], button[rel*=facebox]').facebox({
+            loadingImage : '{{STATIC_URL}}images/loading-24.gif',
+            closeImage   : '{{STATIC_URL}}facebox/closelabel.gif'
+        })
+        
+    })
+    
+    
+</script>

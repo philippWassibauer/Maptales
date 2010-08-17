@@ -1,0 +1,31 @@
+<div class="content-selector">
+    <div class="select-header">
+        <div id="selected-items-list" class="ui-corner-all">
+            <div class="select-submit">
+                <button type="submit" id="selector-add-images" class="ui-corner-all">Add Images</button>
+            </div>
+            <span>Selected:</span>
+        </div>
+    </div>
+    <div id="dynamic_list_div" class="select-list">
+        
+    </div>
+    <script>
+        $("#dynamic_list_div").html("<div class='loading' id='loading'><span>loading...</span></div>")
+        jQuery().ready(function() {
+            $("#dynamic_list_div").load("{% url photo_selector_list viewed_user.username %}")
+         });
+        $('#selector-add-images').click(function(){
+            var images = $("#selected-items-list img")
+            var addedImages = []
+            images.each(function(item){
+                addedImages.push($(this).attr("contenttype")+"."+$(this).attr("objectid"))
+            })
+            {{callback}}(addedImages)
+        })
+    </script>
+</div>
+
+
+
+

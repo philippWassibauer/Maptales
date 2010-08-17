@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+
+{% load oembed_tags %}
+{% load i18n %}
+{% block profile_files_active %}active{% endblock %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+
+    {{ block.super }}
+    {% breadcrumb_url "Medien" location_edit_files user.username %}    
+    {% breadcrumb_url "Video hochladen" upload_video %}    
+{% endblock %}
+
+
+{% block body %}
+    <div class="profile-panel">
+        <h1>Success</h1>
+    
+        {% oembed 700x700 %}
+           {{video.import_url}}
+        {% endoembed %}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+{% load i18n %}
+{% load admin_util_tags %}
+{% block head_title %}{% page_attribute page_title %}{% endblock %}
+
+{% block profile_files_active %}active{% endblock %}
+
+{% block extra_head %}
+    <meta name="description" content="{% page_attribute meta_description %}"/>
+    <meta name="keywords" content="{% page_attribute meta_keywords %}"/>
+{% endblock %}
+
+{% block body %}
+    {% block content %}
+       <div class="info-page ui-corner-tl ui-corner-tr">
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="birds1"></div>
+            <div class="birds2"></div>
+            <div class="birds3"></div>
+            <div class="info-page-container">
+                <div class="info-header"></div>
+                {% placeholder "body" %}
+           </div>
+       </div>
+    {% endblock %}
+{% endblock %}

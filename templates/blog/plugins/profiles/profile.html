@@ -1,0 +1,18 @@
+{% load i18n %}
+{% load blog_tags %}
+
+<h2>{% trans "Blog" %}</h2>
+{% if is_owner %}
+    <div class="tab-actions">
+        <span><a href="{% url blog_new %}">Create Post</a></span> |
+        <span><a href="{% url blog_list_yours %}">List all my posts (including drafts)</a></span>
+    </div>
+{% endif %}
+
+{% if owner.added_posts.all %}
+    {% for blog_post in owner.added_posts.all %}
+        {% show_blog_post blog_post %}
+    {% endfor %}
+{% else %}
+    No blog posts yet.
+{% endif %}

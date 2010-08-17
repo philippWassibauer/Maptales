@@ -1,0 +1,82 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block head_title %}Emailadressen verwalten{% endblock %}
+
+{% block account_body %}
+    <h1>Gespeicherte Emailadressen</h1>
+    
+    {% if user.emailaddress_set.all %}
+        <table class="email_list" style="width:100%">
+            {% for emailaddress in user.emailaddress_set.all %}
+                <tr>
+                    <td>{% if emailaddress.primary %}<b>{{ emailaddress.email }}</b>{% else %}{{ emailaddress.email }}{% endif %}</td>
+                    {% if emailaddress.verified %}
+                        <td>
+                            <span class="verified">überprüft</span>
+                            {% if emailaddress.primary %}
+                                - <span class="primary">Primäradresse</span>
+                            {% else %}
+                                <form style="display: none;" id="primary_{{ forloop.counter }}" method="post" action="">
+                                    <input type="hidden" name="email" value="{{ emailaddress.email }}"/>
+                                    <input type="hidden" name="action" value="primary"/>
+                                </form>
+                                -
+                                <a href="#" onclick="$('#primary_{{ forloop.counter }}').submit();">
+                                    zur primären E-Mailadresse machen
+                                </a>
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td>
+                            <span class="unverified">noch nicht überprüft</span>
+                            <form style="display: none;" id="send_{{ forloop.counter }}" method="post" action="">
+                                <input type="hidden" name="email" value="{{ emailaddress.email }}"/>
+                                <input type="hidden" name="action" value="send"/>
+                            </form>
+                            -
+                            <a href="#" onclick="$('#send_{{ forloop.counter }}').submit();">
+                                nochmal prüfen
+                            </a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        {% if emailaddress.primary %}
+                        {% else %}
+                            <form style="display: none;" id="remove_{{ forloop.counter }}" method="post" action="">
+                                <input type="hidden" name="email" value="{{ emailaddress.email }}"/>
+                                <input type="hidden" name="action" value="remove"/>
+                            </form>
+                            <a class="remove" href="#" onclick="$('#remove_{{ forloop.counter }}').submit()">
+                                entfernen
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %} {# no user.emailaddress_set.all #}
+        <div>
+            Sie müssen mindestens eine E-Mailadresse angeben um Benachrichtigungen und
+            Empfehlungen zu empfangen. 
+        </div>
+        <br />
+    {% endif %}
+    
+    <hr />
+    <div>
+        <h2>E-Mailadresse hinzufügen</h2>
+        <br />
+        <form method="post" action="" class="uniForm">
+            {{ add_email_form|as_uni_form }}
+            <div class="clearfix">
+                <div class = "form_next">
+                    <input type="hidden" name="action" value="add"/>
+                    <button type="submit">Hinzufügen</button>
+               </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

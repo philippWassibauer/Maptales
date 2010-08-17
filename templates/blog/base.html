@@ -1,0 +1,8 @@
+{% extends "site_base.html" %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+
+    {{ block.super }}
+    {% breadcrumb_url "Artikelübersicht" main_blog %}    
+{% endblock %}

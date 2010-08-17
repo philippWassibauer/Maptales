@@ -1,0 +1,30 @@
+{% load comments_tag %}
+{% if activity_items %}
+    <ul class="activity-stream">
+        {% for activity_item in activity_items %}
+            <li>
+                {{activity_item.render}}
+                <div id="comments_activity_{{activity_item.id}}" style="display: none;">
+                    <div id="comments" class="detail-listing">
+                        {% comments activity_item %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="load-more ui-corner-all">
+        More
+    </div>
+{% else %}
+        <h3>No activity in your Network</h3>
+        <p>
+            This page displays the activity in your network.
+            Find people that interest you and start following them to stay updated
+            when they post new items.
+        </p>
+        <b>To get started:</b>
+        <ul>
+            <!--<li><a href="{% url find_users_near_me %}">here you can find people near you</a></li>-->
+             <li><a href="/">or check out what people are doing on Maptales right now</a></li>
+        </ul>
+{% endif %}

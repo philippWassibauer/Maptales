@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+{% load video_tags %}
+{% load i18n %}
+{% block head_title %}{% blocktrans %}Error{% endblocktrans %}{% endblock %}
+
+{% block profile_files_active %}active{% endblock %}
+
+{% block body %}
+    <div class="profile-panel error-panel">
+        <h1>{{title}}</h1>
+        <p>{{text}}</p>
+    </div>
+{% endblock %}
+
+

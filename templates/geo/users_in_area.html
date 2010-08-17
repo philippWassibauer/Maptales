@@ -1,0 +1,12 @@
+{% load avatar_tags %}
+{% for item in items %}
+    <div>
+        <a href="{{item.creator.get_profile.get_absolute_url}}" class="profile-signature-image">
+            <img src="{% avatar_url item.creator 24 %}" alt="{{ item.creator.get_profile }}" height="24px" width="24px"/>
+        </a>
+        <a href="{{item.creator.get_profile.get_absolute_url}}" class="profile-signature-link">
+            {{item.creator.get_profile}}
+        </a><br />
+        <!--<b>Count:</b> {{item.creator_count}}-->
+    </div>
+{% endfor %}

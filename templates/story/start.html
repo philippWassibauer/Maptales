@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Start Story" %}{% endblock %}
+
+
+{% block body %}
+    <h1>Start a Story</h1>
+    <div>
+        <form action="{% url story_create %}" method="POST">
+            {{form|as_uni_form}}
+            <div class="uniform_buttons">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

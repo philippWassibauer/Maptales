@@ -1,0 +1,283 @@
+{% extends "story/view_base.html" %}
+{% load hitcount_tags %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load story_tags %}
+{% load geo_tags %}
+{% load object_to_content_type %}
+{% load comments_tag %}  
+{% block head_title %}{% trans "Story" %}: {{story.title}}{% endblock %}
+
+{% load avatar_tags %}
+{% load addthis_tag %}
+{% load tagging_tags %}
+
+{% load voting_tags %}
+
+{% block content_container %}
+     <script src="{{STATIC_URL}}js/raphael/raphael.js" type="text/javascript" charset="utf-8"></script>
+     <script src="{{STATIC_URL}}js/raphael/g.raphael.js" type="text/javascript" charset="utf-8"></script>
+     <script src="{{STATIC_URL}}js/raphael/g.line.js" type="text/javascript" charset="utf-8"></script>
+     
+     
+     <div id="story-finished-dialog" style="display: none;">
+          <div id="dialog-container">
+               <h3>Finished Story</h3>
+          </div>
+     </div>
+     <div class="container">
+          <div class="span-18" style="overflow: hidden; position: relative;">
+              
+               <div class="story-view ui-corner-tl ui-corner-tr" id="adaptingContainer">
+                    <div class="ui-corner-tl ui-corner-tr" id="map_canvas" style="padding: 10px 10px 0 10px; position: relative; left: 0px; height: 180px; background-color: #EFEFEF">
+                         {% block map_menu %}{% endblock %}
+                         <div id="map" style="height: 100%; top: 0px; left: 0px;" class="ui-corner-tl ui-corner-tr">
+                         </div>
+                    </div>
+                    
+                    <div class="grey-body" style="padding-top: 10px;">
+                         <div class="span-17">
+                              <div id="storyline_scroller">
+                                   <!--<div class="control-bar" style="display: none;">
+                                        <a href="#map_canvas" id="story-play" class="story-play">Play</a>
+                                   </div>-->
+                                   <div class="white-round-bg ui-corner-all" style="padding: 0px;">
+                                        <div class="scroll-backward ui-corner-tl ui-corner-bl" onclick="gotoPrevStorylineItem(); window.location = '#map_canvas';">
+                                             <div class="arrow"></div>
+                                        </div>
+                                        <div class="scroll-foreward ui-corner-tr ui-corner-br" onclick="gotoNextStorylineItem(); window.location = '#map_canvas';">
+                                             <div class="arrow"></div>
+                                        </div>
+                                        <div id="storyline_content" class="ui-corner-all">
+                                             {% story_big_teaser story %}
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="white-round-bg ui-corner-all" style="margin-top: 10px;">
+                                   {% show_storyline_slider story "maptales.story.onSlideshowClick" "maptales.story.onFinished" %}
+                              </div>
+                              
+                              <script type="text/javascript" charset="utf-8">
+                                  window.onload = function () {
+                                      
+                                      
+                                      var altitude_y = [];
+                                      var speed_y = [];
+                                      var x = [];
+                                      
+                                      x = {{ story.export_timestamps_to_js }};
+                                      altitude_y = {{ story.export_altitude_to_js }};
+                                      speed_y = {{ story.export_speed_to_js }};
+                                      
+                                      if(x && x.length>0){
+                                        try{
+                                             var r = Raphael("holder");
+                                             r.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
+                                             
+                                             /*for (var i = 0; i < 500; i++) {
+                                                 x[i] = i * 10;
+                                                 speed_y[i] = (speed_y[i - 1] || 0) + (Math.random() * 7) - 3;
+                                                 altitude_y[i] = (altitude_y[i - 1] || 150) + (Math.random() * 7) - 3.5;
+                                             }*/
+                             
+                                             if(speed_y && speed_y.length>0){
+                                                  r.g.text(60, 10, "Speed (km/h)");
+                                                  r.g.linechart(15, 10, 630, 120, x, [speed_y], {shade: true, axis: "0 0 0 1", axisxstep: 16});
+                                             }
+                                             if(altitude_y && altitude_y.length>0){
+                                                  r.g.text(70, 185, "Altitude (meters)");
+                                                  r.g.linechart(15, 190, 630, 120, x, [altitude_y], {shade: true, axis: "0 0 0 1", axisxstep: 16});
+                                             }
+                                             
+                                             /*r.g.linechart(10, 250, 300, 220, x, [y, y2, y3], {nostroke: true, shade: true});
+                                             var lines = r.g.linechart(330, 250, 300, 220, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], {nostroke: false, axis: "0 0 1 1", symbol: "o"}).hoverColumn(function () {
+                                                 this.tags = r.set();
+                                                 for (var i = 0, ii = this.y.length; i < ii; i++) {
+                                                     this.tags.push(r.g.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{fill: "#fff"}, {fill: this.symbols[i].attr("fill")}]));
+                                                 }
+                                             }, function () {
+                                                 this.tags && this.tags.remove();
+                                             });*/
+                                             // lines.lines[0].animate({"stroke-width": 6}, 1000);
+                                             // lines.symbols[0].attr({stroke: "#fff"});
+                                             // lines.symbols[0][1].animate({fill: "#f00"}, 1000);  
+                                        }catch(e){
+                                             
+                                        }
+                                      }else{
+                                         $("#stats_wrapper").hide()
+                                      }
+                                  };
+                              </script>
+                              <div id="stats_wrapper" class="white-round-bg ui-corner-all" style="margin-top: 10px;">
+                                   <div id="holder" class="detail-listing" style="height: 340px;">
+                                        
+                                   </div>
+                              </div>
+                              
+                              <div class="white-round-bg ui-corner-all" style="margin-top: 10px;">
+                                   <div id="comments" class="detail-listing">
+                                        {% comments story %}
+                                   </div>
+                              </div>
+                              
+                              
+                              
+                              
+                         </div>
+                         <div style="clear: both;"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="span-6 last">
+               <!--<div class="grey-round-bg ui-corner-all">
+                    <h3>Navigation Tips:</h3>
+                    <p>
+                         After clicking on the map you can control it with the following
+                         commands of your keyboard:
+                    </p>
+                    <ul>
+                         <li>+: zoom in</li>
+                         <li>-: zoom out</li>
+                         <li>left/right: pan left/right</li>
+                         <li>up/down: pan up/down</li>
+                         <li>shift up/down: tilt the camero up/down</li>
+                         <li>shift left/right: turn around current location</li>
+                         <li>click on the markers to go to position</li>
+                    </ul>
+                    
+                    <p>
+                         <a href="{% url story_fullscreen story.slug %}">New: View Fullscreen</a>
+               </div>-->
+               
+               <div id="time-indicator" class="grey-round-bg ui-corner-all" style="display: none; margin-top: 10px">
+                    <h3>Time to next slide</h3>
+                    <p id="time-until-next-jump">
+                    
+                    </p>
+               </div>
+               <div class="grey-round-bg ui-corner-all" style="margin-top: 0px">
+                    <h3>Info:</h3>
+                    Creator: {{story.creator.get_profile.render_inline}}
+                    <br />
+                    Viewed: {% get_hit_count for story %}
+                    <br />
+                    {% tags_for_object story as tags %}
+                    <!--{% if tags %}
+                         Tags:
+                         <ul>
+                              {% for tag in tags %}
+                                   <li>
+                                        {{tag}}
+                                   </li>
+                              {% endfor %}
+                         </ul>
+                    {% endif %}-->
+               </div>
+               <div class="grey-round-bg ui-corner-all voting" style="margin-top: 10px">
+                    {% score_for_object story as score %}
+                    {% vote_by_user user on story as users_vote %}
+                    <h5>
+                         <span id="score">{{ score.score }}</span>
+                         point{{ score.score|pluralize }}
+                         after <span id="num_votes">{{ score.num_votes }}</span>
+                         vote{{ score.num_votes|pluralize }}
+                    </h5>
+                    
+                    <div class="vote-up-down {% if users_vote %}{% if users_vote.is_downvote %}down-vote{% else %}up-vote{% endif %}{% else %}no-vote{% endif %}">
+                         <div class="vote-up" onclick="vote('{{ story.id }}', 'up'); return false;">
+                                   
+                         </div>
+                   
+                         <div class="vote-down" onclick="vote('{{ story.id }}', 'down');return false;">
+                               
+                         </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                    <div id="reset-vote" {% if not users_vote %} style="display: none;" {% endif %}>
+                         <a href="#" onclick="vote('{{ story.id }}', 'clear');return false;">
+                         Reset my Vote</a>
+                    </div>
+                    
+                    
+                    <script type="text/javascript">
+                         function vote(id, direction) {
+                              $.post('/story-vote/'+id+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+                                   function(data) {
+                                       if (data.success == true) {
+                                           $('#score').text(data.score.score);
+                                           $('#num_votes').text(data.score.num_votes);
+                                       } else {
+                                           alert('ERROR: ' + data.error_message);
+                                       }
+                                   }, 'json'
+                                  )
+                              
+                              if(direction=="clear"){
+                                   $('#reset-vote').hide()
+                                   $('.vote-up-down').addClass("no-vote")
+                                   $('.vote-up-down').removeClass("up-vote")
+                                   $('.vote-up-down').removeClass("down-vote")
+                              }else{
+                                   if(direction=="up"){
+                                        $('.vote-up-down').removeClass("no-vote")
+                                        $('.vote-up-down').addClass("up-vote")
+                                        $('.vote-up-down').removeClass("down-vote")
+                                   }else{
+                                        $('.vote-up-down').removeClass("no-vote")
+                                        $('.vote-up-down').removeClass("up-vote")
+                                        $('.vote-up-down').addClass("down-vote")
+                                   }
+                                   $('#reset-vote').show()
+                              }
+                              
+                          }
+                    </script>
+                    <div class="white-round-bg ui-corner-all" style="margin-top: 10px;">
+                         {% add_this story.get_absolute_url story.title %}
+                    </div>
+               </div>
+               
+               <div class="grey-round-bg ui-corner-all" style="margin-top: 10px">
+                    {% show_overal_location story %}
+               </div>
+               
+               <div class="grey-round-bg ui-corner-all" style="margin-top: 10px">
+                    {% if story.get_center_location %}
+                         <!--{_% stories_nearby story.get_center_location.x story.get_center_location.y story %}-->
+                    {% endif %}
+                    <div style="clear:both;"></div>
+               </div>
+               <!--<div class="grey-round-bg ui-corner-all" style="margin-top: 10px">
+                    <h3>Export:</h3>
+                    <div class="exportBoxContainer">
+                          <div class="exportBox">
+                              <ul>
+                                   <li>
+                                      <a onclick="Dialog.toggle('External Link', null, null, 'objects/externalLinkDialog', {id: 12621}, this, Dialog.NORTH) ; return false;" href="http://www.maptales.com//view/12621" class="trigger">
+                                      <img src="http://www.maptales.com//styles/default/css/images/linkToThisStory.gif"/> Link</a> to this story
+                                  </li>
+                                  <li>
+                                      <a onclick="Dialog.toggle('Export', null, null, 'objects/Story/externalExportDialog', {id: 12621}, this, Dialog.NORTH);" href="#" class="trigger">
+                                      <img src="http://www.maptales.com//styles/default/css/images/exportThisStory.gif"/> Embed</a> in website
+                                  </li>
+                                  <li>
+                                      <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.kml" class="trigger">
+                                      <img src="http://www.maptales.com//styles/default/css/images/kml.png"/> View in Google Earth</a>
+                                  </li>
+                                  <li>
+                                      <a href="http://www.maptales.com//feed/12621/New%20Kicker%20Spot%20close%20to%20our%20House.gpx" class="trigger">
+                                      <img src="http://www.maptales.com//styles/default/css/images/gpx_small.gif" style="margin: 2px 8px 4px 2px;"/> Download as GPX</a>
+                                  </li>
+                                  <li>
+                                     
+                                  </li>
+                               </ul>
+                          </div>
+                      </div>
+                      <div style="clear: both;margin-top: 10px;"></div>
+               </div>-->
+          </div>
+     </div>
+{% endblock content_container %}

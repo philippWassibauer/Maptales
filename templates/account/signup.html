@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+    <div class="register-bg">
+        <div class="register-wrapper ui-corner-all">
+            <form class="ui-corner-all" action="{% url passphrase_check %}" method="POST">
+                <h2 style="margin-top: 0px; margin-left: 140px;">Register</h2>
+                {{form|as_uni_form}}
+                <div class="ctrlHolder " id="div_id_passphrase">
+                    <label for="id_email">
+                        Passphrase* 
+                    </label>
+                    <input type="text" id="passphrase" name="passphrase">
+                </div>
+                <div class="uniform_buttons">
+                    <button type="submit">{% trans "Submit" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>   
+{% endblock %}

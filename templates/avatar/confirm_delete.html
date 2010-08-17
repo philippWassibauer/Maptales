@@ -1,0 +1,45 @@
+{% extends "account/base.html" %}
+{% load profile_tags %}
+{% load i18n %}
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+
+{% block head_title %}{% trans "Avatar" %}{% endblock %}
+
+{% block body %}
+ <div class="container grey-body ui-corner-tl ui-corner-tr">
+         {% show_profile_header user user "edit profile"%}
+         {% include "account/account_menu.html" %}
+        <div class="span-16">
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>{% trans "Avatar" %}</h2>
+                {% if not avatars %}
+                    <h3>You have no avatars to delete.  Please <a href="{% url avatar_change %}">upload one</a> now.</h3>
+                {% else %}
+                    <h3>Select which avatars to delete:</h3>
+                    <form method="POST" action="">
+                        <ul class="avatar_choices">
+                            {{ delete_avatar_form.choices }}
+                        </ul>
+                        <input type="hidden" name="next" value="{% url avatar_change %}" />
+                        <input type="submit" value="Delete These" />
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="span-7 last right-profile-panel">
+            <!--{_% placeholder right-column %}-->
+            <div class="white-padded-round-bg ui-corner-all">
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+ </div>
+{% endblock %}
+
+{% block extra_body %}
+    {% load jquery_validation %}
+    {% include_validation %}
+    <script type="text/javascript">
+       <!-- nothing here -->
+    </script>
+{% endblock %}

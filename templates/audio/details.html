@@ -1,0 +1,11 @@
+{% extends "photos/base.html" %}
+{% load audio_tags %}
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Audio Details{% endblocktrans %}{% endblock %}
+
+{% block body %}
+        <div class="profile-panel">
+             {% show_single_audioplayer audio %}
+        </div>
+{% endblock %}

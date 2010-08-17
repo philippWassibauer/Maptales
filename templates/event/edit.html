@@ -1,0 +1,39 @@
+{% extends "event/base.html" %}
+
+{% load i18n %}
+{% load wiki %}
+{% load markup %}
+{% load switchcase %}
+{% load tagging_tags %}
+{% load restructuredtext %}
+{% load uni_form_tags %}
+        
+{% block head_title %}{% blocktrans %}Editing Post{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}admin/css/widgets.css"/>
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}admin/js/admin/RelatedObjectLookups.js"></script>
+     {{ event_form.media }}
+{% endblock extra_head %}
+
+{% block body %}
+    <div class="profile-panel">
+        <div id="basic-form">
+            <fieldset>
+                <legend>Einladung/Event eintragen</legend>
+                {% ifequal event.author request.user %}
+                    <form enctype="multipart/form-data" method="POST" action="" id="event_form">
+                        {{event_form|as_uni_form}}
+                        <input type="hidden" name="action" value="update" />
+                        <input type="submit" value="update" />
+                    </form>
+                {% else %}
+                    <p>Die dürfen dieses Event nicht editieren.</p>
+                {% endifequal %}
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

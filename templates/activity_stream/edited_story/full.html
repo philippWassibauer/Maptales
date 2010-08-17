@@ -1,0 +1,9 @@
+
+<div class="title">{{ activity_item.actor.get_profile.render_inline }}
+    <span class="activity-action">edited</span> his Story
+    <b>
+        <a href="{{ activity_item.first_subject.content_object.get_absolute_url }}">
+        {{ activity_item.first_subject.content_object }}</a>
+    </b>
+</div>
+ {% include "activity_stream/date_bar.html" %}

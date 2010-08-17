@@ -1,0 +1,8 @@
+<div class="title">{{ activity_item.actor.get_profile.render_inline }}
+    <span class="activity-action">Location update</span></div>
+
+<div class="subtext">
+   {{ activity_item.actor.get_profile.location }}
+</div>
+{% include "activity_stream/date_bar.html" %}
+

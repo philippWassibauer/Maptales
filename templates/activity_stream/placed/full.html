@@ -1,0 +1,10 @@
+<div class="title">{{ activity_item.actor.get_profile.render_inline }} has <span class="activity-action">placed</span>:</div>
+<div class="subtext">
+    {% ifequal activity_item.first_subject.content_type "photo.Image" %}
+        <b>{{ activity_item.first_subject.title }}</b>
+        <img src="{{ activity_item.first_subject.get_thumbnail_url }}" alt="" />
+    {% endifequal %}
+</div>
+
+{% include "activity_stream/date_bar.html" %}
+

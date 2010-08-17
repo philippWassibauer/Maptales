@@ -1,0 +1,9 @@
+{{ message }}
+
+Thanks,
+
+The Maptales Team
+
+----------------------------
+To control which emails you receive from Maptales.com goto:
+http://{{ current_site }}/{% url notification_notices %}

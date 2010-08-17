@@ -1,0 +1,146 @@
+{% load object_to_content_type %}
+{% load var_tag %}
+{% load counter_tag %}
+
+<div id="storyline_slider">
+    <div class="scroll-backward ui-corner-tl ui-corner-bl">
+         <div class="arrow"></div>
+    </div>
+    <div class="scroll-foreward ui-corner-tr ui-corner-br">
+         <div class="arrow"></div>
+    </div>
+    <div class="story-slideshow">
+        <div class="story-slideshow-clip">
+            <div class="story-slideshow-list">
+                {% var counter = 0 %}
+                {% for item in story.storyline.all %}
+                    {% if item.attachments.all %}
+                        {% for attachment in item.attachments.all %}
+                            <div id="storyline_index_{{counter}}"
+                                class="story-slideshow-listitem ui-corner-all"
+                                contenttype="{{attachment.content_object|object_to_model_name}}"
+                                objectid="{{attachment.content_object.id}}"
+                                storylineindex="{{forloop.parentloop.counter0}}"
+                                attachmentindex="{{forloop.counter0}}"
+                                onclick="maptales.slider._gotoIndex({{counter}})">
+                                {% block attachement_item %}
+                                   {% if attachment.content_object.image %}
+                                       <img src="{{attachment.content_object.get_50x50_url}}" alt="" />
+                                   {% else %}
+                                       <div class="post-list-50-50"></div>
+                                   {% endif %}
+                                {% endblock %}
+                            </div>
+                            
+                           {% increment_count %}
+
+                        {% endfor %}
+                    {% else %}
+                        <div id="storyline_index_{{counter}}"
+                            class="story-slideshow-listitem ui-corner-all"
+                            contenttype="{{item|object_to_model_name}}"
+                            objectid="{{item.id}}"
+                            storylineindex="{{forloop.counter0}}"
+                            attachmentindex="0"
+                            onclick="maptales.slider._gotoIndex({{counter}})">
+                            {% block list_item %}
+                               {% if item.get_image %}
+                                   <img src="{{item.get_image.0.content_object.get_50x50_url}}" alt="" />
+                               {% else %}
+                                   <div class="post-list-50-50"></div>
+                               {% endif %}
+                            {% endblock %}
+                       </div>
+                        
+                        {% increment_count %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    if(!maptales){var maptales={}}
+    maptales.slider = {
+        storyline_index: 0,
+        story_size: {{story.storyline.count}},
+        _gotoIndex: function(index){
+            this.gotoIndex(index)
+            
+            {% if select_callback %}
+                var context = {};
+                var node = $("#storyline_index_"+index)[0]
+                if(node){
+                    for(var i=0; i<node.attributes.length; i++){
+                        context[node.attributes[i].localName] = node.attributes[i].nodeValue
+                    }
+                }
+                {{select_callback}}(index, context)
+            {% endif %}
+        },
+        gotoIndex: function(index){
+            if(index>=0){
+                this.storyline_index = index
+                //deselect item
+                $('#storyline_slider .selected').removeClass("selected")
+        
+                // select item
+                $('#storyline_index_'+index).addClass("selected")
+                this.resize_list()
+                this.centerSelected()
+            }
+        },
+        gotoNextItem: function(){
+            if(this.storyline_index<(this.story_size-1)){
+               this.storyline_index++;
+               this._gotoIndex(this.storyline_index);
+            }else{
+                this.pause()
+                {% if finished_callback %}
+                    {{finished_callback}}()
+                {% endif %}
+            }
+        },
+        gotoPreviousItem: function(){
+            if(0<this.storyline_index){
+                this.storyline_index--;
+                this._gotoIndex(this.storyline_index); 
+            }else{
+                
+            }
+        },
+        
+        scroll: function(items){
+            var item = $('#storyline_slider .story-slideshow-list');
+            var left = item.position().left+(items*71)
+            if(left>0){
+                left = 0;
+            }
+            item.animate({left: left}, 200)
+        },
+        
+        centerSelected: function(){
+            var item = $('#storyline_slider .story-slideshow-list');
+            var left = -(this.storyline_index*71)+(3*71);
+            if(left>0){
+                left = 0;
+            }
+            item.animate({left: left}, 400)
+        },
+        
+        resize_list: function(){
+            //$('.story-slideshow').width($('.story-slideshow').parent().width()-$('.story-slideshow')[0].offsetLeft-$('.story-slideshow').margin().left-$('.story-slideshow').margin().right-10)
+        },
+
+    }
+    
+    $('#storyline_slider .scroll-backward').click(function(){
+        maptales.slider.scroll(3)
+    })
+    
+    $('#storyline_slider .scroll-foreward').click(function(){
+        maptales.slider.scroll(-3)
+    })
+    
+    
+</script>

@@ -1,0 +1,126 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load comments_tag %}
+{% load activity_stream_tags %}
+{% load profile_tags %}
+{% load facebook_tags %}
+{% load twitter_tags %}
+{% load geo_tags %}
+
+{% block head_title %}{% blocktrans %}Activity Stream for {{ viewed_user }}{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header viewed_user user %}
+        <div class="span-16">
+            <div class="recent-activity-box ui-corner-br ui-corner-bl" style="width:622px">
+                <div class="blue-header ui-corner-tl ui-corner-tr">
+                    <h3>Recent activity</h3>
+                </div>
+                <div class="activity-box-body ui-corner-bl ui-corner-br">
+                    {% ifequal user viewed_user %}
+                        {% following_activity_stream viewed_user 20 %}
+                    {% else %}
+                        {% users_activity_stream viewed_user 20 %}
+                    {% endifequal %}
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="span-7 last right-profile-panel">
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>{{viewed_user.username}}</h2>
+                {% if viewed_user.get_profile.first_name %}
+                    <b>First Name:</b> {{viewed_user.get_profile.first_name}} <br />
+                {% endif %}
+                
+                {% if viewed_user.get_profile.last_name %}
+                    <b>Last Name:</b> {{viewed_user.get_profile.last_name}}<br /> 
+                {% endif %}
+                
+                {% if viewed_user.get_profile.website %}
+                    <b>Website:</b> {{viewed_user.get_profile.website}} <br />
+                {% endif %}
+               
+                {% if viewed_user.get_profile.country or viewed_user.get_profile.city %}
+                    <b>Location:</b> {{viewed_user.get_profile.city}}
+                    {% if viewed_user.get_profile.country %}
+                        {{viewed_user.get_profile.country}}
+                    {% endif %} <br />
+                {% endif %}
+               
+                {% if viewed_user.get_profile.website %}
+                    <p>
+                        <b>About:</b><br />
+                        {{viewed_user.get_profile.about}}
+                    </p>
+                {% endif %}
+            </div>
+            
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>Following</h2>
+                <p>
+                    {% followed_by_him viewed_user 20 %}
+                </p>
+            </div>
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>Followers</h2>
+                 <p>
+                    {% following_him viewed_user 20 %}
+                </p>
+            </div>
+            
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>Friends</h2>
+                 <p>
+                    {% friends_of_user viewed_user 20 %}
+                </p>
+            </div>
+            
+            <div>
+                {% show_users_clustermap viewed_user None request %}
+            </div>
+            <!--
+            <div class="white-padded-round-bg ui-corner-all">
+                <h2>Connect with Friends</h2>
+                 <a href="{% url invitations_contacts %}">
+                     Invite people
+                </a>
+            </div>
+            -->
+            
+            {% ifequal viewed_user user %}
+                {% if viewed_user.facebookprofile_set.all %}
+                    <div class="white-padded-round-bg ui-corner-all">
+                        <h2>Facebook Profile</h2>
+                        <div>
+                            Your Facebook Profile is connected.
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="white-padded-round-bg ui-corner-all">
+                        <h2>Connect your Profile</h2>
+                        {% facebook_button %}
+                        {% facebook_js %}
+                    </div>
+                {% endif %}
+                
+                {% if viewed_user.twitterprofile_set.all %}
+                    <div class="white-padded-round-bg ui-corner-all">
+                        <h2>Twitter Profile</h2>
+                        <div>
+                            <a href="http://twitter.com/?id={{viewed_user.twitterprofile_set.all.0.twitter_id}}">Your Twitter Profile is connected.
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="white-padded-round-bg ui-corner-all">
+                        <h2>Connect your Profile</h2>
+                        {% twitter_button %}
+                    </div>
+                {% endif %}
+            {% endifequal %}
+        </div>
+         <div style="clear:both;"></div>
+    </div>
+
+{% endblock %}

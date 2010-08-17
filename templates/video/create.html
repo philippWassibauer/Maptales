@@ -1,0 +1,57 @@
+{% extends "site_base.html" %}
+{% load uni_form_tags %}
+{% load i18n %}
+
+{% block profile_files_active %}active{% endblock %}
+
+{% block breadcrumb %}
+    {% load breadcrumbs %}
+
+    {{ block.super }}
+    {% breadcrumb_url "Medien" location_edit_files user.username %}    
+    {% breadcrumb_url "Video hochladen" upload_video %}    
+{% endblock %}
+
+
+{% block body %}
+     <div class="profile-panel">
+        <script type="text/javascript" src="/site_media/jquery.form.js" ></script>
+
+        <div class="dotted-bottom-section">
+            <h1>Video importieren</h1>
+            <p>
+                Sie können Videos von Youtube, Vimeo, Viddler ... importieren. <br/>
+                Kopieren sie einfach die URL die im Browser angezeigt wird wenn sie das Video ansehen in das Feld "Import Url".
+            </p>
+            <div id="videoImportPreview">
+
+            </div>
+            <form class="applyTable" id="submitForm" name="submitForm" method="post" action="{% url video_import %}">
+                    <p>
+                        {{ importForm|as_uni_form }}
+                        <input type="button" value="Save" onclick="$('#submitForm')[0].submit()">
+                        <input type="button" value="Preview" onclick="previewImport('id_url', '/video/preview/', 'videoImportPreview')">
+                    </p>
+            </form>
+        </div>
+
+        <h1>Video hochladen</h1>
+        {% if vimeoIsConfigured %}
+            <form id="vimeoUploadForm" class="applyTable" name="form" enctype="multipart/form-data" method="post" action="{% url upload_video %}">
+                <table>
+                    {{ form|as_uni_form }}
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input id="vimeoSubmitButton" type="submit" value="Submit"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        {% else %}
+            <h1>Authenticate with Vimeo</h1>
+            <a href="{{vimeoAuthenticateLink}}">Authenticate</a>
+        {% endif %}
+    </div>
+{% endblock %}

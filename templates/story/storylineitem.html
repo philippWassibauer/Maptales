@@ -1,0 +1,58 @@
+{% load oembed_tags %}
+{% load object_to_content_type %}
+{% load story_tags %}
+{% load truncchar_tag %}
+
+<div id="storylineitem">
+    {% if item.attachments.all %}
+        <div id="attachments">
+            {% for attachment in item.attachments.all %}
+                {% ifequal attachment.content_type.name "video" %}
+                    <div class="attachment">
+                        <div style="float: left;">
+                            {% oembed 250x200 %}
+                                {{attachment.content_object.import_url}}
+                            {% endoembed %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="attachment">
+                        <div class="rotate-image">
+                            <img src="{{attachment.content_object.get_storyline_item_url}}" />
+                        </div>
+                    </div>
+                {% endifequal %}
+            {% endfor %}
+            <div class="pagination-and-text">
+                <div class="storylineitem-pagination">
+                    {% for attachment in item.attachments.all %}
+                        <a href="#" class="ui-corner-all" onclick="maptales.story.showAttachmentNumber({{forloop.counter0}}); return false;"></a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="post-text">
+                {{item.text|truncchar:300}} 
+            </div>
+            <div class="image-black-bg">
+            </div>
+        </div>
+        
+    {% else %}
+        <h1 class="length-{{item.get_length_indicator}}">{{item.text|truncchar:400}}</h1>
+    {% endif %}
+    
+    <!--<div style="position: absolute; bottom: 0px; background-color: #EFEFEF;">
+        Time:    {{item.creation_date}}
+    </p>-->
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        maptales.story.showAttachmentNumber(0)
+        $('#storylineitem .image-black-bg').height($('#storylineitem .post-text').height()+32)
+        
+    })
+    
+    
+</script>

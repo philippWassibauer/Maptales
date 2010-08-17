@@ -1,0 +1,32 @@
+{% extends "site_base.html" %}
+{% load profile_tags %}
+{% load i18n %}
+
+{% load cache cms_tags %}
+{% load cms_tags menu_tags %}
+{% block body %}
+    <div class="containerasd grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header user user "change password"%}
+        {% include "account/account_menu.html" %}
+        <div class="span-16">
+            <div class="white-padded-round-bg ui-corner-all">
+                {% if saved %}
+                   <h2>Email was changed.</h2>
+                   <p>
+                       <a href="{% url profile_edit user %}">Back to profile</a>
+                   </p>
+                {% else %}
+                    <h2> Change email </h2>
+                    <form action="" method="POST">
+                        New Email: <input type="text" name="email" />
+                        <div class="uniform_buttons" style="margin-top: 5px;">
+                            <button type="submit">Save</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,1 @@
+{{ message.sender }} has sent you a Message on Maptales.com

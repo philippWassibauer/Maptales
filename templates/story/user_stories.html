@@ -1,0 +1,26 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load profile_tags %}
+{% load story_tags %}
+
+{% block head_title %}{{viewed_user}}{% trans "Experiences" %}{% endblock %}
+
+{% block body %}
+    <div class="grey-body ui-corner-tl ui-corner-tr">
+        {% show_profile_header viewed_user user "experiences" %}
+        <div class="ui-corner-all white-round-bg">
+            <div class="span-22">
+                <div class="your-story-list">
+                    {% for story in stories %}
+                        {% story_big_pic_teaser story 0 %}   
+                    {% endfor %}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}

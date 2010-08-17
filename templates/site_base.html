@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load svn_app_version %}
+{% load var_tag %}
+{% load pdb_tags %}
+
+{% block content_container %}
+    <div class="container">
+        {% if messages %}
+            <ul id="messages">
+                {% for message in messages %}
+                <li class="ui-corner-all" id="message_{{ forloop.counter }}"><a href="#" onclick="$('#message_{{ forloop.counter }}').fadeOut(); return false;"><small>{% trans "clear" %}</small></a> {{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        {% block body %}{% endblock body %}
+    </div>
+{% endblock content_container %}
+
+
+
+{% block locale_switcher %}
+    <form action="{% if request.user.is_authenticated %}{% url acct_language_change %}{% else %}/i18n/setlang/{% endif %}" method="post" id="locale_switcher">
+        <select name="language" onchange="$('#locale_switcher').submit()">
+            {% for lang in LANGUAGES %}
+                <option value="{{ lang.0 }}"{% ifequal lang.0 LANGUAGE_CODE %} selected="selected"{% endifequal %}>{{ lang.1 }}</option>
+            {% endfor %}
+        </select>
+    </form>
+{% endblock %}
+
+{% block footer %}
+        <div class="container">
+            <div class="mainFooter ui-corner-bl ui-corner-br">
+                <div class="mainFooterBoxes">
+                    <div class="mainFooterFirstBox">
+                        <h3>You</h3>
+                        <ul>
+                            <li><a href="{% url iphoneapp %}">Android-App</a></li>
+                            <li><a href="{% url iphoneapp %}">IPhone-App</a></li>
+                        </ul>
+                    </div>
+                   <!-- <div class="mainFooterBox">
+                        <h3>Explore</h3>
+                        <ul>
+                            <li><a href="{% url browse %}">This Area</a></li>
+
+                            <li><a href="{% url browse %}">Whole World</a></li>
+                        </ul>
+                    </div> 
+                    <div class="mainFooterBox">
+                        <h3>What's New</h3>
+                        <ul>
+                            <li><a href="http://blog.maptales.com">Blog</a></li>
+                        </ul>
+                    </div>-->
+                    <div class="mainFooterBox">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="{% url pages-details-by-slug "terms" %}" >Terms of use</a></li>
+                        </ul>
+                    </div>
+                    <div class="mainFooterBox">
+                        <h3>About Us</h3>
+                        <ul>
+                            <li><a href="{% url learnmore %}" >Learn More</a></li>
+                            <li><a href="{% url pages-details-by-slug "about" %}" >About</a></li>
+                        </ul>
+                    </div>
+                    <div class="mainFooterBox">
+                        <h3>Contact Us</h3>
+
+                        <ul>
+                            <li><a href="{% url pages-details-by-slug "about" %}" >Contact/Feedback</a></li>
+                            <li><a href="{% url pages-details-by-slug "about" %}" >Imprint</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="meta">Maptales v2.0 &copy; 2009-2010 maptales.com
+                </div>
+                <div style="clear:both;"></div>
+             </div>
+         </div>
+{% endblock %}

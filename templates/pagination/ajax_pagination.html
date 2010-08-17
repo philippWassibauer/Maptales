@@ -1,0 +1,26 @@
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="#" onclick='javascript:var tab=jQuery("#{{dynamic_div}}");tab.html(LOADING_STRING);tab.load("{{ref_url}}?page={{ page_obj.previous_page_number }}{{ getvars }}"); return false;' class="prev">&lsaquo;&lsaquo; previous</a>
+    {% else %}
+        <span class="disabled prev">&lsaquo;&lsaquo; previous</span>
+    {% endif %}
+    {% for page in pages %}
+        {% if page %}
+            {% ifequal page page_obj.number %}
+                <span class="current page">{{ page }}</span>
+            {% else %}
+                <a href="#" onclick='javascript:var tab=jQuery("#{{dynamic_div}}");tab.html(LOADING_STRING);tab.load("{{ref_url}}?page={{ page }}{{ getvars }}"); return false;' class="page">{{ page }}</a>
+
+            {% endifequal %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="#" onclick='javascript:var tab=jQuery("#{{dynamic_div}}");tab.html(LOADING_STRING);tab.load("{{ref_url}}?page={{ page_obj.next_page_number }}{{ getvars }}"); return false;' class="next">next &rsaquo;&rsaquo;</a>
+    {% else %}
+        <span class="disabled next">next &rsaquo;&rsaquo;</span>
+    {% endif %}
+</div>
+{% endif %}

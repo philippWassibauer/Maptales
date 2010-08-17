@@ -1,0 +1,44 @@
+<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.slider.js"></script>
+<link rel="stylesheet" type="text/css" href="/site_media/soundmanager/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="/site_media/soundmanager/css/page-player.css" />
+<style type="text/css">
+    ul.playlist li .comment {font-size:0.65em;opacity:0.5}
+</style>
+<script type="text/javascript" src="/site_media/soundmanager/script/soundmanager2.js"></script>
+<script type="text/javascript">
+    var PP_CONFIG = {
+      flashVersion: 9,       // version of Flash to tell SoundManager to use - either 8 or 9. Flash 9 required for peak / spectrum data.
+      usePeakData: true,     // [Flash 9 only] whether or not to show peak data (left/right channel values) - nor noticable on CPU
+      useWaveformData: true, // [Flash 9 only] show raw waveform data - WARNING: LIKELY VERY CPU-HEAVY
+      useEQData: false,      // [Flash 9 only] show EQ (frequency spectrum) data
+      useFavIcon: false,      // try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?)
+      useMovieStar: true     // Flash 9.0r115+ only: Support for a subset of MPEG4 formats.
+    }
+
+    </script>
+    <script type="text/javascript" src="/site_media/soundmanager/page-player.js"></script>
+    <script type="text/javascript">
+
+    // demo only..
+    var is_shiny = false;
+    function setTheme(sTheme) {
+      var o = pagePlayer.getElementsByClassName('playlist','ul');
+      for (var i=o.length; i--;) {
+        o[i].className = 'playlist'+(pagePlayer.cssBase?' '+pagePlayer.cssBase:'')+(sTheme?' '+sTheme:'')+(is_shiny?' shiny':'');
+      }
+      return false;
+    }
+    function setShiny(bShiny) {
+      is_shiny = bShiny;
+      var o = pagePlayer.getElementsByClassName('playlist','ul');
+      var sClass = 'shiny';
+      for (var i=o.length; i--;) {
+        if (!bShiny) {
+          pagePlayer.removeClass(o[i],sClass);
+        } else {
+          pagePlayer.addClass(o[i],sClass);
+        }
+      }
+    }
+</script>
