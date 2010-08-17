@@ -1,0 +1,5 @@
+[
+{"pk": 1, "model": "auth.user", "fields": {"username": "admin", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2009-04-09 11:51:18", "password": "sha1$57534$504ff2e1046c131284a12976eb3314624517964a", "email": "admin@localhost.com", "date_joined": "2009-04-08 13:11:56"}},
+{"pk": 2, "model": "auth.user", "fields": {"username": "normal_user", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2009-04-09 11:51:18", "password": "sha1$57534$504ff2e1046c131284a12976eb3314624517964a", "email": "admin@localhost.com", "date_joined": "2009-04-08 13:11:56"}},
+{"pk": 1, "model": "emailconfirmation.emailaddress", "fields": {"verified": true, "user": 1, "primary": true, "email": "admin@localhost.com"}}
+]

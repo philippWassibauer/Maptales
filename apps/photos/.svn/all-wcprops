@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/maptales/!svn/ver/433/apps/photos
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/maptales/!svn/ver/3/apps/photos/admin.py
+END
+management.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/maptales/!svn/ver/210/apps/photos/management.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/maptales/!svn/ver/481/apps/photos/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/3/apps/photos/__init__.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/312/apps/photos/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/428/apps/photos/urls.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/maptales/!svn/ver/329/apps/photos/forms.py
+END

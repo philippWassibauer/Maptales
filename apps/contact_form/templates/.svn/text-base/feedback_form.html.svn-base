@@ -1,0 +1,9 @@
+{% load uni_form_tags %}
+<form class="basic_form" action="{% url contact_form %}" method="POST">
+    <p style="margin-bottom: 10px;">Please tell us what you think. Any feedback is welcome!</p>
+    {{contact_form|as_uni_form}}
+    <div class="button-bar">
+        <button type="submit" style="margin-left: 10px;">Send</button>
+        <button type="button" onclick="$('.feedback-panel').dialog('close')">Cancel</button>
+    </div>
+</form>

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/maptales/!svn/ver/3/apps/avatar/management/commands
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/maptales/!svn/ver/3/apps/avatar/management/commands/__init__.py
+END
+rebuild_avatars.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/maptales/!svn/ver/3/apps/avatar/management/commands/rebuild_avatars.py
+END

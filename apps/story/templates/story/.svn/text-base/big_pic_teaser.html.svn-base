@@ -1,0 +1,25 @@
+{% load truncchar_tag %}
+<div class="ui-corner-all story-box">
+    <div class="startBoxContent">
+        <div class="storyPic" onclick="window.location='{% url story_view_id story.id %}'">
+            {% if story.storyimage.image %}
+                <img src="{{story.storyimage.get_story_teaser_url}}"/>
+            {% else %}
+                {% if story.get_image %}
+                    <img src="{{story.get_image.0.get_story_teaser_url}}"/>
+                {% endif %}
+            {% endif %}
+            {% if editable %}
+                <div class="edit-panel ui-corner-tl">
+                    <a href="{% url story_edit story.id %}">edit</a> |
+                    <a href="{% url story_delete story.id %}">delete</a> 
+                </div>
+            {% endif %}
+        </div>
+        <div class="inset ui-corner-tr ui-corner-br">
+            <h2><a href="{% url story_view_id story.id %}">{{story.title|truncchar:20}}</a></h2>
+            <p class="description">{{story.description|truncchar:140|default:""}}</p>
+           
+        </div>
+    </div>
+</div>

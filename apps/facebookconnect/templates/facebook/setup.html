@@ -1,0 +1,69 @@
+{% extends "facebook/base.html" %}
+{% load facebook_tags %}
+{% load uni_form_tags %}
+{% block content %}
+<h2>Finish Initial Facebook Login</h2>
+
+<h2>
+    <div style="float: left; margin-right: 20px;">{% show_facebook_photo user %}</div>
+    {% show_facebook_greeting user %}
+</h2>
+
+
+<p>Before you start you can decide if you want to link Facebook to an existing Account, to a new Account, or to use Maptales
+only through Facebook (this means that you can't login to Maptales without using Facebook)</p>
+
+{% if login_form.errors %}
+<p class="error">Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<div style="float: left; width: 460px; margin:  0 10px 0 0;" class="borderBox left">
+    <div class="bottomLeftCorner"></div>
+    <div class="topLeftCorner"></div>
+    <div class="topRightCorner"></div>
+    <div class="bottomRightCorner"></div>
+    <div class="infoBoxContentBigPadding">
+        <h3 class="top-heading">If you have a Maptales Account:</h3>
+        <p>Enter your username and password below to link your account with your facebook
+            account.</p>
+        <form action="" method="post" accept-charset="utf-8" class="nice-form">
+            <input type="hidden" name="login" value="true" id="login">
+            {{ login_form|as_uni_form }}
+            <input type="hidden" name="next" value="{{ next }}" id="next">
+            <p class="uniform_buttons">
+                <button type="submit">Link my accounts and log in</button>
+            </p>
+        </form>
+    </div>
+</div>
+
+<div style="float: left; width: 460px; margin: 0 0 0 10px;" class="borderBox left">
+    <div class="bottomLeftCorner"></div>
+    <div class="topLeftCorner"></div>
+    <div class="topRightCorner"></div>
+    <div class="bottomRightCorner"></div>
+    <div class="infoBoxContentBigPadding">
+        <h3 class="top-heading">Or Create a new Account:</h3>
+        <p>Enter your username and password below to link your account with your facebook
+            account.</p>
+        <form action="" method="post" accept-charset="utf-8" class="nice-form">
+            <input type="hidden" name="register" value="true" id="register">
+            {{ registration_form|as_uni_form  }}
+            <input type="hidden" name="next" value="{{ next }}" id="next">
+            <p class="uniform_buttons">
+                <button type="submit">Register and log in</button>
+            </p>
+        </form>
+        <hr/>
+        <h2>Use facebook only:</h2>
+        <form action="" method="post" accept-charset="utf-8" class="nice-form">
+            <input type="hidden" name="facebook_only" value="true" id="facebook_only">
+            <input type="hidden" name="next" value="{{ next }}" id="next">
+
+            <p class="uniform_buttons">
+                <button type="submit">Connect with facebook only</button>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

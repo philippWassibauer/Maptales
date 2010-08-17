@@ -1,0 +1,51 @@
+{% load truncchar_tag %}
+{% load i18n %}
+<li class="borderBox" style="float: left; width: 310px; margin-right: 20px;">
+    <div class="span-2">
+       <a class="Story-Icon-75 imageLink" href="{% url story_view_id story.id %}">
+            <div class="iconCorner"></div>
+            <div class="bgIcon">
+                {% if story.storyimage.image %}
+                    <img src="{{ story.storyimage.get_75x75_url }}" />
+                {% endif %}
+            </div>
+            <div class="iconTitle">{{story}}</div>
+        </a>
+    </div>
+    <div class="span-5 last" style="margin-left: 10px;">
+        <h2 class="small info">
+            <a href="{% url story_view_id story.id %}">
+                {{story}}
+            </a>
+            <small>
+                (
+                 <a href="{% url story_edit story.id %}">
+                    edit
+                </a>
+                )
+            </small>
+        </h2>
+        <div style="margin-top: 10px;">
+            <div class="infoBox emptyFieldBox editable section boxHack">
+                <div class="bottomLeftCorner"></div>
+                <div class="topLeftCorner"></div>
+                <div class="topRightCorner"></div>
+                <div class="bottomRightCorner"></div>
+                <div class="infoBoxContent">
+                     {{story.description}}
+                </div>
+            </div>
+        </div>
+        <div>
+            <b>Where:</b>  {{story.from_location_name}}-{{story.to_location_name}} <br />
+            {% if story.is_single_day %}
+                <b>{% trans "When" %}:</b> {{story.start_time|date}} {{story.start_time|time}} - {{story.end_time|time}}
+            {% else %}
+                <b>{% trans "When" %}:</b> {{story.start_time|date}} {{story.start_time|time}} until {{story.end_time|date}}
+            {% endif %}
+            <br />
+            <b>Photos:</b>{{story.storyline.count}}
+        </div>
+   </div>
+   <div style="clear: both;"></div>
+</li>

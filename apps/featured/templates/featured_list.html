@@ -1,0 +1,75 @@
+{% load video_tags %}
+{% ifequal class_type "video" %}
+    <ul class="video-list">
+        {% for featured_project in featured_projects %}
+            {% show_video_teaser featured_project.content_object %}
+        {% endfor %}
+        {% if not featured_projects %}
+           <li>
+               <h2> No Entries </h2>
+           </li>
+        {% endif %}
+        <div style="clear: both;"></div>
+    </ul>
+{% else %}
+    {% ifequal class_type "post" %}
+          <ul class="featured-post-list">
+            {% for featured_project in featured_projects %}
+                <li class="featured-post-listitem">
+                    <a href="{{ featured_project.content_object.get_absolute_url }}">
+                        {{ featured_project.content_object.title }}
+                    </a>
+                </li>
+            {% endfor %}
+            {% if not featured_projects %}
+               <li>
+                   <h2> No Entries </h2>
+               </li>
+            {% endif %}
+            <div style="clear: both;"></div>
+        </ul>
+    {% else %}
+        {% ifequal class_type "image" %}
+            <ul class="featured-image-list">
+                {% for featured_project in featured_projects %}
+                    <li class="featured-image-listitem">
+                        <a href="{{ featured_project.content_object.get_absolute_url }}">
+                            <img src="{{ featured_project.content_object.get_thumbnail_url  }}" alt="" />
+                        </a>
+                    </li>
+                {% endfor %}
+                {% if not featured_projects %}
+                   <li>
+                       <h2> No Entries </h2>
+                   </li>
+                {% endif %}
+                <div style="clear: both;"></div>
+            </ul>
+        {% else %}
+            <ul>
+                 {% for featured_project in featured_projects %}
+                    <li>
+                        <a href="{{ featured_project.content_object.get_absolute_url }}">
+                          <div>
+                             {% if featured_project.image %}
+                                <img src="{{ featured_project.featuredimage.get_featured_url }}" alt="{{ featured_project.title }}" />
+                             {% else %}
+                                <img src="{{ STATIC_URL }}featured.jpg" alt="{{ featured_project.title }}" />
+                             {% endif %}
+                             <h2>{{ featured_project.title }}</h2>
+                          </div>
+                          <div class="addonText">
+                              {{ featured_project.body|truncatewords:6 }}
+                          </div>
+                      </a>
+                    </li>
+                {% endfor %}
+                {% if not featured_projects %}
+                   <li>
+                       <h2> No Entries </h2>
+                   </li>
+                {% endif %}
+            </ul>
+        {% endifequal %}
+    {% endifequal %}
+{% endifequal %}

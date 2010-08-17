@@ -1,0 +1,4 @@
+* * * * * /path/to/project/cron/send_mail.sh
+* * * * * /path/to/project/cron/emit_notices.sh
+
+0,20,40 * * * * /path/to/project/cron/retry_deferred.sh

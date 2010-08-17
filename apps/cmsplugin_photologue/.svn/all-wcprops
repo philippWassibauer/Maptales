@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue/tests.py
+END
+cms_plugins.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue/cms_plugins.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/maptales/!svn/ver/235/apps/cmsplugin_photologue/urls.py
+END

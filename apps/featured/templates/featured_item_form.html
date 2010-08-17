@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Welcome" %}{% endblock %}
+
+{% block body %}
+    <form enctype="multipart/form-data" method="post" action="">
+        {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }}: {{ field }}
+                </div>
+        {% endfor %}
+        
+        {% if form.instance.image %}
+        <div>
+            <strong>Current:</strong>
+            <img src="{{ form.instance.image.url }}" />
+            <br />
+            <div>This image will be automatically resized or cropped to {{ form.instance.featuredimage.get_featured_size }} px</div>
+            <strong>Converted:</strong>
+            <img src="{{ form.instance.featuredimage.get_featured_url }}" />
+        </div>
+        {% endif %}
+
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+{% endblock body %}

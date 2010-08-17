@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/maptales/!svn/ver/435/apps/ebgeo/utils/clustering
+END
+json.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/clustering/json.py
+END
+shortcuts.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/maptales/!svn/ver/423/apps/ebgeo/utils/clustering/shortcuts.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/maptales/!svn/ver/422/apps/ebgeo/utils/clustering/__init__.py
+END
+bunch.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/maptales/!svn/ver/480/apps/ebgeo/utils/clustering/bunch.py
+END
+cluster.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/clustering/cluster.py
+END
+sample.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/clustering/sample.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/clustering/tests.py
+END

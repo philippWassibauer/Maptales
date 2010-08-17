@@ -1,0 +1,118 @@
+{% if audios %}
+    <SCRIPT language="JavaScript">
+    <!--
+        var imageDir = "/site-media/soundmanager/";
+        var imageArray = ["foreward.png",
+                          "gradient.png",
+                          "next.png",
+                          "next_hover.png",
+                          "next_onclick.png",
+                          "pause.png",
+                          "pause_hover.png",
+                          "pause_onclick.png",
+                          "play.png",
+                          "play_hover.png",
+                          "play_onclick.png",
+                          "prev.png",
+                          "prev_hover.png",
+                          "prev_onclick.png",
+                          ];
+        if (document.images)
+            {
+              var PRELOADED_IMAGES = [];
+              for(var i=0; i<imageArray.length; i++){
+                    PRELOADED_IMAGES[i] = new Image();
+                    PRELOADED_IMAGES[i].src = imageDir+imageArray[i];
+              }
+        }
+    //-->
+    </SCRIPT>
+
+
+    <div class="schmiede-action-module">
+        {% include "audio/setup-soundmanager.html" %}
+        <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+        <script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.slider.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+          $("#volumeBar").slider({ value: 50, max: 100, min: 0,  change: function(event, ui) { setVolume(ui.value); }});
+        });
+        </script>
+
+        <div class="audioplayer ui-corner-all">
+            <div class="audio-controlwrapper ui-corner-top">
+                <div class="audio-controlpanel" id="audio-controlpanel">
+                    <img id="audioplayercover" src="/site_media/soundmanager/cover.jpg" alt="cover"/>
+                    <div class="central-control">
+                        <div id="control-template" class="control-template">
+                            <div id="audioMetadataBlock" class="controls">
+                                <div>
+                                </div>
+                                <div class="statusbar">
+                                    <div class="loadingBg">
+                                        <div class="loading"></div>
+                                        <div class="position">
+                                            <div class="knob">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul style="display: none;">
+                                    <li>
+                                      <p>
+
+                                      </p>
+                                        <span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="timing">
+                                <div id="sm2_timing" class="timing-data">
+                                 <span class="sm2_position">%s1</span> / <span class="sm2_total">%s2</span>
+                                </div>
+                            </div>
+                            <div class="peak">
+                                <div class="peak-box"><span class="l"></span><span class="r"></span>
+                                </div>
+                            </div>
+                            <div id="spectrum-container" class="spectrum-container">
+                                <div class="spectrum-box">
+                                    <div class="spectrum"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-control">
+                        <div class="forward"  onclick="nextTrack()">
+                        </div>
+                        <div class="rewind" onclick="previousTrack()">
+                        </div>
+                        <div id="audioPlayButton" class="play" onclick="startAudioPlayer(event)">
+                        </div>
+                        <div class="volumeControl">
+                            <div class="down"></div>
+                            <div id="volumeBar" class="volumeBar">
+
+                            </div>
+                            <div class="up"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="playlist ui-corner-bottom">
+                {% for audio in audios %}
+                    <li class="ui-corner-bottom">
+                        {% ifequal audio.creator user %}
+                            <div class="editpanel">
+                                <a href="{% url audio_edit audio.id %}">Editieren</a>|
+                                <a href="{% url audio_destroy audio.id %}">Löschen</a>
+                            </div>
+                        {% endifequal %}
+                        <a href="{{ audio.audio_file.url }}" class="playlist-item" onclick="return false;" {% if audio.audioimage.image %}coverimage="{{ audio.audioimage.get_audiocover_url }}"{% endif %} >{{ audio.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

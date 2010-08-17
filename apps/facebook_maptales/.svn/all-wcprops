@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/179/apps/facebook_maptales
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/maptales/!svn/ver/149/apps/facebook_maptales/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/maptales/!svn/ver/5/apps/facebook_maptales/__init__.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/5/apps/facebook_maptales/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/146/apps/facebook_maptales/urls.py
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/maptales/!svn/ver/5/apps/facebook_maptales/README
+END

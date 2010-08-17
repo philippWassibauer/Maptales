@@ -1,0 +1,8 @@
+{% if stories %}
+<h3>Stories contained in</h3>
+{% for story in stories %}
+    <div>
+        {{story.big_img_teaser}}
+    </div>
+{% endfor %}
+{% endif %}

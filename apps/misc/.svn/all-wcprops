@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/maptales/!svn/ver/427/apps/misc
+END
+tagcon.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/265/apps/misc/tagcon.py
+END
+middleware.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/3/apps/misc/middleware.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/maptales/!svn/ver/28/apps/misc/__init__.py
+END
+utils.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/maptales/!svn/ver/427/apps/misc/utils.py
+END
+footer_context_processor.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/maptales/!svn/ver/3/apps/misc/footer_context_processor.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/maptales/!svn/ver/3/apps/misc/models.py
+END
+basic_auth_decorator.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/maptales/!svn/ver/517/apps/misc/basic_auth_decorator.py
+END
+polymorphic.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/maptales/!svn/ver/282/apps/misc/polymorphic.py
+END
+context_processors.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/61/apps/misc/context_processors.py
+END

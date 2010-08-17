@@ -1,0 +1,54 @@
+-e svn+http://django-reversion.googlecode.com/svn/trunk/src/#egg=reversion
+-e git+git://github.com/sciyoshi/pyfacebook.git#egg=facebook
+
+-e svn+http://geopy.googlecode.com/svn/branches/reverse-geocode#egg=geopy
+
+-e git+git://github.com/ragb/django-categories.git#egg=categories
+
+-e hg+http://django-treebeard.googlecode.com/hg/#egg=treebeard
+
+-e git+git://github.com/philippWassibauer/django-activity-stream.git#egg=activitystream
+
+-e svn+http://django-tinymce.googlecode.com/svn/trunk/#egg=django-tinymce
+
+-e git+git://github.com/mintchaos/django_compressor.git#egg=django-compress
+#-e git://github.com/dziegler/clevercss.git#egg=clevercss
+
+-e svn+http://django-grappelli.googlecode.com/svn/trunk/#egg=grappelli
+
+-e svn+http://django-filebrowser.googlecode.com/svn/trunk/#egg=filebrowser
+
+-e git+git://github.com/digi604/django-cms-2.0.git@2.1.0.beta2#egg=django-cms
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=Django
+
+-e git+git://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
+
+-e git+git://github.com/philippWassibauer/django-natural-earth.git#egg=natural_earth
+
+-e hg+https://philippwassibauer@bitbucket.org/wnielson/django-chronograph/#egg=django-chronograph
+
+-e svn+http://django-syncr.googlecode.com/svn/trunk/#egg=django-syncr
+
+south
+
+logging
+
+
+-e git+git://github.com/jbalogh/django-nose.git#egg=django-nose
+
+-e git+git://github.com/jpwatts/django-positions.git#egg=positions
+
+-e git+git://github.com/justquick/django-native-tags.git#egg=django-native-tags
+
+-e git+git://github.com/ericholscher/django-test-utils.git#egg=django-test-utils
+
+-e git+git://github.com/thornomad/django-hitcount.git#egg=django-hitcount
+
+-e git+git://github.com/jpwatts/django-positions.git#egg=django-positions
+oauth
+python-yadis
+
+-e git+git://github.com/philippWassibauer/brabeion.git#egg=brabeion
+-e svn+http://django-voting.googlecode.com/svn/trunk/#egg=django-voting
+
+# mailer and user need bigger fields for email

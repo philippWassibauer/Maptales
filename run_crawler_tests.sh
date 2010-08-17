@@ -1,0 +1,1 @@
+python manage.py crawlurls -t -p -v 2 /

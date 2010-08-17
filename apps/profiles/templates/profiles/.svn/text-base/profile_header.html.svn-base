@@ -1,0 +1,68 @@
+{% load avatar_tags %}
+{% load activity_stream_tags %}
+{% load profile_tags %}
+<div class="span-23 last user-header">
+    <div class="span-2" style="width: 48px;">
+          <a title="click to select icon" href="{% url avatar_change %}" class="imageLink">
+             <img width="48" height="48" src="{% avatar_url viewed_user 48 %}"/>
+           </a>
+    </div>
+    <div class="span-21 last" style="width: 843px">
+        <div>
+            <a class="round-big-counter ui-corner-all">
+                <span>{{viewed_user.added_photos.count}}</span>
+                <h3>Photos</h3>
+            </a>
+            <a class="round-big-counter ui-corner-all">
+                <span>{% count_of_votes viewed_user %}</span>
+                <h3>Votes</h3>
+            </a>
+            <a class="round-big-counter ui-corner-all" href="{% url badge_list %}">
+                <span>{{viewed_user.badges_earned.count}}</span>
+                <h3>Badges</h3>
+            </a>
+            <a class="round-big-counter ui-corner-all" href="{% url user_stories viewed_user.username %}">
+                <span>{{viewed_user.stories.count}}</span>
+                <h3>Experiences</h3>
+            </a>
+       </div>
+       <h1 style="margin: 1px 0 1px 1px; line-height: 30px; font-weight: normal;">
+            {% ifequal user viewed_user %}
+                <a href="{% url activity_stream viewed_user.username %}" class="trigger">{{ viewed_user.get_profile }}</a>
+            {% else %}
+                <a href="{% url activity_stream viewed_user.username %}">{{ viewed_user.get_profile }}</a>
+            {% endifequal %}
+            {% if title %}/ {{title}}{% endif %}
+
+            {% ifequal user viewed_user %}
+            {% else %}
+                <span class="following-icon">
+                    {% if_is_following user viewed_user %}
+                        <a href="{% url end_activity_follow viewed_user.username %}" class="ui-corner-all">Unfollow</a>
+                    {% else %}
+                        <a href="{% url start_activity_follow viewed_user.username %}" class="ui-corner-all">Start Following</a>
+                    {% endif_is_following %}
+                </span>
+                
+                <span class="following-icon">
+                    {% if_are_friends user viewed_user %}
+                        <a href="" class="ui-corner-all">Is your Friend</a>
+                    {% else %}
+                        {% if_received_friendship_request_from_user viewed_user user %}
+                            <a href="" class="ui-corner-all">Waiting for User to accept your Friend Request</a>
+                        {% else %}
+                            {% if_sent_friendship_request_to_user viewed_user user %}
+                                <a href="{% url accept_friendship viewed_user.username %}" rel="facebox" class="ui-corner-all">Respond to Friend Request </a>
+                            {% else %}
+                                <a href="{% url request_friendship viewed_user.username %}" rel="facebox" class="ui-corner-all"> Add as Friend </a>
+                            {% endif_sent_friendship_request_to_user %}
+                        {% endif_received_friendship_request_from_user %}
+                    {% endif_are_friends %}
+                </span>
+            {% endifequal %}
+        </h1>
+       
+    </div>
+    <div style="clear: both;"></div>
+</div>
+ <div style="clear: both;"></div>

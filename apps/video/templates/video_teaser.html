@@ -1,0 +1,11 @@
+{% if video %}
+<div class="video-teaser">
+    <a href="{% url show_video video.id %}">
+        <p>
+            <img src="{{ video.thumbnail_url }}" alt="" />
+        </p>
+        <h2>{{ video.title }}</h2>
+    </a>
+    <a href="{{video.creator.get_absolute_url}}" class="creator">by {{video.creator.username}}</a>
+</div>
+{% endif %}

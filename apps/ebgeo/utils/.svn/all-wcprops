@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/maptales/!svn/ver/435/apps/ebgeo/utils
+END
+shapeindex.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/shapeindex.py
+END
+progressbar.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/progressbar.py
+END
+geodjango.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/geodjango.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/__init__.py
+END
+correcting.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/correcting.py
+END
+feature_reducer.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/maptales/!svn/ver/285/apps/ebgeo/utils/feature_reducer.py
+END

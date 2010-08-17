@@ -1,0 +1,19 @@
+[
+    {
+        "pk": 7,
+        "model": "photologue.photosize",
+        "fields": {
+            "name": "audio_cover",
+            "watermark": null,
+            "increment_count": false,
+            "effect": null,
+            "crop": false,
+            "height": 70,
+            "width": 70,
+            "upscale": false,
+            "pre_cache": false,
+            "quality": 70
+        }
+    }
+]
+

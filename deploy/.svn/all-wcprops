@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/maptales/!svn/ver/92/deploy
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/maptales/!svn/ver/1/deploy/__init__.py
+END
+complete_project.wsgi
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/maptales/!svn/ver/1/deploy/complete_project.wsgi
+END
+modpython.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/maptales/!svn/ver/1/deploy/modpython.py
+END
+maptales.wsgi
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/92/deploy/maptales.wsgi
+END

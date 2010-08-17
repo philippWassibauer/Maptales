@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/maptales/!svn/ver/329/apps/blog
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/maptales/!svn/ver/3/apps/blog/admin.py
+END
+management.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/3/apps/blog/management.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/maptales/!svn/ver/238/apps/blog/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/3/apps/blog/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/maptales/!svn/ver/278/apps/blog/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/304/apps/blog/models.py
+END
+search_indexes.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/maptales/!svn/ver/232/apps/blog/search_indexes.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/maptales/!svn/ver/292/apps/blog/urls.py
+END
+feeds.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/maptales/!svn/ver/3/apps/blog/feeds.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/maptales/!svn/ver/329/apps/blog/forms.py
+END

@@ -1,0 +1,1 @@
+[{"pk": 16, "model": "oembed.providerrule", "fields": {"regex": "http://\\S*.vimeo.com/\\S*", "endpoint": "http://vimeo.com/api/oembed.json", "name": "Vimeo2", "format": 1}}]

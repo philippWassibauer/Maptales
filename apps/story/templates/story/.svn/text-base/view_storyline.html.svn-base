@@ -1,0 +1,72 @@
+{% load object_to_content_type %}
+{% load truncchar_tag %}
+{% if storyline %}
+    <ul class="story-list">
+        {% for item in storyline %}
+            <li class="storylineitem ui-corner-all">
+                {% if not item.has_location %}
+                {% else %}
+                    <div class="draggable-placed-wrapper">
+                        <div class="draggable-placed" onclick="maptales.map.gotoContentObject('{{item|object_to_model_name}}', {{item.id}})"
+                             onmouseover="maptales.map.selectContentObject('{{item|object_to_model_name}}', {{item.id}})"
+                             onmouseout="maptales.map.deselectContentObject()">
+                        </div>
+                    </div>
+                {% endif %}
+                <span style="vertical-align:baseline;">
+                    {% if item.get_image %}
+                        <img src="{{item.get_image.0.content_object.get_30_35_url}}" alt=""  />
+                    {% else %}
+                        <span class="post-list-35-30"></span>
+                    {% endif %}
+                </span>
+                <span style="vertical-align:top;">
+                    <span>{{item|truncchar:35}}</span>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="info-padder">
+       <h3>
+        This Story is currently empty
+        </h3>
+        <p>
+            Go to the Create Screen to add Posts
+        </p>
+    </div>
+
+{% endif %}
+
+<script type="text/javascript">
+    function initialize_reorder(){
+        $('.story-list').sortable({ axis: 'y',
+            stop: function(event, ui) {
+                var endPosition = $(ui.item).parent().children().index(ui.item);
+                reorderStoryline(this.startPosition, endPosition)
+            },
+            start: function(event, ui) {
+               this.startPosition = $(ui.item).parent().children().index(ui.item);
+            }
+        })
+        $('.story-list').disableSelection()
+    }
+    function initialize_removables(){
+        $('.storylineitem .cancel-x').click(function(){
+            self = this
+            post($(this).attr("posturl"), {}, "text", function(){
+                $(self).parents("li").fadeOut("slow")
+            })
+            return false;
+        })
+    }
+    function reorderStoryline(oldPosition, newPosition){
+        post("{% url reorder_storyline story.id %}", {oldPosition: oldPosition, newPosition: newPosition}, 'text', function(){
+            successMessage("Successfully stored new Position")
+        })
+    }
+    $(document).ready(function(){
+        initialize_reorder();
+        initialize_removables();
+    })
+</script>

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/maptales/!svn/ver/436/apps/profiles
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/81/apps/profiles/admin.py
+END
+management.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/maptales/!svn/ver/210/apps/profiles/management.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/435/apps/profiles/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/maptales/!svn/ver/51/apps/profiles/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/122/apps/profiles/tests.py
+END
+cms_app.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/maptales/!svn/ver/433/apps/profiles/cms_app.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/maptales/!svn/ver/460/apps/profiles/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/maptales/!svn/ver/435/apps/profiles/urls.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/433/apps/profiles/forms.py
+END

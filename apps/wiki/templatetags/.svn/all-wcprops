@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/179/apps/wiki/templatetags
+END
+creole.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/creole.py
+END
+switchcase.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/switchcase.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/__init__.py
+END
+restructuredtext.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/restructuredtext.py
+END
+wiki.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/wiki.py
+END
+wikiurl.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/maptales/!svn/ver/3/apps/wiki/templatetags/wikiurl.py
+END

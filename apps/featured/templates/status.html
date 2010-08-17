@@ -1,0 +1,18 @@
+{% if is_featured %}
+    <div>
+        *This item is <a href="{% url featured-list %}">featured</a>
+        {% if user.is_staff %}
+        <ul>
+            <li>
+                <a href="{% url featured-remove content_type.id content_object.id %}">Remove from list</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+{% else %}
+    {% if user.is_staff %}
+        <div>
+            <a href="{% url featured-add content_type.id content_object.id %}?title={{ title }}&body={{ body }}">Mark as Featured</a>
+        </div>
+    {% endif %}
+{% endif %}

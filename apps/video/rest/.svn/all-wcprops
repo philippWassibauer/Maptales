@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/maptales/!svn/ver/179/apps/video/rest
+END
+vimeoPy.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/maptales/!svn/ver/3/apps/video/rest/vimeoPy.py
+END
+restful_lib.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/maptales/!svn/ver/3/apps/video/rest/restful_lib.py
+END
+mimeTypes.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/maptales/!svn/ver/3/apps/video/rest/mimeTypes.py
+END
+talis.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/maptales/!svn/ver/3/apps/video/rest/talis.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/maptales/!svn/ver/3/apps/video/rest/__init__.py
+END
+MultipartPostHandler.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/maptales/!svn/ver/3/apps/video/rest/MultipartPostHandler.py
+END
+gae_restful_lib.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/maptales/!svn/ver/3/apps/video/rest/gae_restful_lib.py
+END

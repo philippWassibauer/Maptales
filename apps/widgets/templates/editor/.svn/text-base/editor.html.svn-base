@@ -1,0 +1,71 @@
+
+<div class="ctrlHolder" id="div_id_name">
+
+    <label for="id_name">
+        Description
+    </label>
+    <div class="wysiwyg-container">
+
+        <div>
+            <a href="#" onclick="$('#import_help_text').toggle(); return false;">How do I import External Videos and Images?</a>
+            <div id="import_help_text" style="display: none;" class="help-text">
+                Just copy the URL of the Resource into the Editor below.  <br />
+                We will take care of replacing it with the Resource in the right size.  <br />
+                <br />
+                <b>Examples:</b>
+                <div>
+                   Vimeo: http://www.vimeo.com/5231697 <br />
+                   Youtube: http://www.youtube.com/watch?v=YVvg9ayDqwc <br />
+                   Flickr: http://www.flickr.com/photos/7864523@N02/2184526344/  <br />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <a href="#" onclick="text_mode()">switch to code view</a> | <a href="#" onclick="wysiwyg_view()">switch to editor view</a>
+        </div>
+        <textarea id="id_{{field_name}}" name="{{field_name}}" style="display:none;" class="html-text-field" cols="110" rows="44"></textarea>
+        <div id="wysiwyg_editor"
+             class="{{class}}" 
+             dojoType="dijit.Editor"
+             jsId="dojoEditor"
+             plugins="{{plugins}}"
+             height="500px"
+             styleSheets="/site_media/css/screen.css;/site_media/css/print.css;/site_media/css/style.css;">
+            {% autoescape off %}{{text}}{% endautoescape %}
+        </div>
+         <script type="text/javascript">
+               dojo.require("dojo.parser");
+               dojo.require("dijit.Editor");
+               dojo.require("dojo.DeferredList");
+               dojo.require("dijit._editor.plugins.LinkDialog");
+               dojo.require("dijit._editor.plugins.FontChoice");
+        </script>
+
+
+        <script type="text/javascript">
+             $("#id_{{field_name}}").parents("form").submit(function() {
+                  var editor = dijit.byId("wysiwyg_editor");
+                  if(!$("#id_{{field_name}}").is(':visible')){
+                    $("#id_{{field_name}}")[0].value = editor.getValue();
+                  }
+             })
+
+             function text_mode(){
+                 var editor = dijit.byId("wysiwyg_editor");
+                 $("#id_{{field_name}}")[0].value = editor.getValue();
+                 $('#id_{{field_name}}').show()
+                 $('#wysiwyg_editor').hide()
+             }
+
+            function wysiwyg_view(){
+                  var editor = dijit.byId("wysiwyg_editor");
+                  editor.setValue($("#id_{{field_name}}")[0].value);
+                  $('#wysiwyg_editor').show()
+                  $('#id_{{field_name}}').hide()
+             }
+        </script>
+    </div>
+</div>
+
+

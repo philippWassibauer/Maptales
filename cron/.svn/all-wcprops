@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/maptales/!svn/ver/85/cron
+END
+mail-deferred-example.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/maptales/!svn/ver/85/cron/mail-deferred-example.sh
+END
+mail-example.sh
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/85/cron/mail-example.sh
+END
+settings.conf
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/maptales/!svn/ver/85/cron/settings.conf
+END
+mail-notices-example.sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/maptales/!svn/ver/85/cron/mail-notices-example.sh
+END
+cron-example.txt
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/maptales/!svn/ver/2/cron/cron-example.txt
+END

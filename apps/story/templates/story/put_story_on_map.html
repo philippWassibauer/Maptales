@@ -1,0 +1,21 @@
+
+{% for item in story.storyline.all %}
+    maptales.map.placeGeoJsonMarker({{item.get_geojson}}, {{editable}} )
+{% endfor %}
+
+{% for track in story.gpx_paths %}
+    maptales.map.placeGeoJsonSegment({{track.get_geojson}})
+{% endfor %}
+
+{% for line in story.lines %}
+    maptales.map.placeGeoJsonSegment({{line.get_geojson}})
+{% endfor %}
+
+maptales.map.zoomToShowAllOverlays();
+try{
+    maptales.map.setMapType({{story.get_gmap_mode}})
+}catch(e){
+    if(console && console.log){
+        console.log("Error setting map type")
+    }
+}

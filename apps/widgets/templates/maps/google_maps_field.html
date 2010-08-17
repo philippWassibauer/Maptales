@@ -1,0 +1,41 @@
+{% load geo_tags %}
+
+<div class="ctrlHolder" id="div_id_name">
+    <label for="id_{{field_name}}">
+        Position
+    </label>
+    <div style="float:left;">
+        <textarea id="id_{{field_name}}" name="{{field_name}}" style="display: none;">{{db_value}}</textarea>
+        <div style="margin-bottom: 10px;">
+            <b>Jump To Location: </b>
+            {% location_autocomplete "onLocationSearchComplete" %}
+        </div>
+         <div id="location-submit-text" class="span-8">
+            <div class="span-6 last">
+                <div id="placement-text">
+                </div>
+             </div>
+            <div id="field_map_submit" class="span-2 last" style="margin-top: 11px;">
+                <button type="submit" style="float: right;" onclick="storeLocationFieldValue()">Save</button>
+            </div>
+        </div>
+        <div id="field_map" class="input-map" style="width: 510px; height: 400px;">
+        </div>
+        <p style="margin-left: 0px;">
+            {% if value %}
+                 <div>Change the position by dragging the Marker</div>
+            {% else %}
+                 <div class="draggable" style="float: left; margin-right: 20px; margin-bottom: 20px;">
+                 </div>
+                <div>Drag this Icon to the Position where you want you Item to appear on the map. <br />
+                Use the "Jump to Location"  Field to quickly get to your Point of Interest</div>
+            {% endif %}
+        </p>
+        {{GMAP.api_script}}
+        <script type="text/javascript">
+            {% include "maps/mapfield.js" %}
+        </script>
+    </div>
+</div>
+
+

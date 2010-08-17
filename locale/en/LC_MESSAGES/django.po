@@ -1,0 +1,2033 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-10 12:04+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: English <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: apps/account/forms.py:25 apps/account/forms.py:58 apps/account/forms.py:235
+#: apps/facebookconnect/forms.py:9
+#: apps/grappelli/templates/admin/auth/user/add_form.html:13
+msgid "Username"
+msgstr ""
+
+#: apps/account/forms.py:26 apps/account/forms.py:61 apps/account/forms.py:236
+#: apps/grappelli/templates/admin/auth/user/add_form.html:20
+#: apps/grappelli/templates/admin/auth/user/change_password.html:33
+msgid "Password"
+msgstr ""
+
+#: apps/account/forms.py:27
+msgid "Remember Me"
+msgstr ""
+
+#: apps/account/forms.py:27
+msgid "If checked you will stay logged in for 3 weeks"
+msgstr ""
+
+#: apps/account/forms.py:39
+msgid "This account is currently inactive."
+msgstr ""
+
+#: apps/account/forms.py:41
+msgid "The username and/or password you specified are not correct."
+msgstr ""
+
+#: apps/account/forms.py:47 apps/account/views.py:47
+#, python-format
+msgid "Successfully logged in as %(username)s."
+msgstr ""
+
+#: apps/account/forms.py:59
+msgid "First Name"
+msgstr ""
+
+#: apps/account/forms.py:60
+msgid "Last Name"
+msgstr ""
+
+#: apps/account/forms.py:62
+#: apps/grappelli/templates/admin/auth/user/add_form.html:26
+#: apps/grappelli/templates/admin/auth/user/change_password.html:39
+msgid "Password (again)"
+msgstr ""
+
+#: apps/account/forms.py:63 apps/account/forms.py:144
+#: apps/account/forms.py:183
+msgid "Email"
+msgstr ""
+
+#: apps/account/forms.py:65
+msgid "Passphrase"
+msgstr ""
+
+#: apps/account/forms.py:69
+msgid "Usernames can only contain letters, numbers and underscores."
+msgstr ""
+
+#: apps/account/forms.py:74
+msgid "This username is already taken. Please choose another."
+msgstr ""
+
+#: apps/account/forms.py:79 apps/account/forms.py:172
+msgid "You must type the same password each time."
+msgstr ""
+
+#: apps/account/forms.py:84
+msgid "Passphrase incorrect."
+msgstr ""
+
+#: apps/account/forms.py:106
+msgid "Your email address has already been verified"
+msgstr ""
+
+#: apps/account/forms.py:113 apps/account/forms.py:121
+#: apps/account/forms.py:154
+#, python-format
+msgid "Confirmation email sent to %(email)s"
+msgstr ""
+
+#: apps/account/forms.py:151
+msgid "This email address already associated with this account."
+msgstr ""
+
+#: apps/account/forms.py:160
+msgid "Current Password"
+msgstr ""
+
+#: apps/account/forms.py:161
+msgid "New Password"
+msgstr ""
+
+#: apps/account/forms.py:162
+msgid "New Password (again)"
+msgstr ""
+
+#: apps/account/forms.py:166
+msgid "Please type your current password."
+msgstr ""
+
+#: apps/account/forms.py:178
+msgid "Password successfully changed."
+msgstr ""
+
+#: apps/account/forms.py:187
+msgid "Email address not verified for any user account"
+msgstr ""
+
+#: apps/account/forms.py:195
+msgid "[Schmiede] Password reset"
+msgstr ""
+
+#: apps/account/forms.py:205
+msgid "Timezone"
+msgstr ""
+
+#: apps/account/forms.py:214
+msgid "Timezone successfully updated."
+msgstr ""
+
+#: apps/account/forms.py:218
+msgid "Language"
+msgstr ""
+
+#: apps/account/forms.py:227
+msgid "Language successfully updated."
+msgstr ""
+
+#: apps/account/forms.py:249
+msgid "Successfully authenticated."
+msgstr ""
+
+#: apps/account/models.py:11 apps/account/models.py:24
+#: apps/profiles/models.py:20
+msgid "user"
+msgstr ""
+
+#: apps/account/models.py:13
+msgid "timezone"
+msgstr ""
+
+#: apps/account/models.py:14
+msgid "language"
+msgstr ""
+
+#: apps/account/models.py:25
+msgid "Other Service Info Key"
+msgstr ""
+
+#: apps/account/models.py:26
+msgid "Other Service Info Value"
+msgstr ""
+
+#: apps/audio/models.py:70 apps/blog/models.py:61 apps/geo/models.py:82
+#: apps/photos/models.py:48 apps/video/models.py:33
+msgid "safetylevel"
+msgstr ""
+
+#: apps/audio/models.py:70
+msgid "Who can listen?"
+msgstr ""
+
+#: apps/audio/views.py:59
+#, python-format
+msgid "Successfully uploaded audio '%s'"
+msgstr ""
+
+#: apps/avatar/models.py:37
+#, python-format
+msgid "Avatar for %s"
+msgstr ""
+
+#: apps/avatar/views.py:51
+msgid "Successfully uploaded a new avatar."
+msgstr ""
+
+#: apps/avatar/views.py:58
+msgid "Successfully updated your avatar."
+msgstr ""
+
+#: apps/avatar/views.py:85
+msgid "Successfully deleted the requested avatars."
+msgstr ""
+
+#: apps/avatar/templatetags/avatar_tags.py:47
+msgid "Default Avatar"
+msgstr ""
+
+#: apps/blog/management.py:10
+msgid "Friend Posted to Blog"
+msgstr ""
+
+#: apps/blog/management.py:10
+msgid "a friend of yours posted to their blog"
+msgstr ""
+
+#: apps/blog/management.py:11
+msgid "New Comment on Blog Post"
+msgstr ""
+
+#: apps/blog/management.py:11
+msgid "a comment was made on one of your blog posts"
+msgstr ""
+
+#: apps/blog/models.py:27 apps/wiki/models.py:37
+msgid "reStructuredText"
+msgstr ""
+
+#: apps/blog/models.py:28 apps/wiki/models.py:38
+msgid "Textile"
+msgstr ""
+
+#: apps/blog/models.py:29 apps/wiki/models.py:39
+msgid "Markdown"
+msgstr ""
+
+#: apps/blog/models.py:40 apps/story/models.py:24
+msgid "Draft"
+msgstr ""
+
+#: apps/blog/models.py:41 apps/photos/models.py:19 apps/story/models.py:25
+msgid "Public"
+msgstr ""
+
+#: apps/blog/models.py:43 apps/geo/models.py:74 apps/geo/models.py:178
+#: apps/photos/models.py:42 apps/story/models.py:28 apps/video/models.py:22
+msgid "title"
+msgstr ""
+
+#: apps/blog/models.py:44 apps/categories/models.py:49
+#: apps/photos/models.py:43 apps/story/models.py:29
+msgid "slug"
+msgstr ""
+
+#: apps/blog/models.py:46
+msgid "IP Address of the Post Creator"
+msgstr ""
+
+#: apps/blog/models.py:47
+msgid "tease"
+msgstr ""
+
+#: apps/blog/models.py:48
+msgid "body"
+msgstr ""
+
+#: apps/blog/models.py:49 apps/story/models.py:34
+msgid "status"
+msgstr ""
+
+#: apps/blog/models.py:50
+msgid "allow comments"
+msgstr ""
+
+#: apps/blog/models.py:51
+msgid "publish"
+msgstr ""
+
+#: apps/blog/models.py:52
+msgid "created at"
+msgstr ""
+
+#: apps/blog/models.py:53
+msgid "updated at"
+msgstr ""
+
+#: apps/blog/models.py:54
+msgid "Post Content Markup"
+msgstr ""
+
+#: apps/blog/models.py:61
+msgid "Who can read this Post?"
+msgstr ""
+
+#: apps/blog/models.py:64 apps/photos/models.py:53
+msgid "location name"
+msgstr ""
+
+#: apps/blog/models.py:69
+msgid "post"
+msgstr ""
+
+#: apps/blog/models.py:70
+msgid "posts"
+msgstr ""
+
+#: apps/blog/views.py:108
+#, python-format
+msgid "Successfully deleted post '%s'"
+msgstr ""
+
+#: apps/blog/views.py:144
+#, python-format
+msgid "Successfully saved post '%s'"
+msgstr ""
+
+#: apps/blog/views.py:185
+#, python-format
+msgid "Successfully updated post '%s'"
+msgstr ""
+
+#: apps/blog/templates/notification/blog_friend_post/notice.html:2
+#, python-format
+msgid ""
+"<a href=\"%(author_url)s\">%(post_author)s</a> has posted <a href=\"%"
+"(post_url)s\">%(post_title)s</a> to their blog."
+msgstr ""
+
+#: apps/blog/templates/notification/blog_post_comment/notice.html:2
+#, python-format
+msgid ""
+"<a href=\"%(user_url)s\">%(user)s</a> has commented on your blog post '<a "
+"href=\"%(post_url)s\">%(post)s</a>'."
+msgstr ""
+
+#: apps/categories/forms.py:49
+msgid "Root Node"
+msgstr ""
+
+#: apps/categories/models.py:47 apps/photos/models.py:28
+msgid "name"
+msgstr ""
+
+#: apps/categories/models.py:48
+msgid "Name of the Category"
+msgstr ""
+
+#: apps/categories/models.py:50
+msgid "Slug, normally used in URLs"
+msgstr ""
+
+#: apps/categories/models.py:51 apps/geo/models.py:75 apps/geo/models.py:179
+#: apps/geo/migrations/0006_added_segment_description.py:11
+#: apps/geo/migrations/0006_added_segment_description.py:12
+#: apps/photos/models.py:29 apps/story/models.py:32
+msgid "description"
+msgstr ""
+
+#: apps/categories/models.py:51
+msgid "Description of this category"
+msgstr ""
+
+#: apps/categories/models.py:57 apps/grappelli/models/navigation.py:43
+msgid "Category"
+msgstr ""
+
+#: apps/categories/models.py:58
+msgid "Categories"
+msgstr ""
+
+#: apps/categories/models.py:66
+msgid "category"
+msgstr ""
+
+#: apps/categories/models.py:73
+msgid "Categorized item"
+msgstr ""
+
+#: apps/categories/models.py:74
+msgid "Categorized items"
+msgstr ""
+
+#: apps/contact_form/forms.py:16
+msgid "Your name"
+msgstr ""
+
+#: apps/contact_form/forms.py:17
+msgid "Your email address"
+msgstr ""
+
+#: apps/contact_form/forms.py:18
+msgid "Your message"
+msgstr ""
+
+#: apps/facebook_maptales/templates/facebook/start_story.html:8
+#: templates/story/start.html:8
+msgid "Start Story"
+msgstr ""
+
+#: apps/facebookconnect/forms.py:10
+msgid ""
+"Required. 30 characters or fewer. Alphanumeric characters only (letters, "
+"digits and underscores)."
+msgstr ""
+
+#: apps/facebookconnect/forms.py:11
+msgid "This value must contain only letters, numbers and underscores."
+msgstr ""
+
+#: apps/facebookconnect/forms.py:12
+msgid "E-mail"
+msgstr ""
+
+#: apps/featured/templates/featured_item_form.html:5
+#: apps/featured/templates/list.html:7
+msgid "Welcome"
+msgstr ""
+
+#: apps/friends_app/views.py:25
+#, python-format
+msgid "Accepted friendship request from %(from_user)s"
+msgstr ""
+
+#: apps/friends_app/views.py:70
+#, python-format
+msgid "%(total)s vCards found, %(imported)s contacts imported."
+msgstr ""
+
+#: apps/friends_app/views.py:79 apps/friends_app/views.py:85
+#, python-format
+msgid "%(total)s people with email found, %(imported)s contacts imported."
+msgstr ""
+
+#: apps/geo/forms.py:42 templates/profiles/profiles.html:25
+msgid "Name"
+msgstr ""
+
+#: apps/geo/forms.py:43
+msgid "GPX file"
+msgstr ""
+
+#: apps/geo/forms.py:44 apps/story/forms.py:21
+msgid "Which Categories?"
+msgstr ""
+
+#: apps/geo/forms.py:87
+msgid "location"
+msgstr ""
+
+#: apps/geo/models.py:30
+msgid "Satellite"
+msgstr ""
+
+#: apps/geo/models.py:31
+msgid "Hybrid"
+msgstr ""
+
+#: apps/geo/models.py:32
+msgid "Map"
+msgstr ""
+
+#: apps/geo/models.py:33
+msgid "Terrain"
+msgstr ""
+
+#: apps/geo/models.py:59 apps/geo/models.py:76 apps/geo/models.py:180
+#: apps/photos/models.py:109 apps/video/models.py:87
+msgid "created_at"
+msgstr ""
+
+#: apps/geo/models.py:67 apps/geo/models.py:68
+msgid "geogeometry"
+msgstr ""
+
+#: apps/geo/models.py:77 apps/geo/models.py:181
+msgid "update_date"
+msgstr ""
+
+#: apps/geo/models.py:78 apps/geo/models.py:182
+msgid "distance"
+msgstr ""
+
+#: apps/geo/models.py:79 apps/geo/models.py:183
+msgid "start_time"
+msgstr ""
+
+#: apps/geo/models.py:80 apps/geo/models.py:184
+msgid "end_time"
+msgstr ""
+
+#: apps/geo/models.py:82 apps/photos/models.py:48 apps/story/models.py:35
+msgid "privacy helptext"
+msgstr "Who can see this item? You have full control of your privacy"
+
+#: apps/geo/models.py:84 apps/geo/models.py:190
+msgid "from location"
+msgstr ""
+
+#: apps/geo/models.py:85 apps/geo/models.py:191
+msgid "to location"
+msgstr ""
+
+#: apps/geo/models.py:187
+msgid "raw_track"
+msgstr ""
+
+#: apps/geo/views.py:119
+msgid "Rights Error"
+msgstr ""
+
+#: apps/geo/views.py:120
+msgid "Only the creator can delete GPX paths"
+msgstr ""
+
+#: apps/geo/views.py:144
+msgid "Geocode Error"
+msgstr ""
+
+#: apps/geo/views.py:145
+msgid "No Query passed"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:13
+#: apps/grappelli/templates/admin/object_history.html:23
+#: apps/wiki/templates/wiki/history.html:20
+msgid "User"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:17
+msgid "Bookmark"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:18
+#: apps/grappelli/templates/admin/includes_grappelli/bookmarks.html:4
+msgid "Bookmarks"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:33 apps/grappelli/models/help.py:13
+#: apps/grappelli/models/help.py:36 apps/grappelli/models/navigation.py:18
+#: apps/grappelli/models/navigation.py:41 apps/wiki/models.py:46
+msgid "Title"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:34 apps/grappelli/models/help.py:37
+#: apps/grappelli/models/navigation.py:42
+msgid "Link"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:34 apps/grappelli/models/help.py:37
+#: apps/grappelli/models/navigation.py:42
+msgid "The Link should be relative, e.g. /admin/blog/."
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:41
+msgid "Bookmark Item"
+msgstr ""
+
+#: apps/grappelli/models/bookmarks.py:42
+msgid "Bookmark Items"
+msgstr ""
+
+#: apps/grappelli/models/help.py:16 apps/grappelli/models/navigation.py:21
+msgid "Order"
+msgstr ""
+
+#: apps/grappelli/models/help.py:20 apps/grappelli/models/help.py:21
+#: apps/grappelli/templates/grappelli/help/help.html:9
+#: apps/grappelli/templates/grappelli/help/help_detail.html:22
+msgid "Help"
+msgstr ""
+
+#: apps/grappelli/models/help.py:38
+msgid "Body"
+msgstr ""
+
+#: apps/grappelli/models/help.py:45
+msgid "Help Entry"
+msgstr ""
+
+#: apps/grappelli/models/help.py:46
+msgid "Help Entries"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:9
+msgid "internal"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:10
+msgid "external"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:25
+#: apps/grappelli/models/navigation.py:26
+msgid "Navigation"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:46
+msgid "Users"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:53
+msgid "Navigation Item"
+msgstr ""
+
+#: apps/grappelli/models/navigation.py:54
+msgid "Navigation Items"
+msgstr ""
+
+#: apps/grappelli/templates/admin/404.html:4
+#: apps/grappelli/templates/admin/404.html:8
+msgid "Page not found"
+msgstr ""
+
+#: apps/grappelli/templates/admin/404.html:10
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: apps/grappelli/templates/admin/500.html:4
+#: apps/grappelli/templates/admin/app_index.html:8
+#: apps/grappelli/templates/admin/base.html:78
+#: apps/grappelli/templates/admin/change_form.html:22
+#: apps/grappelli/templates/admin/change_list.html:29
+#: apps/grappelli/templates/admin/delete_confirmation.html:6
+#: apps/grappelli/templates/admin/index.html:10
+#: apps/grappelli/templates/admin/invalid_setup.html:4
+#: apps/grappelli/templates/admin/object_history.html:6
+#: apps/grappelli/templates/admin/auth/user/change_password.html:10
+#: apps/grappelli/templates/grappelli/help/help.html:9
+#: apps/grappelli/templates/grappelli/help/help_detail.html:22
+#: apps/grappelli/templates/registration/logged_out.html:4
+#: apps/grappelli/templates/registration/password_change_done.html:17
+#: apps/grappelli/templates/registration/password_reset_complete.html:4
+#: apps/grappelli/templates/registration/password_reset_confirm.html:4
+#: apps/grappelli/templates/registration/password_reset_done.html:4
+#: apps/grappelli/templates/registration/password_reset_form.html:4
+msgid "Home"
+msgstr ""
+
+#: apps/grappelli/templates/admin/500.html:4
+msgid "Server error"
+msgstr ""
+
+#: apps/grappelli/templates/admin/500.html:6
+msgid "Server error (500)"
+msgstr ""
+
+#: apps/grappelli/templates/admin/500.html:9
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: apps/grappelli/templates/admin/500.html:10
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: apps/grappelli/templates/admin/app_index.html:10
+#: apps/grappelli/templates/admin/index.html:18
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: apps/grappelli/templates/admin/base.html:60
+#: apps/grappelli/templates/registration/password_change_done.html:6
+#: apps/grappelli/templates/registration/password_change_form.html:6
+msgid "Documentation"
+msgstr ""
+
+#: apps/grappelli/templates/admin/base.html:64
+#: apps/grappelli/templates/admin/auth/user/change_password.html:13
+#: apps/grappelli/templates/admin/auth/user/change_password.html:46
+#: apps/grappelli/templates/registration/password_change_done.html:10
+#: apps/grappelli/templates/registration/password_change_form.html:10
+msgid "Change password"
+msgstr ""
+
+#: apps/grappelli/templates/admin/base.html:67
+#: apps/grappelli/templates/registration/password_change_done.html:13
+#: apps/grappelli/templates/registration/password_change_form.html:13
+msgid "Log out"
+msgstr ""
+
+#: apps/grappelli/templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: apps/grappelli/templates/admin/base_site.html:7
+msgid "Django administration"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_form.html:25
+#: apps/grappelli/templates/admin/index.html:28
+msgid "Add"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_form.html:32
+#: apps/grappelli/templates/admin/object_history.html:10
+msgid "History"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_form.html:33
+msgid "View on site"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_form.html:43
+#: apps/grappelli/templates/admin/auth/user/change_password.html:22
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/grappelli/templates/admin/change_list.html:38
+msgid "Reorder"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_list.html:39
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: apps/grappelli/templates/admin/change_list.html:50
+msgid "Filter"
+msgstr ""
+
+#: apps/grappelli/templates/admin/delete_confirmation.html:10
+#: apps/grappelli/templates/admin/submit_line.html:4
+msgid "Delete"
+msgstr ""
+
+#: apps/grappelli/templates/admin/delete_confirmation.html:16
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: apps/grappelli/templates/admin/delete_confirmation.html:23
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: apps/grappelli/templates/admin/delete_confirmation.html:28
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: apps/grappelli/templates/admin/filter.html:7
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:17
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:34
+#: templates/notification/notices.html:88
+msgid "Change"
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:44
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:52
+msgid "Recent Actions"
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:53
+msgid "My Actions"
+msgstr ""
+
+#: apps/grappelli/templates/admin/index.html:57
+msgid "None available"
+msgstr ""
+
+#: apps/grappelli/templates/admin/invalid_setup.html:7
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+
+#: apps/grappelli/templates/admin/login.html:19
+msgid "Username:"
+msgstr ""
+
+#: apps/grappelli/templates/admin/login.html:22
+msgid "Password:"
+msgstr ""
+
+#: apps/grappelli/templates/admin/login.html:26
+#: apps/grappelli/templates/registration/password_reset_complete.html:14
+msgid "Log in"
+msgstr ""
+
+#: apps/grappelli/templates/admin/object_history.html:22
+msgid "Date/time"
+msgstr ""
+
+#: apps/grappelli/templates/admin/object_history.html:24
+#: templates/messages/trash.html:11
+msgid "Action"
+msgstr ""
+
+#: apps/grappelli/templates/admin/object_history.html:30
+#: templates/messages/inbox.html:26 templates/messages/inbox_outbox.html:26
+#: templates/messages/inbox_outbox.html:50 templates/messages/trash.html:20
+#: templates/messages/view.html:20
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: apps/grappelli/templates/admin/object_history.html:38
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: apps/grappelli/templates/admin/pagination.html:10
+msgid "Show all"
+msgstr ""
+
+#: apps/grappelli/templates/admin/search_form.html:9
+msgid "Go"
+msgstr ""
+
+#: apps/grappelli/templates/admin/search_form.html:11
+#, python-format
+msgid "1 result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/grappelli/templates/admin/search_form.html:11
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: apps/grappelli/templates/admin/submit_line.html:3
+#: apps/wiki/templates/wiki/edit.html:16
+msgid "Save"
+msgstr ""
+
+#: apps/grappelli/templates/admin/submit_line.html:5
+msgid "Save as new"
+msgstr ""
+
+#: apps/grappelli/templates/admin/submit_line.html:6
+msgid "Save and add another"
+msgstr ""
+
+#: apps/grappelli/templates/admin/submit_line.html:7
+msgid "Save and continue editing"
+msgstr ""
+
+#: apps/grappelli/templates/admin/auth/user/add_form.html:6
+msgid ""
+"First, enter a username and password. Then, you'll be able to edit more user "
+"options."
+msgstr ""
+
+#: apps/grappelli/templates/admin/auth/user/add_form.html:27
+#: apps/grappelli/templates/admin/auth/user/change_password.html:40
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: apps/grappelli/templates/admin/auth/user/change_password.html:26
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: apps/grappelli/templates/admin/includes_grappelli/bookmarks.html:11
+#: apps/grappelli/templates/admin/includes_grappelli/navigation.html:15
+msgid "No Items Found."
+msgstr ""
+
+#: apps/grappelli/templates/grappelli/help/help.html:13
+msgid ""
+"This section should explain the handling of the Admin-Interface/CMS. "
+"Permissions provided, you can change/add entries to this Section."
+msgstr ""
+
+#: apps/grappelli/templates/registration/logged_out.html:8
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: apps/grappelli/templates/registration/logged_out.html:10
+msgid "Log in again"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_done.html:17
+#: apps/grappelli/templates/registration/password_change_form.html:17
+#: apps/grappelli/templates/registration/password_change_form.html:21
+msgid "Password change"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_done.html:19
+#: apps/grappelli/templates/registration/password_change_done.html:23
+msgid "Password change successful"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_done.html:25
+msgid "Your password was changed."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_form.html:23
+msgid ""
+"Please enter your old password, for securitys sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_form.html:28
+msgid "Old password:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_form.html:30
+#: apps/grappelli/templates/registration/password_reset_confirm.html:18
+msgid "New password:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_form.html:32
+#: apps/grappelli/templates/registration/password_reset_confirm.html:20
+msgid "Confirm password:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_change_form.html:34
+#: apps/grappelli/templates/registration/password_reset_confirm.html:21
+msgid "Change my password"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_complete.html:4
+#: apps/grappelli/templates/registration/password_reset_confirm.html:6
+#: apps/grappelli/templates/registration/password_reset_done.html:4
+#: apps/grappelli/templates/registration/password_reset_form.html:4
+#: apps/grappelli/templates/registration/password_reset_form.html:6
+#: apps/grappelli/templates/registration/password_reset_form.html:10
+msgid "Password reset"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_complete.html:6
+#: apps/grappelli/templates/registration/password_reset_complete.html:10
+msgid "Password reset complete"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_complete.html:12
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_confirm.html:4
+msgid "Password reset confirmation"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_confirm.html:12
+msgid "Enter new password"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_confirm.html:14
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_confirm.html:26
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_confirm.html:28
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_done.html:6
+#: apps/grappelli/templates/registration/password_reset_done.html:10
+msgid "Password reset successful"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_done.html:12
+msgid ""
+"We've e-mailed a new password to the e-mail address you submitted. You "
+"should be receiving it shortly."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:2
+msgid "You're receiving this e-mail because you requested a password reset"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:3
+#, python-format
+msgid "for your user account at %(site_name)s"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:5
+#, python-format
+msgid "Your new password is: %(new_password)s"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:7
+msgid "Feel free to change this password by going to this page:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:11
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:13
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_email.html:15
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_form.html:12
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll reset "
+"your password and e-mail the new one to you."
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_form.html:16
+msgid "E-mail address:"
+msgstr ""
+
+#: apps/grappelli/templates/registration/password_reset_form.html:16
+msgid "Reset my password"
+msgstr ""
+
+#: apps/grappelli/views/bookmarks.py:24
+msgid "Site was added to Bookmarks."
+msgstr ""
+
+#: apps/grappelli/views/bookmarks.py:26 apps/grappelli/views/bookmarks.py:29
+msgid "Error: Site could not be added to Bookmarks."
+msgstr ""
+
+#: apps/grappelli/views/bookmarks.py:47
+msgid "Site was removed from Bookmarks."
+msgstr ""
+
+#: apps/grappelli/views/bookmarks.py:49 apps/grappelli/views/bookmarks.py:53
+msgid "Error: Site could not be removed from Bookmarks."
+msgstr ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:15
+msgid "yr"
+msgid_plural "yr"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:16
+msgid "mn"
+msgid_plural "mn"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:17
+msgid "wk"
+msgid_plural "wk"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:18
+msgid "d"
+msgid_plural "d"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:19
+msgid "hr"
+msgid_plural "hr"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:20
+#: apps/misc/templatetags/shorttimesince_tag.py:40
+msgid "min"
+msgid_plural "min"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:45
+#, python-format
+msgid "%(number)d%(type)s"
+msgstr ""
+
+#: apps/misc/templatetags/shorttimesince_tag.py:51
+#, python-format
+msgid ", %(number)d%(type)s"
+msgstr ""
+
+#: apps/photos/models.py:20
+msgid "Private"
+msgstr ""
+
+#: apps/photos/models.py:30
+msgid "publish_type"
+msgstr ""
+
+#: apps/photos/models.py:34 apps/photos/models.py:49
+msgid "photo set"
+msgstr ""
+
+#: apps/photos/models.py:35
+msgid "photo sets"
+msgstr ""
+
+#: apps/photos/models.py:44
+msgid "caption"
+msgstr ""
+
+#: apps/photos/models.py:45
+msgid "date added"
+msgstr ""
+
+#: apps/photos/models.py:46
+msgid "is public"
+msgstr ""
+
+#: apps/photos/models.py:46
+msgid "Public photographs will be displayed in the default views."
+msgstr ""
+
+#: apps/photos/models.py:114
+msgid "pool"
+msgstr ""
+
+#: apps/photos/models.py:115
+msgid "pools"
+msgstr ""
+
+#: apps/photos/views.py:32 apps/photos/views.py:58
+#, python-format
+msgid "Successfully uploaded photo '%s'"
+msgstr ""
+
+#: apps/photos/views.py:141
+#, python-format
+msgid "Successfully updated photo '%s'"
+msgstr ""
+
+#: apps/photos/views.py:165
+#, python-format
+msgid "Successfully deleted photo '%s'"
+msgstr ""
+
+#: apps/profiles/models.py:22
+msgid "firstname"
+msgstr ""
+
+#: apps/profiles/models.py:23
+msgid "lastname"
+msgstr ""
+
+#: apps/profiles/models.py:27
+msgid "job"
+msgstr ""
+
+#: apps/profiles/models.py:28
+msgid "enterprise"
+msgstr ""
+
+#: apps/profiles/models.py:30
+msgid "website"
+msgstr ""
+
+#: apps/profiles/models.py:31
+msgid "skype"
+msgstr ""
+
+#: apps/profiles/models.py:33
+msgid "statement"
+msgstr ""
+
+#: apps/profiles/models.py:59
+msgid "profile"
+msgstr ""
+
+#: apps/profiles/models.py:60
+msgid "profiles"
+msgstr ""
+
+#: apps/profiles/views.py:87 apps/profiles/views.py:103
+#: apps/profiles/views.py:151
+msgid "Let's be friends!"
+msgstr ""
+
+#: apps/profiles/views.py:95
+#, python-format
+msgid "You have accepted the friendship request from %(from_user)s"
+msgstr ""
+
+#: apps/story/models.py:34
+msgid "status helptext"
+msgstr "In Draft mode this item will not be visible to the Public, your Friends and Followers. Use this if you need time to finish your Story. You can publish it later, which will also push it to your activity stream."
+
+#: apps/story/models.py:35
+msgid "privacy"
+msgstr ""
+
+#: apps/story/models.py:36
+msgid "mapstyle"
+msgstr ""
+
+#: apps/story/models.py:43
+msgid "from location name"
+msgstr ""
+
+#: apps/story/models.py:44
+msgid "to location name"
+msgstr ""
+
+#: apps/story/views.py:104
+msgid "You are not authorized"
+msgstr ""
+
+#: apps/story/views.py:105
+msgid "Only the creator of the Story can edit it"
+msgstr ""
+
+#: apps/video/models.py:23
+msgid "comment"
+msgstr ""
+
+#: apps/video/models.py:33
+msgid "Who can see this Video?"
+msgstr ""
+
+#: apps/video/models.py:92
+msgid "videopool"
+msgstr ""
+
+#: apps/video/models.py:93
+msgid "videopools"
+msgstr ""
+
+#: apps/video/views.py:47
+#, python-format
+msgid "Successfully add video '%s' to project"
+msgstr ""
+
+#: apps/video/views.py:50
+#, python-format
+msgid "Did not add video '%s' to project because it already exists."
+msgstr ""
+
+#: apps/video/views.py:59
+#, python-format
+msgid "Successfully removed video '%s' from project"
+msgstr ""
+
+#: apps/video/views.py:62
+#, python-format
+msgid "Did not remove photo '%s' from project."
+msgstr ""
+
+#: apps/video/views.py:188
+#, python-format
+msgid "Video '%s' was successfully uploaded!"
+msgstr ""
+
+#: apps/video/views.py:247
+#, python-format
+msgid "Video '%s' was successfully imported!"
+msgstr ""
+
+#: apps/video/rest/gae_restful_lib.py:165
+#: apps/video/rest/httplib2/__init__.py:431
+#, python-format
+msgid "Unsupported value for qop: %s."
+msgstr ""
+
+#: apps/video/rest/gae_restful_lib.py:168
+#: apps/video/rest/gae_restful_lib.py:229
+#: apps/video/rest/httplib2/__init__.py:434
+#: apps/video/rest/httplib2/__init__.py:495
+#, python-format
+msgid "Unsupported value for algorithm: %s."
+msgstr ""
+
+#: apps/video/rest/gae_restful_lib.py:226
+#: apps/video/rest/httplib2/__init__.py:492
+msgid "The challenge doesn't contain a server nonce, or this one is empty."
+msgstr ""
+
+#: apps/video/rest/gae_restful_lib.py:232
+#: apps/video/rest/httplib2/__init__.py:498
+#, python-format
+msgid "Unsupported value for pw-algorithm: %s."
+msgstr ""
+
+#: apps/video/rest/httplib2/__init__.py:333
+#, python-format
+msgid "Content purported to be compressed with %s but failed to decompress."
+msgstr ""
+
+#: apps/video/rest/httplib2/__init__.py:877
+msgid "Redirected but the response is missing a Location: header."
+msgstr ""
+
+#: apps/video/rest/httplib2/__init__.py:902
+msgid "Redirected more times than rediection_limit allows."
+msgstr ""
+
+#: apps/widgets/widgets.py:90
+msgid "Currently:"
+msgstr ""
+
+#: apps/widgets/widgets.py:90
+msgid "Change:"
+msgstr ""
+
+#: apps/wiki/feeds.py:96 apps/wiki/feeds.py:202
+msgid "Anonimous"
+msgstr ""
+
+#: apps/wiki/forms.py:40
+msgid "Must be a WikiWord."
+msgstr ""
+
+#: apps/wiki/forms.py:58
+msgid "An article with this title already exists."
+msgstr ""
+
+#: apps/wiki/management.py:11
+msgid "Article Edited"
+msgstr ""
+
+#: apps/wiki/management.py:12
+msgid "your article has been edited"
+msgstr ""
+
+#: apps/wiki/management.py:14
+msgid "Article Revision Reverted"
+msgstr ""
+
+#: apps/wiki/management.py:15
+msgid "your revision has been reverted"
+msgstr ""
+
+#: apps/wiki/management.py:17
+msgid "Observed Article Changed"
+msgstr ""
+
+#: apps/wiki/management.py:18
+msgid "an article you observe has changed"
+msgstr ""
+
+#: apps/wiki/models.py:36
+msgid "Creole"
+msgstr ""
+
+#: apps/wiki/models.py:47
+msgid "Content"
+msgstr ""
+
+#: apps/wiki/models.py:48
+msgid "Summary"
+msgstr ""
+
+#: apps/wiki/models.py:50
+msgid "Content Markup"
+msgstr ""
+
+#: apps/wiki/models.py:54
+msgid "Article Creator"
+msgstr ""
+
+#: apps/wiki/models.py:56
+msgid "IP Address of the Article Creator"
+msgstr ""
+
+#: apps/wiki/models.py:68 apps/wiki/models.py:141
+msgid "Article"
+msgstr ""
+
+#: apps/wiki/models.py:69
+msgid "Articles"
+msgstr ""
+
+#: apps/wiki/models.py:144
+msgid "Editor"
+msgstr ""
+
+#: apps/wiki/models.py:146
+msgid "IP Address of the Editor"
+msgstr ""
+
+#: apps/wiki/models.py:149
+msgid "Revision Number"
+msgstr ""
+
+#: apps/wiki/models.py:152
+msgid "Old Title"
+msgstr ""
+
+#: apps/wiki/models.py:153
+msgid "Article Content Markup"
+msgstr ""
+
+#: apps/wiki/models.py:156
+msgid "Content Patch"
+msgstr ""
+
+#: apps/wiki/models.py:158
+msgid "Editor comment"
+msgstr ""
+
+#: apps/wiki/models.py:159
+msgid "Modified at"
+msgstr ""
+
+#: apps/wiki/models.py:160
+msgid "Reverted Revision"
+msgstr ""
+
+#: apps/wiki/models.py:166
+msgid "Change set"
+msgstr ""
+
+#: apps/wiki/models.py:167
+msgid "Change sets"
+msgstr ""
+
+#: apps/wiki/templates/feeds/history_description.html:3
+msgid "edited by user"
+msgstr ""
+
+#: apps/wiki/templates/feeds/history_description.html:3
+msgid "at"
+msgstr ""
+
+#: apps/wiki/templates/notification/wiki_article_edited/notice.html:2
+#, python-format
+msgid ""
+"The wiki article <a href=\"%(article_url)s\">%(article)s</a> has been edited "
+"by <a href=\"%(user_url)s\">%(user)s</a>."
+msgstr ""
+
+#: apps/wiki/templates/notification/wiki_observed_article_changed/notice.html:1
+#, python-format
+msgid ""
+"The wiki article <a href=\"%(article_url)s\">%(observed)s</a>, that you "
+"observe, has changed."
+msgstr ""
+
+#: apps/wiki/templates/notification/wiki_revision_reverted/notice.html:2
+#, python-format
+msgid ""
+"Your revision <a href=\"%(revision_url)s\">%(revision)s</a> on <a href=\"%"
+"(article_url)s\">%(article)s</a> has been reverted."
+msgstr ""
+
+#: apps/wiki/templates/wiki/base.html:20
+msgid "List all articles"
+msgstr ""
+
+#: apps/wiki/templates/wiki/changeset.html:14
+msgid "Markup:"
+msgstr ""
+
+#: apps/wiki/templates/wiki/changeset.html:16
+msgid "Plain Text."
+msgstr ""
+
+#: apps/wiki/templates/wiki/edit.html:5
+msgid "Editing article"
+msgstr ""
+
+#: apps/wiki/templates/wiki/edit.html:9
+msgid "Edit"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:6
+msgid "History for"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:14
+msgid "Article History"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:19
+msgid "At"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:21
+msgid "Comment"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:22
+#: apps/wiki/templates/wiki/history.html:51
+msgid "Revert"
+msgstr ""
+
+#: apps/wiki/templates/wiki/history.html:41
+msgid "Current revision"
+msgstr ""
+
+#: apps/wiki/templates/wiki/index.html:19
+msgid "Create a new article"
+msgstr ""
+
+#: apps/wiki/templates/wiki/recentchanges.html:6
+msgid "Recent Changes"
+msgstr ""
+
+#: apps/wiki/templates/wiki/searchbox.html:7
+msgid "Article by title"
+msgstr ""
+
+#: apps/wiki/templates/wiki/view.html:13
+msgid "This article does not exist."
+msgstr ""
+
+#: apps/wiki/templates/wiki/view.html:14
+msgid ">Create it now</a>?"
+msgstr ""
+
+#: apps/wiki/templates/wiki/view.html:23
+msgid "Edit this article"
+msgstr ""
+
+#: apps/wiki/templates/wiki/view.html:25
+msgid "Editing history"
+msgstr ""
+
+#: apps/wiki/templates/wiki/view.html:27
+msgid "Create this article"
+msgstr ""
+
+#: apps/wiki/templates/wiki/wiki_title.html:3
+#, python-format
+msgid ""
+"\n"
+"    <h1> Wiki for %(group_type)s <a href=\"%(group_url)s\">%(group_name)s</"
+"a> </h1>\n"
+msgstr ""
+
+#: templates/404.html:5
+msgid "Not Found"
+msgstr ""
+
+#: templates/404.html:8
+msgid "We're sorry but that page could not be found."
+msgstr ""
+
+#: templates/500.html:5
+msgid "Server Error"
+msgstr ""
+
+#: templates/500.html:8
+msgid ""
+"We're sorry but a server error has occurred. We've been notified and will "
+"look into it as soon as possible."
+msgstr ""
+
+#: templates/error.html:4
+msgid "Error"
+msgstr ""
+
+#: templates/facebook_base.html:16 templates/site_base.html:57
+msgid "clear"
+msgstr ""
+
+#: templates/site_base.html:32
+msgid "Admin"
+msgstr ""
+
+#: templates/site_base.html:34
+msgid "Logout"
+msgstr ""
+
+#: templates/account/login_signup.html:7 templates/account/signup.html:7
+#: templates/maptales_app/index.html:10 templates/maptales_app/search.html:8
+#: templates/registration/login.html:5
+msgid "Login"
+msgstr ""
+
+#: templates/account/password_reset_done.html:5
+msgid "Passwort Zurücksetzen"
+msgstr ""
+
+#: templates/account/signup.html:20
+msgid "Submit"
+msgstr ""
+
+#: templates/activity_stream/activity_stream.html:7
+#, python-format
+msgid "Activity Stream for %(viewed_user)s"
+msgstr ""
+
+#: templates/activity_stream/geodata_uploaded/full.html:23
+#: templates/activity_stream/geodata_uploaded/full.html:25
+#: templates/geo/your_paths.html:29 templates/geo/your_paths.html.py:31
+#: templates/profiles/profile.html:97 templates/profiles/profile.html.py:99
+msgid "Recorded From"
+msgstr ""
+
+#: templates/activity_stream/geodata_uploaded/full.html:29
+#: templates/geo/your_paths.html:35 templates/profiles/profile.html:103
+msgid "Uploaded On"
+msgstr ""
+
+#: templates/activity_stream/geodata_uploaded/full.html:30
+#: templates/geo/your_paths.html:36 templates/profiles/profile.html:104
+msgid "Distance"
+msgstr ""
+
+#: templates/activity_stream/geodata_uploaded/full.html:31
+#: templates/geo/your_paths.html:37 templates/profiles/profile.html:105
+msgid "Segments"
+msgstr ""
+
+#: templates/audio/destroy.html:13 templates/audio/destroyed.html:13
+#: templates/audio/edit.html:13
+msgid "Audio Löschen"
+msgstr ""
+
+#: templates/audio/details.html:5 templates/audio/upload_success.html:5
+msgid "Audio Details"
+msgstr ""
+
+#: templates/audio/upload.html:13
+msgid "Audio Hochladen"
+msgstr ""
+
+#: templates/avatar/change.html:6 templates/avatar/change.html.py:9
+#: templates/avatar/confirm_delete.html:5
+#: templates/avatar/confirm_delete.html:8
+msgid "Avatar"
+msgstr ""
+
+#: templates/avatar/change.html:10
+msgid "Here is your current avatar:"
+msgstr ""
+
+#: templates/avatar/change.html:25
+#, python-format
+msgid ""
+"Don&rsquo;t like these avatars? You can <a href=\"%(avatar_delete_url)s"
+"\">choose which ones to delete</a>."
+msgstr ""
+
+#: templates/avatar/change.html:27
+msgid "Upload an Avatar:"
+msgstr ""
+
+#: templates/avatar/change.html:29
+msgid "Avatar Image"
+msgstr ""
+
+#: templates/avatar/change.html:30
+msgid "Upload New Image"
+msgstr ""
+
+#: templates/blog/blogs.html:13 templates/blog/blogs.html.py:21
+#: templates/blog/main_blog.html:15 templates/event/events.html:13
+msgid "All Blogs"
+msgstr ""
+
+#: templates/blog/blogs.html:24 templates/tags/index.html:67
+msgid "These are blog posts from everyone:"
+msgstr ""
+
+#: templates/blog/friends_posts.html:7 templates/blog/friends_posts.html:11
+msgid "Friends' Blogs"
+msgstr ""
+
+#: templates/blog/friends_posts.html:14
+msgid "These are blog posts from your friends:"
+msgstr ""
+
+#: templates/blog/post.html:12
+msgid "Blog Post"
+msgstr ""
+
+#: templates/blog/your_posts.html:10
+msgid "Your Blog Posts"
+msgstr ""
+
+#: templates/blog/your_posts.html:19
+msgid "Your Posts"
+msgstr ""
+
+#: templates/blog/your_posts.html:60
+msgid "Edit Post"
+msgstr ""
+
+#: templates/blog/your_posts.html:65
+#: templates/threadedcomments/comments.html:18
+msgid "Delete Post"
+msgstr ""
+
+#: templates/blog/plugins/profiles/profile.html:4
+msgid "Blog"
+msgstr ""
+
+#: templates/event/edit.html:11
+msgid "Editing Post"
+msgstr ""
+
+#: templates/event/new.html:6
+msgid "Write a Blog Post"
+msgstr ""
+
+#: templates/friends_app/contacts.html:6 templates/friends_app/contacts.html:9
+msgid "Contacts"
+msgstr ""
+
+#: templates/friends_app/contacts.html:22
+msgid "upload"
+msgstr ""
+
+#: templates/friends_app/contacts.html:31
+msgid "Import Google Contacts"
+msgstr ""
+
+#: templates/friends_app/contacts.html:47
+msgid "Import Yahoo Address Book"
+msgstr ""
+
+#: templates/friends_app/contacts.html:82
+msgid "No contacts."
+msgstr ""
+
+#: templates/friends_app/invitations.html:5
+#: templates/friends_app/invitations.html:8
+msgid "Invitations"
+msgstr ""
+
+#: templates/friends_app/invitations.html:11
+msgid "Invite someone new to join"
+msgstr ""
+
+#: templates/friends_app/invitations.html:14
+msgid ""
+"If you'd like to invite someone to join Pinax, you can enter their email "
+"address and a message for them below:"
+msgstr ""
+
+#: templates/friends_app/invitations.html:21
+msgid "Someone with this email address has already joined:"
+msgstr ""
+
+#: templates/friends_app/invitations.html:36
+msgid "invite"
+msgstr ""
+
+#: templates/friends_app/invitations.html:41
+msgid "Friendship Requests Received"
+msgstr ""
+
+#: templates/friends_app/invitations.html:55
+msgid "accept"
+msgstr ""
+
+#: templates/friends_app/invitations.html:69
+msgid "No friendship requests received."
+msgstr ""
+
+#: templates/friends_app/invitations.html:73
+msgid "Friendship Requests Sent"
+msgstr ""
+
+#: templates/friends_app/invitations.html:86
+msgid "No friendship requests sent."
+msgstr ""
+
+#: templates/friends_app/invitations.html:90
+msgid "Join Requests Sent"
+msgstr ""
+
+#: templates/friends_app/invitations.html:108
+msgid "No join requests sent."
+msgstr ""
+
+#: templates/geo/browse.html:9
+msgid "Browse"
+msgstr ""
+
+#: templates/geo/edit_path.html:11 templates/geo/view_path.html:11
+msgid "Edit Path"
+msgstr ""
+
+#: templates/geo/find_users_near_me.html:11
+msgid "Find Users in {{city}}"
+msgstr ""
+
+#: templates/geo/upload.html:13
+msgid "Gpx upload"
+msgstr ""
+
+#: templates/geo/your_paths.html:6
+msgid "Your Paths"
+msgstr ""
+
+#: templates/maptales_app/global_activity.html:5
+msgid "Activity"
+msgstr ""
+
+#: templates/messages/new_messages.html:4
+#, python-format
+msgid "Sent from %(site_url)s"
+msgstr ""
+
+#: templates/messages/trash.html:7
+msgid "Deleted Messages"
+msgstr ""
+
+#: templates/messages/trash.html:11
+msgid "Sender"
+msgstr ""
+
+#: templates/messages/trash.html:11
+msgid "Subject"
+msgstr ""
+
+#: templates/messages/trash.html:11 templates/profiles/profiles.html:27
+msgid "Date"
+msgstr ""
+
+#: templates/messages/trash.html:21
+msgid "undelete"
+msgstr ""
+
+#: templates/messages/trash.html:27
+msgid ""
+"Deleted Messages are removed from the trash at irregular intervals, don't "
+"rely on this feature for long-time storage."
+msgstr ""
+
+#: templates/notification/notices.html:8
+msgid "Notices"
+msgstr ""
+
+#: templates/notification/notices.html:32
+msgid "Mark all unseen notices seen"
+msgstr ""
+
+#: templates/notification/notices.html:36 templates/profiles/profiles.html:37
+msgid "MONTH_DAY_FORMAT"
+msgstr ""
+
+#: templates/notification/notices.html:51
+msgid "No notices."
+msgstr ""
+
+#: templates/notification/notices.html:64
+msgid "Note"
+msgstr ""
+
+#: templates/notification/notices.html:65
+msgid "You do not have a verified email address to which notices can be sent."
+msgstr ""
+
+#: templates/notification/notices.html:72
+msgid "Notification Type"
+msgstr ""
+
+#: templates/notification/messages_reply_received/notice.html:2
+#, python-format
+msgid ""
+"<a href=\"%(sender_url)s\">%(message_sender)s</a> has sent you a reply to <a "
+"href=\"%(message_url)s\">%(message_parent_msg)s</a>."
+msgstr ""
+
+#: templates/photos/base.html:10 templates/photos/latest.html:12
+#: templates/photos/latest.html.py:16 templates/photos/upload.html:13
+msgid "Latest Photos"
+msgstr ""
+
+#: templates/photos/base.html:11 templates/photos/memberphotos.html:14
+#: templates/photos/yourphotos.html:13
+msgid "Your Photos"
+msgstr ""
+
+#: templates/photos/base.html:12 templates/photos/friends_photos.html:12
+#: templates/photos/friends_photos.html:16
+msgid "Friends' Photos"
+msgstr ""
+
+#: templates/photos/base.html:13 templates/photos/upload.html:95
+msgid "Upload a Photo"
+msgstr ""
+
+#: templates/photos/details.html:14
+msgid "Photo Details"
+msgstr ""
+
+#: templates/photos/edit.html:14 templates/video/edit.html:15
+msgid "Editing Photo Details"
+msgstr ""
+
+#: templates/photos/latest.html:25
+#, python-format
+msgid "Viewed %(view_count)s times"
+msgstr ""
+
+#: templates/photos/latest.html:31
+msgid "No photos were found."
+msgstr ""
+
+#: templates/photos/upload.html:60
+msgid "Upload Many Photos at once!"
+msgstr ""
+
+#: templates/photos/upload_embedded.html:13
+msgid "Upload Photos"
+msgstr ""
+
+#: templates/photos/plugins/profiles/profile.html:4
+msgid "Photos"
+msgstr ""
+
+#: templates/photos/plugins/profiles/profile.html:15
+msgid "No photos uploaded yet."
+msgstr ""
+
+#: templates/profiles/profile.html:12
+#, python-format
+msgid "Profile for %(other_user)s"
+msgstr ""
+
+#: templates/profiles/profile.html:30
+msgid "Country"
+msgstr ""
+
+#: templates/profiles/profile.html:39
+msgid "Statement"
+msgstr ""
+
+#: templates/profiles/profile_edit.html:15
+msgid "Change Password"
+msgstr ""
+
+#: templates/profiles/profile_edit.html:21
+msgid "update"
+msgstr ""
+
+#: templates/profiles/profile_edit.html:25
+msgid "back to"
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:41
+msgid "Your Friends"
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:53
+#, python-format
+msgid "%(other_user)s's Friends"
+msgstr ""
+
+#: templates/profiles/profiles.html:9
+msgid "All Profiles"
+msgstr ""
+
+#: templates/profiles/profiles.html:12
+msgid "Profiles"
+msgstr ""
+
+#: templates/profiles/profiles.html:23
+msgid "Order by:"
+msgstr ""
+
+#: templates/story/edit.html:9 templates/story/view.html:10
+msgid "Story"
+msgstr ""
+
+#: templates/story/select_main_image.html:6
+msgid "Select Story Main Image"
+msgstr ""
+
+#: templates/story/user_stories.html:7 templates/story/your_stories.html:6
+msgid "Your Stories"
+msgstr ""
+
+#: templates/story/user_stories.html:57 templates/story/user_stories.html:59
+#: templates/story/your_stories.html:56 templates/story/your_stories.html:58
+msgid "When"
+msgstr ""
+
+#: templates/tags/index.html:17
+msgid "Tags"
+msgstr ""
+
+#: templates/tags/index.html:20
+msgid "All Photos Matching "
+msgstr ""
+
+#: templates/tags/index.html:64
+msgid "All Blog Posts Matching "
+msgstr ""
+
+#: templates/tags/index.html:75
+#, python-format
+msgid "All Projects Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/tags/index.html:83
+#, python-format
+msgid "All Project Topics Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/tags/index.html:89
+#, python-format
+msgid "All Project Tasks Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/tags/index.html:95
+#, python-format
+msgid "All Tribes Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/tags/index.html:103
+#, python-format
+msgid "All Tribe Topics Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/tags/index.html:109
+#, python-format
+msgid "All Wiki Articles Matching <i>%(tag)s</i>"
+msgstr ""
+
+#: templates/threadedcomments/comments.html:32
+msgid "Post Response"
+msgstr ""
+
+#: templates/video/plugins/profiles/profile.html:4
+msgid "Videos"
+msgstr ""
