@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     
     url(r'^embed/(?P<slug>[\w\.-]+)/$',  'story.views.view',
         {'template_name':'story/embedded.html'}, name='story_embedded'),
+    
     url(r'^full/(?P<slug>[\w\.-]+)/$',  'story.views.view',
         {'template_name':'story/fullscreen.html'}, name='story_fullscreen'),
     

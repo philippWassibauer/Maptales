@@ -18,14 +18,14 @@
                     <div class="body">{{ response.comment|urlize|linebreaks }}</div>
                     {% ifequal user response.user %}
                         <form id="basic-form" method="POST" action="{% url tc_comment_delete response.id %}">
-                            <button type="submit">{% trans "Delete Post" %}"</button>
+                            <button type="submit">{% trans "delete" %}</button>
                             <input type="hidden" name="next" value="{{ request.path }}" />
                         </form>
                     {% endifequal %}
                     
                     <div class="details"><a href="{% url profile_detail response.user.username %}">{{ response.user }}</a> {{ response.date_submitted|date }}</div>
                     
-                     <div style="clear: both;"></div>
+                    <div style="clear: both;"></div>
                 </div>
             </li>
         {% endfor %}
@@ -37,14 +37,14 @@
     <h3>Post a Comment</h3>
     <form id="basic-form" action="{% get_comment_url object %}" method="POST">
         <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
-        <button type="submit">{% trans "Post Response" %}</button>
+        <button type="submit">{% trans "save" %}</button>
         <input type="hidden" name="next" value="{{ request.path }}" />
     </form>
     <div style="clear: both;"></div>
   </div>
 {% else %}
     <div class="post-comment">
-         <h3>Post a Comment</h3>
+        <h3>Post a Comment</h3>
         <div class="comment-login">
             Please <a href="{% url acct_login %}">Login</a>
             (or <a href="{% url acct_signup %}">Sign Up</a>)

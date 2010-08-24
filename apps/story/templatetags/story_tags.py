@@ -83,3 +83,15 @@ def stories_nearby(x, y, filtered_story=None, offset=0, count=3):
         "stories": stories,
     })
 stories_nearby = function(stories_nearby)
+
+
+def story_embedded(story, width, height, style=None):
+    from django.contrib.sites.models import Site
+    return render_to_string("story/embedded_iframe.html", {
+        "domain": Site.objects.get_current(),
+        "story": story,
+        "width": width,
+        "height": height,
+    })
+story_embedded = function(story_embedded)
+

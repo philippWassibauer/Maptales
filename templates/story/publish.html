@@ -62,12 +62,13 @@
                         
                         <h5 style="margin-bottom: 4px;">Link to this Experience:</h5>
                         <p>
-                            <input type="text" value="&lt;a href=&quot;http://www.maptales.com{% url story_view_id story.id %}&quot;&gt; {{story.title}} &lt;/a&gt;" style="width: 95%;"/>
+                            <input type="text" value="&lt;a href=&quot;http://{{ domain }}{% url story_view story.slug %}&quot;&gt; {{story.title}} &lt;/a&gt;" style="width: 95%;"/>
                         </p>
                         
-                        <h5 style="margin-bottom: 4px;">Embed Experience:</h5>
+                        <h5 style="margin-bottom: 4px;">Embed Experience: <a href="#embedded_story" rel="facebox">preview</a></h5>
+                        <div id="embedded_story" style="display:none;">{% story_embedded story 560 340 %}</div>
                         <p>
-                            <textarea style="width: 95%;">&lt;iframe src=&quot;http://www.maptales.com{% url story_view_id story.id %}&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; style=&quot;border:0px; width:550px; height:550px;&quot;&gt;&lt;/iframe&gt;</textarea>
+                            <textarea style="width: 95%;" id="">&lt;iframe src=&quot;http://{{ domain }}{% url story_embedded story.slug %}&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; style=&quot;border:0px; width:550px; height:550px;&quot;&gt;&lt;/iframe&gt;</textarea>
                         </p>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
             <div class="white-round-bg story-continue ui-corner-all">
                 <div>
                     <a href="{% url story_view_id story.id %}" class="big-green-button ui-corner-all">
-                        Finish
+                        Goto Experience
                     </a>
                 </div>
                 <div>
@@ -126,7 +127,6 @@
         
         </script>
         <script type="text/javascript">
-            
             FB_RequireFeatures(["Connect"], function() {
                 FB.init("{{ settings.FACEBOOK_API_KEY }}", "{% url facebook_xd_receiver %}");
             

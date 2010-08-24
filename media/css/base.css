@@ -2859,3 +2859,26 @@ table.messages tr th {
     margin: 10px;
     cursor: pointer;
 }
+
+
+.silver-shadow {
+	-moz-border-radius:4px 4px 4px 4px;
+	-moz-box-shadow:1px 1px 6px #DDDDDD;
+	background-image:url("../grey-gradient-buttons.png");
+	background-position:center bottom;
+	background-repeat:repeat-x;
+	border:1px solid #BBBBBB;
+	color:#333333 !important;
+	font-size:12px;
+	line-height:14px;
+	padding:8px 12px;
+	text-align:center;
+	text-decoration:none !important;
+	text-shadow:1px 1px 0 #FFFFFF;
+	vertical-align:middle;
+}
+
+.embedded-story{
+	width: 560px;
+	height: 340px;
+}

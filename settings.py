@@ -262,6 +262,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "account.context_processors.account",
     "misc.context_processors.contact_email",
     "misc.context_processors.site_name",
+    "misc.context_processors.domain_name",
     "messages.context_processors.inbox",
     "friends_app.context_processors.invitations",
     "misc.context_processors.combined_inbox_count",
@@ -396,6 +397,8 @@ INSTALLED_APPS = (
     
     'brabeion',
     'voting',
+    
+    'audio',
 )
 
 DEBUG_TOOLBAR_PANELS = (

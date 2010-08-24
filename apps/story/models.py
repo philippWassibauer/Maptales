@@ -12,7 +12,7 @@ from positions.fields import PositionField
 from django.template import Context, Template
 from photologue.models import ImageModel
 from maptales_app.models import PRIVACY_LEVELS
-from geo.models import MAPSTYLE_CHOICES, get_gmapmode
+from geo.models import MAPSTYLE_CHOICES, get_gmapmode, MAPSTYLE_MAP
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from categories.models import Category, CategorizedItem
@@ -127,7 +127,7 @@ class Story(models.Model):
                                           blank=True, null=True)
 
     mapmode         = models.IntegerField(_('mapstyle'),
-                                          choices=MAPSTYLE_CHOICES, default=1,
+                                          choices=MAPSTYLE_CHOICES,
                                           blank=True, null=True)
 
     creation_date   = models.DateTimeField(default=datetime.now())
@@ -181,7 +181,11 @@ class Story(models.Model):
         })
         
     def get_gmap_mode(self):
-        return get_gmapmode(self.mapmode)
+        if self.mapmode:
+            return get_gmapmode(self.mapmode)
+        else:
+            from geo.models import MAPSTYLE_MAP
+            return MAPSTYLE_MAP
         
     def get_duration(self):
         return 20;

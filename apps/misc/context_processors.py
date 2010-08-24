@@ -7,7 +7,7 @@ def contact_email(request):
 
 def site_name(request):
     return {'site_name': getattr(_settings, 'SITE_NAME', '')}
-
+    
 def domain_name(request):
     return {'domain': Site.objects.get_current() }
 

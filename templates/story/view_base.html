@@ -133,6 +133,8 @@
     <script type="text/javascript">
         <!--
         $(document).ready(function() {
+            maptales.map.gmap.addControl(new GMapTypeControl())
+            
             {% get_hit_count_javascript for story %}
         });
         -->

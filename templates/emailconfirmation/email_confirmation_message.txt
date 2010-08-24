@@ -1,11 +1,10 @@
 {% load i18n %}
 {% blocktrans with current_site.name as site_name %}
-Hello {{ user }},
-
-To finish your account on {{ site_name }} you have to confirm you mail adress.
-
-To do so please click the link below:
-
-{{ activate_url }}
-
+    Hello {{ user }},
+    
+    To finish your account on {{ site_name }} you have to confirm you mail adress.
+    
+    To do so please click the link below:
+    
+    {{ activate_url }}
 {% endblocktrans %}

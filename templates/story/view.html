@@ -159,7 +159,11 @@
                </div>
                <div class="grey-round-bg ui-corner-all" style="margin-top: 0px">
                     <h3>Info:</h3>
-                    Creator: {{story.creator.get_profile.render_inline}}
+                    Creator: {% if story.creator == user %}
+                                   <b>You</b> <button type="submit" class="silver-shadow" onclick="window.location = '{% url story_edit story.pk %}'">{% trans "edit" %}</button>
+                              {% else %}
+                                   {{story.creator.get_profile.render_inline}}
+                              {% endif %}
                     <br />
                     Viewed: {% get_hit_count for story %}
                     <br />
@@ -202,6 +206,7 @@
                     
                     
                     <script type="text/javascript">
+                         
                          function vote(id, direction) {
                               $.post('/story-vote/'+id+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
                                    function(data) {

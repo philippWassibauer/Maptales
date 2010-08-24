@@ -80,6 +80,7 @@ urlpatterns = patterns('',
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
     
     (r'^badges', include('brabeion.urls')),
+    (r'^audio', include('audio.urls')),
     
     #url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'cmspages': CMSSitemap}}),
     

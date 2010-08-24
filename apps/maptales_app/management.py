@@ -7,7 +7,6 @@ try:
     from maptales_app import models as maptales_app
 
     def create_notice_types(app, created_models, verbosity, **kwargs):
-        import pdb; pdb.set_trace()
         ActivityTypes.objects.get_or_create(name="posted_comment", is_batchable=False)
         ActivityTypes.objects.get_or_create(name="badge_awarded", is_batchable=False)
         
