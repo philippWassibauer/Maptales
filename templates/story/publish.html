@@ -1,11 +1,12 @@
 {% extends "site_base.html" %}
 
-
 {% load i18n %}
 {% load uni_form_tags %}
 {% load ifsetting_tag %}
 {% load story_tags %}
 {% load geo_tags %}
+{% load facebook_tags %}
+{% load twitter_tags %}
 
 {% block head_title %}{% trans "Story" %}: {{story.title}}{% endblock %}
 
@@ -45,12 +46,32 @@
                     <div class="ui-corner-all">
                         <h2>Congratulations!</h2>
                         <p>Your Story has been published.</p>
-                        <h3 style="margin-left:0px;">Share your Experience:</h3>
-                        <p><a href="#" onclick="publishFeed(); return false;">
-                            Share on Facebook</a><br />
-                            <a href="#" onclick="return false;">
-                            Share on Twitter</a>
-                        </p>
+                        
+                        <h4 style="margin-left:0px;">Share your Experience:</h4>
+                        
+                        <div style="margin-bottom: 10px">
+                            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.maptales.com{% url story_view story.slug %}"
+                               data-text="I posted a new Experience '{{story.title}}' on Maptales.com"
+                               data-count="none"
+                               data-via="scalar">Tweet</a>
+                            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                        </div>
+                        
+                        {% if user.facebookprofile_set.all %}
+                            <div style="margin-bottom: 10px">
+                                <a href="#" onclick="publishFeed(); return false;">
+                                    Share on Facebook
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="inline-connect" style="margin-bottom: 10px">
+                                <b>To share this on Facebook you have to connect your accounts first</b>
+                                {% facebook_button %}
+                                {% facebook_js %}
+                            </div>
+                        {% endif %}
+                        
+                        
                         
                         
                     </div>
@@ -101,7 +122,7 @@
             function publishFeed() {
                 attachment = {
                 'name'        : '{{story.title}}',
-                'href'        : 'http://www.maptales.com{% url story_view_id story.id %}',
+                'href'        : 'http://www.maptales.com{% url story_view story.slug %}',
                 'caption'     : 'Source: IPhone, created on Maptales.com',
                 'description' : '{{story.description}}',
                 //'properties'  : {"Length": "{{story.get_distance|floatformat}} km"},

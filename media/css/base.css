@@ -2882,3 +2882,8 @@ table.messages tr th {
 	width: 560px;
 	height: 340px;
 }
+
+
+.inline-connect .connect-button{
+	text-align: left;
+}

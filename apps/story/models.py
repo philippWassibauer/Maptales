@@ -11,7 +11,7 @@ from datetime import datetime
 from positions.fields import PositionField
 from django.template import Context, Template
 from photologue.models import ImageModel
-from maptales_app.models import PRIVACY_LEVELS
+from maptales_app.models import PRIVACY_LEVELS, PRIVACY_PUBLIC, PRIVACY_PRIVATE, PRIVACY_FRIENDS
 from geo.models import MAPSTYLE_CHOICES, get_gmapmode, MAPSTYLE_MAP
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
@@ -19,6 +19,7 @@ from categories.models import Category, CategorizedItem
 from django.contrib.gis.geos import Point, Polygon
 from geo.models import GeoAbstractModel, GeoPointTag
 from django.db import connection
+from friends.models import Friendship
 
 qn = connection.ops.quote_name
 
@@ -168,7 +169,17 @@ class Story(models.Model):
         from geo.models import MGPXTrackSegment
         type = ContentType.objects.get_for_model(self)
         return MGPXTrackSegment.objects.filter(content_type=type,object_id=self.pk)
-        
+    
+    def has_right_to_view(self, user):
+        if self.status == self.STATUS_DRAFT or self.privacy == PRIVACY_PRIVATE\
+                or self.privacy == None:
+            return self.creator == user
+        if self.privacy == PRIVACY_PUBLIC:
+            return True
+        elif self.privacy == PRIVACY_FRIENDS:
+            return Friendship.objects.are_friends(self.creator, request.user)
+        return False
+            
     def big_img_teaser(self):
         return mark_safe(render_to_string('story/big_pic_teaser.html', { 'story': self }))
         

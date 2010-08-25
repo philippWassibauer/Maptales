@@ -67,6 +67,10 @@ def mobile_post(request):
 @logged_in_or_basicauth()
 def mobile_add_track(request, id):
     story = get_object_or_404(Story, pk=id)
+    
+    if story.creator != request.user:
+        return HttpResponse(status=400, content="not allowed")
+                            
     if request.POST:
         mobileForm = MobileClientGPSForm(request.POST)
         if mobileForm.is_valid():
@@ -84,6 +88,10 @@ def mobile_add_track(request, id):
 def mobile_add_post_to_story(request, id, template_name="story/story-post-reply.html"):
     logging.debug("Adding Post to Experience")
     story = get_object_or_404(Story, pk=id)
+    
+    if story.creator != request.user:
+        return HttpResponse(status=400, content="not allowed")
+        
     if request.POST:
         form = MobileStoryLineItemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -98,6 +106,7 @@ def mobile_add_post_to_story(request, id, template_name="story/story-post-reply.
             return HttpResponse(status=400, content="form not valid")
     else:
         return HttpResponse(status=400, content="only post allowed")
+        
      
     
 @login_required
@@ -129,6 +138,10 @@ def upload_gpx(request, id, template_name="story/gpx_upload.html"):
 @login_required
 def add_post_to_story(request, id, template_name="story/add_post_reply.html"):
     story = get_object_or_404(Story, pk=id)
+    
+    if story.creator != request.user:
+        return HttpResponse(status=400, content="not allowed")
+        
     if request.POST:
         form = StoryLineItemForm(request.POST)
         if form.is_valid():
@@ -221,6 +234,7 @@ def create(request, form_class=StoryForm, template_name="story/edit.html"):
 @login_required
 def delete(request, id, template_name=""):
     story = get_object_or_404(Story, pk=id)
+    
     if story.creator == request.user:
         story.delete()
 
@@ -370,6 +384,10 @@ def view(request, slug=None, template_name="story/view.html"):
     storyline_index = request.GET.get("storyline-index", 0)
     custom_css = request.GET.get("custom-css", None)
     
+    if not story.has_right_to_view(request.user):
+        return  render_to_response("story/not_allowed.html", {
+        }, context_instance=RequestContext(request))
+        
     return render_to_response(template_name, {
         "story": story,
         "position_lat": position_lat,
@@ -388,6 +406,10 @@ def view_id(request, id, template_name="story/view.html"):
     storyline_index = request.GET.get("storyline-index", 0)
     custom_css = request.GET.get("custom-css", None)
     
+    if not story.has_right_to_view(request.user):
+        return  render_to_response("story/not_allowed.html", {
+        }, context_instance=RequestContext(request))
+
     return render_to_response(template_name, {
         "story": story,
         "position_lat": position_lat,

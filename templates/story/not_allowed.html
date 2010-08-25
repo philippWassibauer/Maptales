@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+{% load video_tags %}
+{% load i18n %}
+{% block head_title %}{% blocktrans %}Error{% endblocktrans %}{% endblock %}
+
+{% block profile_files_active %}active{% endblock %}
+
+
+{% block body %}
+    <div class="register-bg">
+        <div class="register-wrapper ui-corner-all">
+            <form style="width: 490px;">
+                <h2>{% trans "You dont have rights to view this experience" %}</h2>
+                <div>{% blocktrans %}
+                    The creator has either set the privacy level to private or
+                    the experience was not published yet. Please contact the
+                    creator to get access rights.
+                {% endblocktrans %}
+                </div>
+            </form>
+        </div>
+    </div>   
+{% endblock %}
+
+
