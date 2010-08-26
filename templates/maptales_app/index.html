@@ -21,10 +21,11 @@
 {% block body %}
     <div class="intro-wrapper">
         <div class="social-login-teaser">
-            <h2>Its easy to join:</h2>
-             
-            {% facebook_button %}
-            {% facebook_js %}
+            {% if not user.facebookprofile_set.all %}
+                <h2>Its easy to join:</h2>
+                {% facebook_button %}
+                {% facebook_js %}
+            {% endif %}
         </div>
         <div class="intro-teaser">
             <div id="intro-container">
