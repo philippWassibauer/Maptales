@@ -9,7 +9,7 @@ from django.utils.translation import ugettext
 from django.db import models
 
 from mailer import send_mail, mail_admins
-from story.forms import StoryForm, StoryEditForm, MobileStoryLineItemForm
+from story.forms import StoryForm, StoryEditForm, StoryTitleForm, MobileStoryLineItemForm
 from story.models import Story, StoryImage, StoryLineItem
 
 from avatar.templatetags.avatar_tags import avatar
@@ -210,7 +210,9 @@ def remove_path_from_story(request, id):
 @login_required
 def edit_story_title(request, id):
     story = get_object_or_404(Story, pk=id)
-    story.title = request.POST.get("title")
+    form = StoryTitleForm(request.POST, instance=story)
+    if form.is_valid():
+        story = form.save(request.user)
     story.save()
     return HttpResponse(status=200, content="%s <a href='#'>(edit)</a>"%story.title, mimetype='text/html')
     
@@ -270,6 +272,7 @@ def edit(request, id, template_name="story/edit.html"):
         if request.POST:
             create_activity_item("edited_story", request.user, story)
             # save
+            
             form = StoryEditForm(request.POST, instance=story)
 
             if form.is_valid():
@@ -314,23 +317,25 @@ def preview(request, id, template_name="story/preview.html"):
 def publish(request, id, template_name="story/publish.html"):
     story = get_object_or_404(Story, id=id)
     if story.creator == request.user:
-        form = StoryEditForm(request.POST, instance=story)
-        if form.is_valid():
-            story = form.save(request.user)
-            story.status = story.STATUS_PUBLIC
-            story.save()
+        if request.method == "POST":
+            form = StoryEditForm(request.POST, instance=story)
+            if form.is_valid():
+                story = form.save(request.user)
+                story.status = story.STATUS_PUBLIC
+                story.save()
             
-            return render_to_response(template_name, {
-                "story": story,
-                "post_form": StoryPostForm(),
-                "video_form": StoryVideoForm(),
-                "gpx_upload_form": GPXUploadForm(request.user),
-                "story_edit_form": StoryEditForm(instance=story),
-            }, context_instance=RequestContext(request))
-        else:
-            return render_to_response(template_name, {
-                "story": story,
-            }, context_instance=RequestContext(request))
+                return render_to_response(template_name, {
+                    "next": request.path,
+                    "story": story,
+                    "post_form": StoryPostForm(),
+                    "video_form": StoryVideoForm(),
+                    "gpx_upload_form": GPXUploadForm(request.user),
+                    "story_edit_form": StoryEditForm(instance=story),
+                }, context_instance=RequestContext(request))
+        return render_to_response(template_name, {
+            "next": request.path,
+            "story": story,
+        }, context_instance=RequestContext(request))
     else:
         return render_to_response("error.html", {
             "title": _("You are not authorized"),

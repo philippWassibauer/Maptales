@@ -7,6 +7,7 @@
 {% load geo_tags %}
 {% load facebook_tags %}
 {% load twitter_tags %}
+{% load var_tag %}
 
 {% block head_title %}{% trans "Story" %}: {{story.title}}{% endblock %}
 
@@ -14,6 +15,11 @@
     {{ block.super }} 
     <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
     <link href="{{ STATIC_URL }}uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block extra_js %}
+   {{ block.super }} 
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
 {% endblock %}
 
 {% block extra_head %}
@@ -59,9 +65,7 @@
                         
                         {% if user.facebookprofile_set.all %}
                             <div style="margin-bottom: 10px">
-                                <a href="#" onclick="publishFeed(); return false;">
-                                    Share on Facebook
-                                </a>
+                                <img src="{{STATIC_URL}}images/facebook-share.png" onclick="publishFeed(); return false;" style="cursor: pointer;" /> 
                             </div>
                         {% else %}
                             <div class="inline-connect" style="margin-bottom: 10px">
@@ -110,6 +114,8 @@
             </div>
         </div>
     </div>
+    <div id="fb-root"></div>
+
     <script type="text/javascript">
             function callback (post_id, exception) {
                 if(post_id) {
@@ -120,38 +126,45 @@
                 }
             }
             function publishFeed() {
-                attachment = {
-                'name'        : '{{story.title}}',
-                'href'        : 'http://www.maptales.com{% url story_view story.slug %}',
-                'caption'     : 'Source: IPhone, created on Maptales.com',
-                'description' : '{{story.description}}',
-                //'properties'  : {"Length": "{{story.get_distance|floatformat}} km"},
-                'media'       : [
+                FB.ui(
                     {
-                        'type' : 'image',
-                        'src'  : 'http://www.maptales.com{{story.get_image.0.get_50x50_url}}',
-                        'href' : 'http://www.maptales.com{% url story_view_id story.id %}'
+                      method: 'stream.publish',
+                      message: '',
+                      attachment: {
+                        name: '{{story.title}}',
+                        caption: 'Source: IPhone, created on Maptales.com',
+                        description: (
+                          '{{story.description}}'
+                        ),
+                        href: 'http://{{domain}}{% url story_view story.slug %}',
+                        media: [
+                                  {
+                                    'type' : 'image',
+                                    'src'  : 'http://{{domain}}{{story.get_image.0.get_50x50_url}}',
+                                    'href' : 'http://{{domain}}{% url story_view story.slug %}'
+                                  }
+                                ]
+                      },
+                      action_links: [
+                        { text: 'Code', href: 'http://{{domain}}{% url story_view story.slug %}' }
+                      ],
+                      user_message_prompt: 'Share your experience'
+                    },
+                    function(response) {
+                      if (response && response.post_id) {
+                        
+                      } else {
+                       
+                      }
                     }
-                    ]
-                };
-                FB.ensureInit(function () {
-                    var action_links = [{"text": "Check it here", "href": "http://www.maptales.com{% url story_view_id story.id %}"}]
-                    try{
-                        FB.Connect.streamPublish("",attachment,action_links,null,'Post it on your wall:');
-                    }
-                    catch(err){
-                        alert(err);
-                    }
-                    return false;
-                });
+                  );
+                return;
             }
         
         </script>
         <script type="text/javascript">
-            FB_RequireFeatures(["Connect"], function() {
-                FB.init("{{ settings.FACEBOOK_API_KEY }}", "{% url facebook_xd_receiver %}");
-            
-             });
+            FB.init({appId: '{{ settings.FACEBOOK_API_KEY }}', status: true,
+               cookie: true, xfbml: true});
         </script>
         
     <script type="text/javascript">

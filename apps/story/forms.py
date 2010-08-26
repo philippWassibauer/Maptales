@@ -128,6 +128,20 @@ class StoryForm(forms.ModelForm):
             
         return story
     
+class StoryTitleForm(forms.ModelForm):
+    class Meta:
+        model = Story
+        fields = ('title',)
+        
+    def save(self, user):
+        self.user = user
+        if self.cleaned_data.get("title", False):
+            self.instance.title = self.cleaned_data["title"]
+            from django.template.defaultfilters import slugify
+            self.instance.slug = slugify(self.cleaned_data["title"])
+            from misc.utils import make_unique
+            self.instance.slug = make_unique(self.instance, lambda x: Story.objects.filter(slug__exact=x.slug).exclude(pk=x.id).count() == 0)
+        return self.instance
     
 class StoryEditForm(forms.ModelForm):
     class Meta:
@@ -144,13 +158,6 @@ class StoryEditForm(forms.ModelForm):
 
     def save(self, user):
         self.user = user
-        
-        if self.cleaned_data.get("title", False):
-            self.instance.title = self.cleaned_data["title"]
-            from django.template.defaultfilters import slugify
-            self.instance.slug = slugify(self.cleaned_data["title"])
-            from misc.utils import make_unique
-            self.instance.slug = make_unique(self.instance, lambda x: Story.objects.filter(slug__exact=x.slug).exclude(pk=x.id).count() == 0)
         
         if self.cleaned_data.get("description", False):
             self.instance.description = self.cleaned_data["description"]
