@@ -22,6 +22,7 @@
 -e svn+http://code.djangoproject.com/svn/django/trunk/#egg=Django
 
 -e git+git://github.com/flashingpumpkin/django-socialregistration.git#egg=django-socialregistration
+-e git+git://github.com/facebook/python-sdk.git#egg=facebook-python-sdk
 
 -e git+git://github.com/philippWassibauer/django-natural-earth.git#egg=natural_earth
 

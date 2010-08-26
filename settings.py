@@ -152,18 +152,17 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.load_template_source',
 )
 
+
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'openid_consumer.middleware.OpenIDMiddleware',
-    #'django_openidconsumer.middleware.OpenIDMiddleware',
     'account.middleware.LocaleMiddleware',
     
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
-    #'cms.middleware.multilingual.MultilingualURLMiddleware',
     
     'django.contrib.messages.middleware.MessageMiddleware',
     
@@ -171,11 +170,14 @@ MIDDLEWARE_CLASSES = (
     'pagination.middleware.PaginationMiddleware',
     'misc.middleware.SortOrderMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'facebook.djangofb.FacebookMiddleware',
+    
+    'socialregistration.middleware.FacebookMiddleware',
     
     'cms.middleware.toolbar.ToolbarMiddleware',
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'account.middleware.AuthenticatedMiddleware',
+    
+    
 )
 
 AUTHENTICATED_EXEMPT_URLS = [
