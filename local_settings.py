@@ -36,7 +36,7 @@ TWITTER_REQUEST_TOKEN_URL = "http://twitter.com/oauth/request_token"
 TWITTER_ACCESS_TOKEN_URL = "http://twitter.com/oauth/access_token"
 TWITTER_AUTHORIZATION_URL = "http://twitter.com/oauth/authorize"
 
-FACEBOOK_API_KEY = '85d4d937111829387a7bde04e879fba4'
+FACEBOOK_API_KEY = '169086736709'
 FACEBOOK_SECRET_KEY = '5a38777a6eade6dd08383558eae4e34b'
 
 
