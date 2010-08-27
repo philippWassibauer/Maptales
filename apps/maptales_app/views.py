@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Count, Q
-from maptales_app.models import PrivateBetaEmail
+from models import PrivateBetaEmail, TourCities
 from mailer import send_mail, mail_admins
 
 from django.contrib.auth import authenticate
@@ -56,6 +56,20 @@ def index(request):
     return render_to_response('maptales_app/index.html', {
     }, context_instance=RequestContext(request))
 
+
+def tours(request):
+    cities = TourCities.objects.all()
+    return render_to_response('maptales_app/tours.html', {
+        "cities": cities,
+    }, context_instance=RequestContext(request))
+    
+def tours_city(request, slug):
+    cities = TourCities.objects.all()
+    city = TourCities.objects.get(slug=slug)
+    return render_to_response('maptales_app/city.html', {
+        "cities": cities,
+        "city": city,
+    }, context_instance=RequestContext(request))
 
 def private_beta_email(request):
     email = request.POST.get("email")

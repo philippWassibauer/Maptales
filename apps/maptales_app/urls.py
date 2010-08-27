@@ -13,4 +13,7 @@ urlpatterns = patterns('',
     url(r'^passphrase_check', 'maptales_app.views.passphrase_check', name='passphrase_check'),
     url(r'^mobile_login/$',  'maptales_app.views.mobile_login', name='mobile_login'),
     url(r'^mobile_signup/$',  'maptales_app.views.mobile_signup', name='mobile_signup'),
+    
+    url(r'^tours/$',  'maptales_app.views.tours', name='tours'),
+    url(r'^tours/(?P<slug>[-\w]+)$',  'maptales_app.views.tours_city', name='tours_city'),
 )

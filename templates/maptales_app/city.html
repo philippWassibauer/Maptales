@@ -1,0 +1,49 @@
+{% extends "site_base.html" %}
+{% load facebook_tags %}
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
+{% load geo_tags %}
+{% load latest_tag %}
+{% load profile_tags %}
+{% load activity_stream_tags %}
+{% load cms_tags %}
+{% load admin_util_tags %}
+{% block head_title %}{% trans "Login" %}{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.autocomplete.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+{% block external_js %}
+    <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key={{settings.GOOGLE_MAPS_API_KEY}}" type="text/javascript"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div class="grey-body">
+        <div class="span-17">
+            <h3 style="margin-top: 2px;">Latest Additions in {{city}}</h3>
+        </div>
+        <div class="span-6 last">
+            <ul>
+                {% for current_city in cities %}
+                    {% if city == current_city %}
+                        <li><a href="{% url tours_city city.slug %}">{{city}}</a></li>
+                    {% else %}
+                        <li class="selected"><a href="{% url tours_city city.slug %}"><b>{{city}}</b></a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% endblock %}
+
+
+{% block js_init %}
+    <script type="text/javascript">
+        function onLocationSearch(lat, lng, zoom){
+            window.location = "{% url browse %}?lat="+lat+"&lng="+lng+"&zoom="+zoom;
+        }
+    </script>
+{% endblock %}

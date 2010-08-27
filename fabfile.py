@@ -10,10 +10,12 @@ dev_url = "maptales.com"
 
 def deploy():
     with cd('/home/maptales/'):
+        run('/etc/init.d/apache2 stop')
         run('git pull origin master')
-        run('/etc/init.d/apache2 restart')
+        
         #run("workon zweitwelt; pip install -r requirements/project.txt")
-        #run("workon zweitwelt; python manage.py syncdb; python manage.py build_static --noinput;")
+        run("source /home/pinax-master/bin/activate; python manage.py build_static --noinput;")
+        run('/etc/init.d/apache2 start')
         #run("workon zweitwelt; python manage.py loaddata cms.json")
         #run("pkill -f run_gunicorn;")
         #run("workon zweitwelt; nohup python manage.py run_gunicorn %s"%(dev_url,))

@@ -121,6 +121,16 @@ class MigratedItem(models.Model):
     new_id = models.IntegerField("New Id")
     
     
+class TourCities(models.Model):
+    name = models.CharField('Name', max_length=200)
+    location = models.PointField(srid=4326)
+    zoom_level = models.IntegerField()
+    slug = models.SlugField()
+    objects = models.GeoManager()
+    
+    def __unicode__(self):
+        return self.name
+    
 def posted_comment(sender, instance=None, **kwargs):
     if instance is None:
         return
